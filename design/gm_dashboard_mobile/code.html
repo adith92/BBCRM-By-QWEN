@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FleetControl Pro - General Manager Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#e5eeff",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#2d5bb4",
+                    "on-secondary-fixed-variant": "#004883",
+                    "on-tertiary-container": "#a7c9ff",
+                    "surface-bright": "#f8f9ff",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#b2c7ff",
+                    "on-tertiary-fixed-variant": "#124780",
+                    "secondary-fixed": "#d4e3ff",
+                    "on-secondary-fixed": "#001c39",
+                    "inverse-primary": "#b0c6ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "tertiary": "#003c73",
+                    "on-surface": "#0b1c30",
+                    "outline": "#737783",
+                    "on-background": "#0b1c30",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#1960a6",
+                    "outline-variant": "#c3c6d4",
+                    "surface-container-low": "#eff4ff",
+                    "primary": "#003887",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-surface-variant": "#434652",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#7ab3ff",
+                    "on-tertiary-fixed": "#001c3a",
+                    "surface-container-high": "#dce9ff",
+                    "on-primary-fixed": "#001945",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed": "#d4e3ff",
+                    "secondary-fixed-dim": "#a4c9ff",
+                    "primary-container": "#1e4fa8",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#d3e4fe",
+                    "inverse-surface": "#213145",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "primary-fixed": "#d9e2ff",
+                    "on-primary-fixed-variant": "#04429b",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#cbdbf5",
+                    "tertiary-fixed-dim": "#a5c8ff",
+                    "on-secondary-container": "#00447e",
+                    "tertiary-container": "#24548d",
+                    "surface": "#f8f9ff",
+                    "bluebird-500": "#3b82f6",
+                    "bluebird-100": "#dbeafe",
+                    "bluebird-50": "#eff6ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "16px",
+                    "lg": "24px",
+                    "xl": "32px",
+                    "gutter": "24px",
+                    "sm": "8px",
+                    "base": "4px",
+                    "margin-desktop": "32px",
+                    "2xl": "48px",
+                    "xs": "4px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .status-badge {
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-bluebird-50 text-on-background pb-24">
+<!-- Mobile Top Navigation -->
+<header class="bg-surface sticky top-0 z-50 px-md h-16 flex items-center justify-between border-b border-outline-variant">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="local_shipping">local_shipping</span>
+<h1 class="font-headline-md text-headline-md text-primary">FleetControl Pro</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary">
+<img alt="General Manager Profile" data-alt="A professional headshot of a middle-aged corporate executive with a friendly expression. The background is a brightly lit, modern office environment with blurred glass partitions and soft blue accents, perfectly matching a high-end enterprise SaaS dashboard aesthetic. The lighting is soft and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtSEvBVhMuL2KnGJVnQ7S0TRzN4ON_UPTzNBC61zYrobPeFQ7LgtOQu5qo8VP2ajP1QgtjtlcGf6xsXZvqIGzV9ADZgL30yZwZu7-g5MzZ-YhIdKln9bqLve5nTIZHmgZLftkcaKqX2Eel9G-1sSriyLnLM3sohtMbQVUf8klT8YaspPHGBSeXWztfIhK7lK7eZK_UTG8Cxcrgnu_xPbHMt5Z31uOIwdEq_3oXhLEPfZj62P2jHmg5ZCwVx51UOYfnWMaQsGkKUVFt"/>
+</div>
+</div>
+</header>
+<main class="p-md space-y-md">
+<!-- Title & Filter Section -->
+<div class="flex flex-col gap-2">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Dashboard General Manager</h2>
+<button class="flex items-center justify-between w-full bg-surface border border-bluebird-100 rounded-xl px-md py-sm shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-bluebird-500" data-icon="calendar_month">calendar_month</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Aug 01, 2023 - Aug 31, 2023</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<!-- KPI 2x2 Grid -->
+<div class="grid grid-cols-2 gap-md">
+<div class="bg-surface p-md rounded-xl border border-bluebird-100 shadow-sm flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Active Fleet</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-primary">1,284</span>
+<span class="text-[10px] text-green-600 font-bold">+2.4%</span>
+</div>
+<span class="material-symbols-outlined text-bluebird-500/20 absolute -right-1 -top-1 text-4xl" data-icon="directions_car">directions_car</span>
+</div>
+<div class="bg-surface p-md rounded-xl border border-bluebird-100 shadow-sm flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Total Revenue</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-primary">$4.2M</span>
+<span class="text-[10px] text-green-600 font-bold">+12%</span>
+</div>
+</div>
+<div class="bg-surface p-md rounded-xl border border-bluebird-100 shadow-sm flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Utilization</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-primary">92.4%</span>
+<span class="text-[10px] text-error font-bold">-0.8%</span>
+</div>
+</div>
+<div class="bg-surface p-md rounded-xl border border-bluebird-100 shadow-sm flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Fuel Efficiency</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-primary">18.2 <span class="text-body-sm font-normal">mpg</span></span>
+<span class="text-[10px] text-green-600 font-bold">+5.1%</span>
+</div>
+</div>
+</div>
+<!-- Main Chart Card -->
+<div class="bg-surface p-md rounded-xl border border-bluebird-100 shadow-sm space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg">Fleet Utilization Trend</h3>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span>
+</div>
+<div class="h-48 w-full relative flex items-end justify-between px-2 pt-4">
+<!-- Simple bar chart visualization for mobile -->
+<div class="w-4 bg-bluebird-500/20 rounded-t-sm h-[60%]"></div>
+<div class="w-4 bg-bluebird-500/20 rounded-t-sm h-[75%]"></div>
+<div class="w-4 bg-bluebird-500 rounded-t-sm h-[90%]"></div>
+<div class="w-4 bg-bluebird-500/20 rounded-t-sm h-[65%]"></div>
+<div class="w-4 bg-bluebird-500/20 rounded-t-sm h-[80%]"></div>
+<div class="w-4 bg-bluebird-500/20 rounded-t-sm h-[70%]"></div>
+<div class="w-4 bg-bluebird-500/20 rounded-t-sm h-[85%]"></div>
+<div class="w-4 bg-bluebird-500/20 rounded-t-sm h-[95%]"></div>
+<!-- Chart Overlay Line -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<img alt="Utilization Graph" class="w-full h-full opacity-30" data-alt="A clean, minimalist vector line chart showing upward trends with smooth Bezier curves. The chart uses a professional bluebird-500 color for the main line and a soft blue gradient fill underneath. The background is a clean white dashboard surface with light grey grid lines, reflecting a modern corporate data visualization style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-UPUZAchNJ6OFuANGYUvIAGwuk9EP6CQV5HbuQnpiRAHGyRkBFcxfxyIR1Gz9fx4upIbjijcqmQN2l5N98i35O4MGxmzOUSX1JeCWQta8x5T2u9BXExa5XhxEec4A05cSylW0zQ-veJWp_Js7YC4z_OZTvgUSTOqb2twUUHk54ByKPlWYLBw1DJTgBhRE9M9M_cAvC-XH7jCRGpxSQZv8j_xpsqgKH4HaZ1O7n1wCng9Nqy0_YCkbZHO45RkCgiAnEiIyyBK8uy2U"/>
+</div>
+</div>
+<div class="flex justify-between text-label-md text-on-surface-variant">
+<span>Mon</span><span>Wed</span><span>Fri</span><span>Sun</span>
+</div>
+</div>
+<!-- Sales Performance List -->
+<div class="bg-surface p-md rounded-xl border border-bluebird-100 shadow-sm space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg">Sales Performance</h3>
+<button class="text-primary font-label-md">View All</button>
+</div>
+<div class="space-y-4">
+<!-- Item 1 -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-bluebird-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-bluebird-500" data-icon="groups">groups</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md font-bold">Enterprise Logistics</p>
+<p class="text-body-sm text-on-surface-variant">320 Units • Q3 Contract</p>
+</div>
+<div class="text-right">
+<p class="font-body-md font-bold">$1.2M</p>
+<span class="status-badge bg-[#10B9811A] text-[#10B981]">Active</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-bluebird-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-bluebird-500" data-icon="store">store</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md font-bold">Regional Retail</p>
+<p class="text-body-sm text-on-surface-variant">85 Units • Renewal</p>
+</div>
+<div class="text-right">
+<p class="font-body-md font-bold">$450K</p>
+<span class="status-badge bg-[#F59E0B1A] text-[#F59E0B]">Pending</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-bluebird-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-bluebird-500" data-icon="airport_shuttle">airport_shuttle</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md font-bold">City Express</p>
+<p class="text-body-sm text-on-surface-variant">140 Units • New Client</p>
+</div>
+<div class="text-right">
+<p class="font-body-md font-bold">$820K</p>
+<span class="status-badge bg-[#10B9811A] text-[#10B981]">Active</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Maintenance Alerts Card -->
+<div class="bg-surface p-md rounded-xl border border-bluebird-100 shadow-sm space-y-md">
+<h3 class="font-title-lg text-title-lg">Maintenance Alerts</h3>
+<div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+<div class="min-w-[200px] bg-error-container/20 p-md rounded-xl border border-error/10">
+<div class="flex items-center gap-2 mb-2 text-error">
+<span class="material-symbols-outlined text-sm" data-icon="warning">warning</span>
+<span class="font-label-md">Critical</span>
+</div>
+<p class="font-body-md font-bold">12 Vehicles Overdue</p>
+<p class="text-body-sm text-on-surface-variant">Engine diagnostics required immediately.</p>
+</div>
+<div class="min-w-[200px] bg-surface-container p-md rounded-xl border border-outline-variant">
+<div class="flex items-center gap-2 mb-2 text-secondary">
+<span class="material-symbols-outlined text-sm" data-icon="info">info</span>
+<span class="font-label-md">Upcoming</span>
+</div>
+<p class="font-body-md font-bold">45 Oil Changes</p>
+<p class="text-body-sm text-on-surface-variant">Scheduled for the next 7 days.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for Quick Actions -->
+<button class="fixed bottom-24 right-md w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full bg-surface-container-low border-t border-outline-variant flex justify-around items-center h-16 px-md z-40">
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-[10px]">Dashboard</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant/70">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-md text-[10px]">Fleet</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant/70">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="font-label-md text-[10px]">Sales</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant/70">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+<span class="font-label-md text-[10px]">Maintenance</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant/70">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-[10px]">Settings</span>
+</div>
+</nav>
+<script>
+        // Simple touch feedback for mobile interaction feel
+        document.querySelectorAll('button, .card-interactive').forEach(elem => {
+            elem.addEventListener('touchstart', () => elem.classList.add('opacity-70'));
+            elem.addEventListener('touchend', () => elem.classList.remove('opacity-70'));
+        });
+    </script>
+</body></html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BlueERP Sales Dashboard - Budi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#2d5bb4",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-tertiary-container": "#a7c9ff",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed": "#d4e3ff",
+                        "on-tertiary-fixed-variant": "#124780",
+                        "primary": "#003887",
+                        "on-surface": "#0b1c30",
+                        "on-secondary": "#ffffff",
+                        "outline": "#737783",
+                        "tertiary": "#003c73",
+                        "inverse-surface": "#213145",
+                        "tertiary-container": "#24548d",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#1960a6",
+                        "tertiary-fixed": "#d4e3ff",
+                        "on-surface-variant": "#434652",
+                        "surface-container-low": "#eff4ff",
+                        "primary-fixed": "#d9e2ff",
+                        "primary-container": "#1e4fa8",
+                        "outline-variant": "#c3c6d4",
+                        "surface-variant": "#d3e4fe",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed-dim": "#a5c8ff",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed-variant": "#004883",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#001c3a",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-container": "#00447e",
+                        "on-primary-fixed-variant": "#04429b",
+                        "on-primary-container": "#b2c7ff",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#001945",
+                        "inverse-primary": "#b0c6ff",
+                        "secondary-container": "#7ab3ff",
+                        "on-secondary-fixed": "#001c39"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "margin-desktop": "32px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "2xl": "48px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .sidebar-active {
+            background-color: #7ab3ff; /* secondary-container */
+            color: #00447e; /* on-secondary-container */
+            border-radius: 0.75rem;
+            font-weight: 600;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c3c6d4;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="hidden md:flex flex-col h-screen fixed left-0 top-0 w-64 bg-surface-container-low border-r border-outline-variant py-lg px-md gap-sm z-40">
+<div class="flex flex-col gap-xs mb-lg">
+<h1 class="text-title-lg font-black text-primary">BlueERP</h1>
+<p class="text-label-md text-on-surface-variant opacity-70">Enterprise Edition</p>
+</div>
+<button class="mb-lg w-full bg-primary text-on-primary py-md px-lg rounded-xl flex items-center justify-center gap-sm font-semibold hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">add</span>
+            New Sale
+        </button>
+<nav class="flex-1 flex flex-col gap-xs overflow-y-auto custom-scrollbar">
+<a class="sidebar-active flex items-center gap-md px-md py-sm transition-all translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md">Dashboard</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-md px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-label-md">Clients</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-md px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+<span class="text-label-md">Bookings</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-md px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-label-md">Activities</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-md px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="text-label-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-lg flex flex-col gap-xs">
+<a class="text-on-surface-variant flex items-center gap-md px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md">Settings</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-md px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 bg-surface flex justify-between items-center px-lg h-16 w-full border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-lg">
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-body-sm w-64 focus:ring-2 focus:ring-primary-container" placeholder="Search resources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-sm cursor-pointer hover:bg-surface-container-low p-1 rounded-lg transition-colors">
+<div class="text-right hidden sm:block">
+<p class="text-label-md font-bold leading-none">Budi</p>
+<p class="text-[10px] text-on-surface-variant">Sales Manager</p>
+</div>
+<img alt="Budi's Profile Avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A professional headshot of a friendly Southeast Asian man named Budi in a modern corporate setting. He is wearing a sharp, dark blue blazer over a crisp white shirt. The background is a blurred, high-end office environment with soft, warm sunlight filtering through large glass windows, creating a professional and trustworthy atmosphere for a business application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb5OlcJOmenY28ydA-dG41QrS_o7vzANI7QphRSvosRaNiIQj1XLD4glr9BSe7SqmX9WzWDoEyutYXNyiIiHAvo-_Z7WR9cx7WBi5ywaOP-lY3S_HqQ5NAs1UuIKf0bY3GshcugH3nV6vuZ9gqWaqkiYNOcccJD9oU_wRXN9xYrDfB_b_ICxGNUNllvo6_Fon070qoQ9sEenKuzh3Aioeu9clYk-0_DHlJK6GQDGc-embOAxUyYb9WANaXTTjW0u3eAroZxaclN5Ni"/>
+</div>
+</div>
+</header>
+<main class="flex-1 p-lg md:p-xl flex flex-col gap-lg">
+<!-- Page Header -->
+<div class="flex flex-col gap-xs">
+<h2 class="text-headline-md font-headline-md text-primary">Dashboard Sales</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Selamat datang, Budi</p>
+</div>
+<!-- Top Stats -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Card Klien Saya -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-primary/20 shadow-sm flex items-center justify-between border-l-4 border-l-primary">
+<div class="flex flex-col">
+<span class="text-label-md text-on-surface-variant mb-base">Klien Saya</span>
+<div class="flex items-end gap-md">
+<span class="text-display-lg font-display-lg text-on-surface">12</span>
+<span class="text-label-md font-bold text-[#10B981] mb-sm">+3 bulan ini</span>
+</div>
+</div>
+<div class="p-md bg-primary/10 rounded-full text-primary">
+<span class="material-symbols-outlined text-[32px]" data-icon="group">group</span>
+</div>
+</div>
+<!-- Card Booking Aktif -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm flex items-center justify-between border-l-4 border-l-[#10B981]">
+<div class="flex flex-col">
+<span class="text-label-md text-on-surface-variant mb-base">Booking Aktif</span>
+<div class="flex items-end gap-md">
+<span class="text-display-lg font-display-lg text-on-surface">8</span>
+<span class="text-label-md font-bold text-on-surface-variant mb-sm opacity-50">Current pipeline</span>
+</div>
+</div>
+<div class="p-md bg-[#10B9811A] rounded-full text-[#10B981]">
+<span class="material-symbols-outlined text-[32px]" data-icon="event_available">event_available</span>
+</div>
+</div>
+</div>
+<!-- Main Layout Grid (7:3 ratio) -->
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-lg">
+<!-- LEFT COLUMN (Main: 7) -->
+<div class="lg:col-span-7 flex flex-col gap-lg">
+<!-- Daftar Klien Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center bg-surface-container-low/30">
+<h3 class="text-title-lg font-title-lg text-primary">Daftar Klien</h3>
+<button class="text-primary text-label-md font-bold hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-lg py-md text-label-md text-on-surface-variant uppercase tracking-wider">Perusahaan</th>
+<th class="px-lg py-md text-label-md text-on-surface-variant uppercase tracking-wider">PIC</th>
+<th class="px-lg py-md text-label-md text-on-surface-variant uppercase tracking-wider">Tier</th>
+<th class="px-lg py-md text-label-md text-on-surface-variant uppercase tracking-wider">Pertemuan Terakhir</th>
+<th class="px-lg py-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Booking</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<p class="text-body-md font-bold text-primary cursor-pointer hover:underline">PT Astra International</p>
+</td>
+<td class="px-lg py-md text-body-md">Budi Santoso</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-[#9333ea1a] text-[#9333ea] text-label-md font-bold rounded-lg border border-[#9333ea26]">Platinum</span>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">12 Okt 2023</td>
+<td class="px-lg py-md text-body-md font-bold text-right">3 units</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<p class="text-body-md font-bold text-primary cursor-pointer hover:underline">Telkom Indonesia</p>
+</td>
+<td class="px-lg py-md text-body-md">Siti Aminah</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-[#f59e0b1a] text-[#f59e0b] text-label-md font-bold rounded-lg border border-[#f59e0b26]">Gold</span>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">15 Okt 2023</td>
+<td class="px-lg py-md text-body-md font-bold text-right">2 units</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<p class="text-body-md font-bold text-primary cursor-pointer hover:underline">Gojek</p>
+</td>
+<td class="px-lg py-md text-body-md">Kevin Alwi</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-[#64748b1a] text-[#64748b] text-label-md font-bold rounded-lg border border-[#64748b26]">Silver</span>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">18 Okt 2023</td>
+<td class="px-lg py-md text-body-md font-bold text-right">1 unit</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Aktivitas Terakhir Section -->
+<div class="flex flex-col gap-md">
+<h3 class="text-title-lg font-title-lg text-on-surface px-base">Aktivitas Terakhir</h3>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm relative overflow-hidden">
+<div class="absolute left-[39px] top-10 bottom-10 w-[2px] bg-outline-variant/30"></div>
+<div class="flex flex-col gap-lg relative z-10">
+<!-- Item 1 -->
+<div class="flex gap-lg items-start">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-lg ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<p class="text-body-md font-bold">Meeting with PT Astra</p>
+<span class="text-label-md text-on-surface-variant italic">2h ago</span>
+</div>
+<p class="text-body-sm text-on-surface-variant">Diskusi kelanjutan kontrak fleet management untuk cabang regional Jawa Timur.</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-lg items-start">
+<div class="w-10 h-10 rounded-full bg-[#10B981] flex items-center justify-center text-on-primary shadow-lg ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<p class="text-body-md font-bold">Booking #BK-123 Confirmed</p>
+<span class="text-label-md text-on-surface-variant italic">1d ago</span>
+</div>
+<p class="text-body-sm text-on-surface-variant">Konfirmasi unit Heavy Duty Truck untuk Telkom Indonesia telah disetujui sistem.</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex gap-lg items-start">
+<div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-on-primary shadow-lg ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]">description</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-xs">
+<p class="text-body-md font-bold">Invoice #INV-456 Created</p>
+<span class="text-label-md text-on-surface-variant italic">2d ago</span>
+</div>
+<p class="text-body-sm text-on-surface-variant">Draft penagihan termin pertama untuk proyek Gojek logistik telah dibuat.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN (Sidebar: 3) -->
+<div class="lg:col-span-3 flex flex-col gap-lg">
+<!-- Target Capaian Card -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm flex flex-col gap-lg sticky top-[88px]">
+<div class="flex flex-col gap-base">
+<h3 class="text-title-lg font-title-lg text-primary">Target Penjualan Bulan Ini</h3>
+<p class="text-body-sm text-on-surface-variant">Performance Tracking</p>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-end">
+<span class="text-headline-md font-headline-md text-on-surface">67%</span>
+<div class="text-right">
+<p class="text-label-md text-on-surface-variant">Rp 500.000.000</p>
+<p class="text-label-md text-outline font-bold">dari Rp 750.000.000</p>
+</div>
+</div>
+<!-- Linear Progress Bar -->
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden border border-outline-variant/10">
+<div class="h-full bg-primary rounded-full transition-all duration-1000" style="width: 67.5%;">
+<div class="w-full h-full opacity-20 bg-[linear-gradient(45deg,rgba(255,255,255,0.2)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.2)_50%,rgba(255,255,255,0.2)_75%,transparent_75%,transparent)] bg-[length:20px_20px] animate-[progress-bar-stripes_1s_linear_infinite]"></div>
+</div>
+</div>
+</div>
+<div class="bg-error-container/30 p-md rounded-xl flex items-center gap-md border border-error/10">
+<div class="p-base bg-error/10 rounded-lg text-error">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+</div>
+<span class="text-label-md font-bold text-error">Sisa 18 hari lagi</span>
+</div>
+<button class="w-full mt-md bg-surface-container-low border border-outline-variant text-primary py-md rounded-xl text-label-md font-bold hover:bg-surface-container-high transition-colors">
+                            Unduh Laporan Target
+                        </button>
+<div class="mt-lg pt-lg border-t border-outline-variant">
+<div class="relative w-full h-32 rounded-lg overflow-hidden">
+<img alt="Growth Chart Decoration" class="w-full h-full object-cover grayscale opacity-40" data-alt="A clean, minimalist 3D rendering of a financial bar chart showing steady upward growth. The bars are rendered in soft shades of corporate blue and white, with subtle glassmorphism effects and soft ambient occlusion shadows. The background is a clean, neutral gray gradient that complements a high-density enterprise dashboard layout." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNiAmZywwxX28bEVXiC8FOlCSclROuDkewDlBKH3IaBuBnySG6SFFhDUoEBW7zupIjJf1dPo1wyawoa_pKvNV-mjAwH5qyv-EgP81asXEPH3gmjUVWbmYkhGJ6E6f1zRPxLRqCmaszxJEoSUdeq71IrUOdG0F8BFC4WcqUHDI6NSiwekyv-0CF2HlQP80byPftUKircNDQVSIuxt8NIrWFzDClCz25pWD5-y9M87EYDIOLp-E_ZalMS8CfRDfnYVt22oa2TU9PTO7r"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent"></div>
+<div class="absolute bottom-2 left-2 right-2">
+<p class="text-[11px] font-bold text-on-surface-variant">Top Tier Performers</p>
+<p class="text-[10px] text-outline">You are in the top 10% of sales representatives this quarter.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Bottom Mobile Nav (Only visible on mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface h-16 flex items-center justify-around border-t border-outline-variant z-50">
+<button class="flex flex-col items-center gap-base text-primary">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-base text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-[10px]">Clients</span>
+</button>
+<button class="flex flex-col items-center gap-base text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+<span class="text-[10px]">Bookings</span>
+</button>
+<button class="flex flex-col items-center gap-base text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px]">Settings</span>
+</button>
+</nav>
+<style>
+        @keyframes progress-bar-stripes {
+            from { background-position: 20px 0; }
+            to { background-position: 0 0; }
+        }
+    </style>
+<script>
+        // Simple micro-interaction for the progress bar or elements
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("BlueERP Sales Dashboard initialized for Budi.");
+            
+            // Add hover effects for table rows programmatically if needed
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                row.addEventListener('click', () => {
+                    row.classList.add('scale-[0.98]');
+                    setTimeout(() => row.classList.remove('scale-[0.98]'), 150);
+                });
+            });
+        });
+    </script>
+</body></html>

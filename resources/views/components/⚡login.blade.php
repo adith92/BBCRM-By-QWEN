@@ -4,11 +4,17 @@ use Livewire\Component;
 use Livewire\Attributes\Title;
 use Illuminate\Support\Facades\Auth;
 
-new #[Title('Login - Golden Bird CRM')] class extends Component
+new #[Title('Masuk | Golden Bird CRM')] class extends Component
 {
     public string $email = '';
     public string $password = '';
     public bool $remember = false;
+    public bool $showPassword = false;
+
+    public function togglePassword()
+    {
+        $this->showPassword = !$this->showPassword;
+    }
 
     public function login()
     {
@@ -22,7 +28,13 @@ new #[Title('Login - Golden Bird CRM')] class extends Component
             'password.min' => 'Password minimal harus 6 karakter.',
         ]);
 
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+        // Map domain credentials for flexibility if user types gm@goldenbird.com or gm@bluebird.co.id
+        $emailToAttempt = $this->email;
+        if (str_contains($emailToAttempt, '@bluebird.co.id')) {
+            $emailToAttempt = str_replace('@bluebird.co.id', '@goldenbird.com', $emailToAttempt);
+        }
+
+        if (Auth::attempt(['email' => $emailToAttempt, 'password' => $this->password], $this->remember)) {
             session()->regenerate();
 
             $user = Auth::user();
@@ -44,103 +56,112 @@ new #[Title('Login - Golden Bird CRM')] class extends Component
 };
 ?>
 
-<div class="min-h-screen bg-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <!-- Brand Logo / Name -->
-        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">
-            GOLDEN <span class="text-[#1E4FA8]">BIRD</span>
-        </h2>
-        <p class="mt-2 text-sm text-slate-600">
-            CRM Demo MVP Portal
-        </p>
-    </div>
+<div class="min-h-screen flex flex-col items-center justify-center p-6 font-sans">
+    <main class="w-full max-w-[420px] space-y-6">
+        <!-- Login Card -->
+        <div class="backdrop-blur-md bg-white/95 p-8 rounded-2xl shadow-xl border border-slate-200">
+            <!-- Header -->
+            <header class="flex flex-col items-center text-center mb-8">
+                <div class="w-16 h-16 bg-[#003887] rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-blue-900/20">
+                    <img alt="Golden Bird Logo" class="w-12 h-12 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASuq06-1xVvqhoVwDDnrdQEoiykTkdHDwicF19QYttv9OFftJzhhEGgSzK2RfuAt03wtyCKqFz8Y5wCsn0fxmpZmEK7gE1fHmRi_lumLbB4LM7iQJSEgJZBVuuSRi_qxCYPAIRbgL24XijylXWw8SPvFlWiQEVcTJmDbgEpP0qBxIUKqf-HzwxT_Pl5Wn0wlVIXMc9E6_FNbPW6gSliobwq5ffvNWBWQ7B-7ZGy_KKwaOWkGJejrtjiYS51pqYKtCgNMx4W4sfDIoY"/>
+                </div>
+                <h1 class="text-xl font-extrabold text-slate-900 mb-0.5">Golden Bird</h1>
+                <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">B2B Fleet Management Portal</p>
+            </header>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow-xl rounded-2xl sm:px-10 border border-slate-200">
-            <div class="mb-6 text-center">
-                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-50 text-[#1E4FA8] border border-blue-100">
-                    Secure Login Gate
-                </span>
-            </div>
-
-            <form wire:submit="login" class="space-y-6">
+            <!-- Form -->
+            <form wire:submit="login" class="space-y-4">
                 <!-- Email Field -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-slate-700">
-                        Email Address
-                    </label>
-                    <div class="mt-1 relative">
-                        <input wire:model="email" id="email" type="email" autocomplete="email" required
-                               class="appearance-none block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1E4FA8] focus:border-[#1E4FA8] text-sm transition duration-150 ease-in-out @error('email') border-red-500 @enderror"
-                               placeholder="e.g. gm@goldenbird.com">
-                        @error('email')
-                            <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
-                        @enderror
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase px-1" for="email">Email</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">mail</span>
+                        <input wire:model="email" 
+                               class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-[#003887] transition-all outline-none text-sm @error('email') border-red-500 @enderror" 
+                               id="email" 
+                               placeholder="email@bluebird.co.id" 
+                               type="email" required/>
                     </div>
+                    @error('email')
+                        <span class="text-red-500 text-xs mt-1 block px-1">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Password Field -->
-                <div>
-                    <label for="password" class="block text-sm font-medium text-slate-700">
-                        Password
-                    </label>
-                    <div class="mt-1 relative">
-                        <input wire:model="password" id="password" type="password" autocomplete="current-password" required
-                               class="appearance-none block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1E4FA8] focus:border-[#1E4FA8] text-sm transition duration-150 ease-in-out @error('password') border-red-500 @enderror"
-                               placeholder="••••••••">
-                        @error('password')
-                            <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
-                        @enderror
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase px-1" for="password">Password</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">lock</span>
+                        <input wire:model="password" 
+                               class="w-full pl-11 pr-11 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-100 focus:border-[#003887] transition-all outline-none text-sm @error('password') border-red-500 @enderror" 
+                               id="password" 
+                               placeholder="••••••••" 
+                               type="{{ $showPassword ? 'text' : 'password' }}" required/>
+                        <button wire:click="togglePassword" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#003887] transition-colors" type="button">
+                            <span class="material-symbols-outlined text-[20px]">{{ $showPassword ? 'visibility_off' : 'visibility' }}</span>
+                        </button>
                     </div>
+                    @error('password')
+                        <span class="text-red-500 text-xs mt-1 block px-1">{{ $message }}</span>
+                    @enderror
                 </div>
 
-                <!-- Remember Me -->
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input wire:model="remember" id="remember" type="checkbox"
-                               class="h-4 w-4 text-[#1E4FA8] focus:ring-[#1E4FA8] border-slate-300 rounded">
-                        <label for="remember" class="ml-2 block text-sm text-slate-900 select-none cursor-pointer">
-                            Remember me
-                        </label>
-                    </div>
+                <!-- Remember Me & Forgot Password -->
+                <div class="flex items-center justify-between py-1">
+                    <label class="flex items-center space-x-2 cursor-pointer group">
+                        <input wire:model="remember" class="w-4 h-4 rounded border-slate-300 text-[#003887] focus:ring-[#003887] cursor-pointer" type="checkbox"/>
+                        <span class="text-xs text-slate-600 group-hover:text-slate-800 transition-colors">Ingat saya</span>
+                    </label>
+                    <a class="text-xs text-[#003887] font-semibold hover:underline" href="#">Lupa sandi?</a>
                 </div>
 
                 <!-- Submit Button -->
-                <div>
-                    <button type="submit"
-                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-semibold text-white bg-[#1E4FA8] hover:bg-[#153A80] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1E4FA8] transition duration-150 ease-in-out">
-                        <span wire:loading.remove wire:target="login">Sign In</span>
-                        <span wire:loading wire:target="login" class="flex items-center">
-                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Signing in...
-                        </span>
-                    </button>
-                </div>
+                <button class="w-full bg-[#003887] text-white font-semibold text-sm py-3.5 rounded-xl hover:bg-[#1e4fa8] hover:shadow-lg active:scale-[0.98] transition-all duration-200" type="submit">
+                    <span wire:loading.remove wire:target="login">Masuk</span>
+                    <span wire:loading wire:target="login" class="flex items-center justify-center">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Memproses...
+                    </span>
+                </button>
             </form>
+        </div>
 
-            <!-- Quick Demo Credentials Helper Card -->
-            <div class="mt-6 border-t border-slate-100 pt-6">
-                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider text-center mb-3">
-                    Demo Credentials (Password: password)
-                </p>
-                <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600">
-                    <div class="p-2 bg-slate-50 rounded-lg hover:bg-blue-50 hover:text-[#1E4FA8] transition cursor-pointer select-all" onclick="document.getElementById('email').value='gm@goldenbird.com'; document.getElementById('email').dispatchEvent(new Event('input'))">
-                        <span class="font-bold">GM:</span> gm@goldenbird.com
-                    </div>
-                    <div class="p-2 bg-slate-50 rounded-lg hover:bg-blue-50 hover:text-[#1E4FA8] transition cursor-pointer select-all" onclick="document.getElementById('email').value='sales@goldenbird.com'; document.getElementById('email').dispatchEvent(new Event('input'))">
-                        <span class="font-bold">Sales:</span> sales@goldenbird.com
-                    </div>
-                    <div class="p-2 bg-slate-50 rounded-lg hover:bg-blue-50 hover:text-[#1E4FA8] transition cursor-pointer select-all" onclick="document.getElementById('email').value='finance@goldenbird.com'; document.getElementById('email').dispatchEvent(new Event('input'))">
-                        <span class="font-bold">Finance:</span> finance@goldenbird.com
-                    </div>
-                    <div class="p-2 bg-slate-50 rounded-lg hover:bg-blue-50 hover:text-[#1E4FA8] transition cursor-pointer select-all" onclick="document.getElementById('email').value='ops@goldenbird.com'; document.getElementById('email').dispatchEvent(new Event('input'))">
-                        <span class="font-bold">Ops:</span> ops@goldenbird.com
-                    </div>
+        <!-- Demo Credentials Box -->
+        <div class="w-full bg-blue-50/50 border border-slate-200 rounded-xl p-4">
+            <div class="flex items-center space-x-2 mb-3 text-[#003887]">
+                <span class="material-symbols-outlined text-[20px]">info</span>
+                <h2 class="text-xs uppercase tracking-wider font-bold">Demo Credentials</h2>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer select-all" onclick="document.getElementById('email').value='gm@bluebird.co.id'; document.getElementById('email').dispatchEvent(new Event('input'))">
+                    <p class="text-[9px] text-slate-400 uppercase font-bold mb-0.5">General Manager</p>
+                    <p class="font-mono text-[10px] text-slate-800">gm@bluebird.co.id</p>
+                    <p class="font-mono text-[9px] text-slate-500">pwd: password</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer select-all" onclick="document.getElementById('email').value='sales@bluebird.co.id'; document.getElementById('email').dispatchEvent(new Event('input'))">
+                    <p class="text-[9px] text-slate-400 uppercase font-bold mb-0.5">Sales Officer</p>
+                    <p class="font-mono text-[10px] text-slate-800">sales@bluebird.co.id</p>
+                    <p class="font-mono text-[9px] text-slate-500">pwd: password</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer select-all" onclick="document.getElementById('email').value='finance@bluebird.co.id'; document.getElementById('email').dispatchEvent(new Event('input'))">
+                    <p class="text-[9px] text-slate-400 uppercase font-bold mb-0.5">Finance Admin</p>
+                    <p class="font-mono text-[10px] text-slate-800">finance@bluebird.co.id</p>
+                    <p class="font-mono text-[9px] text-slate-500">pwd: password</p>
+                </div>
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer select-all" onclick="document.getElementById('email').value='ops@bluebird.co.id'; document.getElementById('email').dispatchEvent(new Event('input'))">
+                    <p class="text-[9px] text-slate-400 uppercase font-bold mb-0.5">Operations Head</p>
+                    <p class="font-mono text-[10px] text-slate-800">ops@bluebird.co.id</p>
+                    <p class="font-mono text-[9px] text-slate-500">pwd: password</p>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+    <footer class="mt-8 text-center">
+        <p class="text-xs text-slate-400">
+            © 2026 Golden Bird B2B Fleet Management. Seluruh hak cipta dilindungi.
+        </p>
+    </footer>
 </div>

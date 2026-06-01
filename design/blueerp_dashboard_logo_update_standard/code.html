@@ -1,0 +1,352 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BlueERP | Enterprise Fleet Management</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f8f9ff",
+                        "on-surface-variant": "#434652",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#1e4fa8",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "on-secondary-fixed": "#001c39",
+                        "on-primary-container": "#b2c7ff",
+                        "inverse-primary": "#b0c6ff",
+                        "tertiary-container": "#24548d",
+                        "secondary-fixed": "#d4e3ff",
+                        "primary": "#003887",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed-variant": "#124780",
+                        "on-primary-fixed-variant": "#04429b",
+                        "tertiary": "#003c73",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed": "#d4e3ff",
+                        "background": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "surface": "#f8f9ff",
+                        "tertiary-fixed-dim": "#a5c8ff",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#dce9ff",
+                        "secondary": "#1960a6",
+                        "on-surface": "#0b1c30",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "on-secondary-fixed-variant": "#004883",
+                        "inverse-surface": "#213145",
+                        "secondary-container": "#7ab3ff",
+                        "on-tertiary-container": "#a7c9ff",
+                        "surface-tint": "#2d5bb4",
+                        "on-primary-fixed": "#001945",
+                        "outline": "#737783",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-secondary-container": "#00447e",
+                        "primary-fixed": "#d9e2ff",
+                        "on-tertiary-fixed": "#001c3a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "gutter": "24px",
+                        "2xl": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active-glow {
+            box-shadow: 0 0 15px rgba(164, 201, 255, 0.1);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c3c6d4; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SIDEBAR (Fixed Left) -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-primary flex flex-col py-lg px-md shadow-md z-50">
+<!-- Brand Header -->
+<div class="mb-xl flex items-center gap-sm"><img alt="BlueERP Logo" class="h-10 object-contain w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6Ys6-BTlWtOQzN20K3wtmNpjt73F_i72PkWTziHY4bXllVL0Z2v8ny80eb3BrrCJRxPxSSGskncGsp4QVY28MYD3wZ-nJRnrPuO1MP_qX-CRS-GY7vhgTKxTqNIG1Ox8Sf3EuxxChmVp8g8t-5uebMqw6txgDZJBkM81zN6y18xE6JH8_w30dbuaktgJzI5M527ubq_6GhY1CRHYU5A2TmXihrDhJVuz60p_SYVJWkHX4ukVbzmlw6KuzydF4H1YNSSiwcyP_itSE"><div><h1 class="font-headline-md text-headline-md font-bold text-on-primary leading-tight">BlueERP</h1><p class="font-label-md text-[10px] uppercase tracking-widest text-on-primary-container opacity-80">Fleet Management</p></div></div>
+<!-- Navigation Menu -->
+<nav class="flex-grow space-y-xs overflow-y-auto">
+<a class="flex items-center gap-md py-sm px-md bg-secondary text-on-secondary rounded-lg transition-colors duration-200 active:scale-95 sidebar-active-glow" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-body-md text-body-md">Fleet Armada</span>
+</a>
+<a class="flex items-center gap-md py-sm px-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">distance</span>
+<span class="font-body-md text-body-md">Dispatch</span>
+</a>
+<a class="flex items-center gap-md py-sm px-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">CRM</span>
+</a>
+<a class="flex items-center gap-md py-sm px-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-md text-body-md">Finance</span>
+</a>
+<a class="flex items-center gap-md py-sm px-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="font-body-md text-body-md">Maintenance</span>
+</a>
+<a class="flex items-center gap-md py-sm px-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-body-md text-body-md">Reporting</span>
+</a>
+</nav>
+<!-- Sidebar Footer / Logout -->
+<div class="mt-auto pt-md border-t border-primary-container">
+<div class="flex items-center gap-md mb-lg px-md">
+<img alt="User profile" class="h-10 w-10 rounded-full object-cover border-2 border-secondary" data-alt="A professional portrait of a senior logistics operations manager in a well-lit modern office environment. He is wearing a crisp white dress shirt and has a focused, confident expression suitable for a high-level enterprise software interface. The lighting is bright and clean, emphasizing professionalism and architectural clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgfAXBZyRiqkiDnziL-EN4vadP0lVqf-xCcO1r281JlFL3Ylo-DPwhciZggofTEKMQsTNTlcyJBiM9Mxkcl3nBOS5vmyGxZi63HwxmBrETgbXocbqxuxP2AwPBgdePQuCPYPOUcUtLy8jP07NGD79VJa5IWR4ro7C_W3bCM88wsgXWMAcGIa5sqPJy2cckNLve9i4O7i_52aOevc2p4ZLbrLdhPX0TOVTazTQ7MrfaVT2iYjM4uhQ5XUw7AiA0WfAXLcDkDV-WihGe">
+<div class="overflow-hidden">
+<p class="font-title-lg text-body-md text-on-primary truncate">Operations Admin</p>
+<p class="font-label-md text-[11px] text-on-primary-container opacity-70">Fleet HQ</p>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-sm py-sm text-on-primary-container hover:text-on-primary hover:bg-error rounded-lg transition-all duration-300">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-body-md text-body-md">Logout</span>
+</button>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="ml-64 min-h-screen flex flex-col bg-surface-bright">
+<!-- TOP APP BAR -->
+<header class="sticky top-0 h-16 flex items-center justify-between px-lg bg-surface-container-lowest border-b border-outline-variant z-40 transition-all duration-300 shadow-sm">
+<div class="flex items-center gap-md">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<nav class="flex items-center gap-xs font-body-md text-on-surface-variant">
+<span class="">BlueERP</span>
+<span class="material-symbols-outlined text-sm opacity-50">chevron_right</span>
+<span class="text-primary font-bold">Dashboard</span>
+</nav>
+</div>
+<div class="flex items-center gap-lg">
+<!-- Search -->
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-lg w-64 text-body-sm focus:ring-2 focus:ring-primary transition-all" placeholder="Search armada or dispatch..." type="text">
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-sm">
+<button class="p-sm rounded-full hover:bg-surface-container-high relative">
+<span class="material-symbols-outlined text-primary">notifications</span>
+<span class="absolute top-2 right-2 h-2 w-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-sm rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-primary">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-sm"></div>
+<span class="bg-surface-container-high px-sm py-xs rounded text-label-md text-primary font-bold">HQ ADMIN</span>
+</div>
+</div>
+</header>
+<!-- DASHBOARD CANVAS -->
+<div class="p-lg space-y-lg">
+<!-- Welcome Section -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Welcome back, Operations Admin</h2>
+<p class="font-body-md text-on-surface-variant">Operational overview for <span class="font-bold text-primary">Global Logistics Hub</span> as of Oct 24, 2023.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs bg-surface-container-lowest border border-outline-variant px-md py-sm rounded-lg font-title-lg text-body-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex items-center gap-xs bg-primary text-on-primary px-md py-sm rounded-lg font-title-lg text-body-md shadow-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+                        New Dispatch
+                    </button>
+</div>
+</section>
+<!-- KPI Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container-low text-primary rounded-lg">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<span class="text-label-md text-[#10B981] bg-[#10B9811A] px-sm py-xs rounded-full font-bold">+12%</span>
+</div>
+<p class="font-label-md text-on-surface-variant uppercase tracking-wider mb-xs">Active Fleet</p>
+<p class="font-display-lg text-display-lg text-on-surface">1,284</p>
+<p class="font-body-sm text-on-surface-variant mt-sm">98% operational efficiency</p>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container-low text-primary rounded-lg">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<span class="text-label-md text-error bg-error-container px-sm py-xs rounded-full font-bold">-2.4%</span>
+</div>
+<p class="font-label-md text-on-surface-variant uppercase tracking-wider mb-xs">On-Time Rate</p>
+<p class="font-display-lg text-display-lg text-on-surface">94.2%</p>
+<p class="font-body-sm text-on-surface-variant mt-sm">Average 15m delay in Sector B</p>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container-low text-primary rounded-lg">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-label-md text-[#10B981] bg-[#10B9811A] px-sm py-xs rounded-full font-bold">+8.1%</span>
+</div>
+<p class="font-label-md text-on-surface-variant uppercase tracking-wider mb-xs">Revenue / Fleet</p>
+<p class="font-display-lg text-display-lg text-on-surface">$4.2k</p>
+<p class="font-body-sm text-on-surface-variant mt-sm">Exceeding quarterly target</p>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container-low text-primary rounded-lg">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<span class="text-label-md text-[#F59E0B] bg-[#F59E0B1A] px-sm py-xs rounded-full font-bold">Attention</span>
+</div>
+<p class="font-label-md text-on-surface-variant uppercase tracking-wider mb-xs">Pending Repairs</p>
+<p class="font-display-lg text-display-lg text-on-surface">14</p>
+<p class="font-body-sm text-on-surface-variant mt-sm">4 Critical engine alerts</p>
+</div>
+</div>
+<!-- Main Data Section -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-lg">
+<!-- Recent Dispatches Table -->
+<div class="xl:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Live Dispatch Monitoring</h3>
+<button class="text-primary font-bold text-body-sm hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low font-label-md text-on-surface-variant">
+<tr>
+<th class="px-lg py-md">Fleet ID</th>
+<th class="px-lg py-md">Origin / Destination</th>
+<th class="px-lg py-md">Status</th>
+<th class="px-lg py-md">ETA</th>
+<th class="px-lg py-md">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container transition-colors h-12">
+<td class="px-lg py-sm font-bold text-primary">TRK-4029</td>
+<td class="px-lg py-sm font-body-sm">Chicago, IL <span class="mx-1">→</span> Miami, FL</td>
+<td class="px-lg py-sm">
+<span class="text-[11px] font-bold text-[#10B981] bg-[#10B9811A] px-2 py-1 rounded">Transit</span>
+</td>
+<td class="px-lg py-sm font-body-sm">2h 15m</td>
+<td class="px-lg py-sm">
+<button class="p-1 rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors h-12">
+<td class="px-lg py-sm font-bold text-primary">TRK-9912</td>
+<td class="px-lg py-sm font-body-sm">Denver, CO <span class="mx-1">→</span> Seattle, WA</td>
+<td class="px-lg py-sm">
+<span class="text-[11px] font-bold text-primary bg-primary-fixed-dim/20 px-2 py-1 rounded">Loading</span>
+</td>
+<td class="px-lg py-sm font-body-sm">4h 40m</td>
+<td class="px-lg py-sm">
+<button class="p-1 rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors h-12">
+<td class="px-lg py-sm font-bold text-primary">TRK-5510</td>
+<td class="px-lg py-sm font-body-sm">Houston, TX <span class="mx-1">→</span> Phoenix, AZ</td>
+<td class="px-lg py-sm">
+<span class="text-[11px] font-bold text-error bg-error-container px-2 py-1 rounded">Delayed</span>
+</td>
+<td class="px-lg py-sm font-body-sm">--</td>
+<td class="px-lg py-sm">
+<button class="p-1 rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Active Map / Geographic Distribution -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm relative group">
+<div class="p-lg border-b border-outline-variant bg-white/80 backdrop-blur-md absolute top-0 left-0 w-full z-10 flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Regional Density</h3>
+<span class="bg-[#10B981] h-2 w-2 rounded-full animate-pulse"></span>
+</div>
+<div class="h-full min-h-[400px] bg-slate-200 flex items-center justify-center">
+<img alt="Regional fleet density map" class="h-full w-full object-cover grayscale-[0.5] opacity-80" data-alt="A highly detailed satellite-style map visualization of the United States at night, with glowing logistics hubs and pulsing blue lines representing active fleet traffic. The aesthetic is futuristic and data-rich, using a dark-mode core but styled for a light-mode enterprise dashboard with subtle translucent overlays and elegant typography markers for major cities." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9nvYlB47w4Mev_44fr4TlpIo-MQa0hqtGSIq8B8KKzWxcxrwXmhCO4THhz4miOOWratUQw77UQ8ns6cfjs0JcWQNDddGJ-eV1C6OTdYcTBGzVRuyJqsyzBpg13QOdN2AAzAVXTy09QpRKY2mIokyLzJDKtvHW4hoGFM9xmQn24S9Aabg4pd4HVo2KSKZxnWpElFBfHlneWClyujzzjI99nf6y1pRxZQ8aGhNOko8Q2i-NfwsQXaArPM8rct69HfcsExA2Pto8VocA">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent"></div>
+<div class="absolute bottom-lg left-lg right-lg p-md bg-white/90 backdrop-blur rounded-lg border border-outline-variant shadow-lg">
+<p class="font-body-sm text-on-surface-variant mb-sm font-bold">Top Performing Sector</p>
+<div class="flex justify-between items-center">
+<span class="font-title-lg text-primary">NorthEast Corridor</span>
+<span class="text-[#10B981] font-bold">99.8%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action for Mobile / Quick Access (Hidden on Desktop but following mandate) -->
+<button class="fixed bottom-lg right-lg h-14 w-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all lg:hidden z-50">
+<span class="material-symbols-outlined">add</span>
+</button>
+
+
+</body></html>

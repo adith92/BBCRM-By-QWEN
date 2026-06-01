@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-container": "#00447e",
+                        "on-primary-fixed-variant": "#04429b",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#001945",
+                        "inverse-primary": "#b0c6ff",
+                        "secondary-container": "#7ab3ff",
+                        "on-secondary-fixed": "#001c39",
+                        "on-primary-container": "#b2c7ff",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#d3e4fe",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed-dim": "#a5c8ff",
+                        "surface-container-low": "#eff4ff",
+                        "primary-fixed": "#d9e2ff",
+                        "primary-container": "#1e4fa8",
+                        "outline-variant": "#c3c6d4",
+                        "on-tertiary-fixed": "#001c3a",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed-variant": "#004883",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#0b1c30",
+                        "on-secondary": "#ffffff",
+                        "outline": "#737783",
+                        "tertiary": "#003c73",
+                        "inverse-surface": "#213145",
+                        "secondary": "#1960a6",
+                        "tertiary-fixed": "#d4e3ff",
+                        "on-surface-variant": "#434652",
+                        "tertiary-container": "#24548d",
+                        "surface-bright": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "surface-tint": "#2d5bb4",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "secondary-fixed": "#d4e3ff",
+                        "on-tertiary-fixed-variant": "#124780",
+                        "primary": "#003887",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-tertiary-container": "#a7c9ff",
+                        "surface-container-high": "#dce9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "2xl": "48px",
+                        "margin-desktop": "32px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "margin-mobile": "16px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex flex-col">
+<!-- Header -->
+<header class="bg-surface sticky top-0 z-50 px-margin-mobile h-16 flex items-center justify-between">
+<div class="flex items-center gap-md">
+<button class="p-2 -ml-2 rounded-full active:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-on-surface">Buat Booking Baru</h1>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline">help_outline</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 px-margin-mobile py-lg space-y-lg pb-32">
+<!-- 1. Client Search -->
+<section class="space-y-sm">
+<label class="font-title-lg text-title-lg px-xs">Klien</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+</div>
+<input class="w-full bg-surface border border-outline-variant rounded-xl pl-11 pr-md py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" placeholder="Cari nama klien..." type="text" value="PT Astra International Tbk"/>
+<div class="absolute inset-y-0 right-md flex items-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</section>
+<!-- 2. Vehicle Selection -->
+<section class="space-y-sm">
+<label class="font-title-lg text-title-lg px-xs">Kendaraan</label>
+<div class="relative mb-md">
+<div class="absolute inset-y-0 left-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-[20px]">directions_car</span>
+</div>
+<input class="w-full bg-surface border border-outline-variant rounded-xl pl-11 pr-md py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" placeholder="Cari plat nomor atau tipe mobil..." type="text"/>
+</div>
+<!-- Result List -->
+<div class="space-y-sm">
+<!-- Highlighted Selection -->
+<div class="bg-primary-container/10 border-2 border-primary rounded-xl p-md flex items-center justify-between animate-pulse-subtle">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">local_taxi</span>
+</div>
+<div>
+<p class="font-title-lg text-title-lg text-on-surface">B 1234 BBD</p>
+<p class="text-body-sm text-on-surface-variant">Toyota Avanza (Silver)</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="bg-[#10B9811A] text-[#10B981] px-2 py-0.5 rounded-full font-label-md text-label-md">Available</span>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">radio_button_checked</span>
+</div>
+</div>
+<!-- Secondary Result -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-md flex items-center justify-between opacity-60">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container-highest rounded-lg flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">local_taxi</span>
+</div>
+<div>
+<p class="font-title-lg text-title-lg text-on-surface">B 9901 XYZ</p>
+<p class="text-body-sm text-on-surface-variant">Toyota Innova (Black)</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+</div>
+</div>
+</section>
+<!-- 3. Date & Time Selection -->
+<section class="space-y-sm">
+<div class="flex justify-between items-center px-xs">
+<label class="font-title-lg text-title-lg">Waktu Sewa</label>
+<div class="flex items-center gap-xs text-primary bg-primary-fixed/30 px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-md text-label-md font-bold">3 hari 4 jam</span>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<!-- Start Date -->
+<div class="bg-surface border border-outline-variant rounded-xl p-md flex items-center gap-md">
+<div class="text-primary">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-label-md text-outline uppercase">Mulai</p>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-title-lg font-title-lg text-on-surface" type="datetime-local" value="2023-11-20T08:00"/>
+</div>
+</div>
+<!-- End Date -->
+<div class="bg-surface border border-outline-variant rounded-xl p-md flex items-center gap-md">
+<div class="text-secondary">
+<span class="material-symbols-outlined">event_available</span>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-label-md text-outline uppercase">Selesai</p>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-title-lg font-title-lg text-on-surface" type="datetime-local" value="2023-11-23T12:00"/>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Driver Selection -->
+<section class="space-y-sm">
+<label class="font-title-lg text-title-lg px-xs">Pengemudi</label>
+<div class="relative">
+<select class="w-full bg-surface border border-outline-variant rounded-xl px-md py-3 appearance-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none pr-12">
+<option value="">Pilih Pengemudi</option>
+<option selected="" value="1">Budi Santoso (Senior Driver)</option>
+<option value="2">Andi Wijaya (Contract)</option>
+<option value="3">Siti Aminah (City Specialist)</option>
+</select>
+<div class="absolute inset-y-0 right-md flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+</section>
+<!-- 5. Notes -->
+<section class="space-y-sm">
+<label class="font-title-lg text-title-lg px-xs">Catatan Tambahan</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded-xl px-md py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none h-24 resize-none" placeholder="Tambahkan detail rute atau permintaan khusus klien..."></textarea>
+</section>
+</main>
+<!-- Footer - Fixed Bottom -->
+<footer class="fixed bottom-0 left-0 right-0 bg-surface-container-lowest p-margin-mobile shadow-[0_-4px_10px_rgba(0,0,0,0.05)] border-t border-outline-variant/30 flex flex-col gap-sm">
+<!-- Summary small -->
+<div class="flex justify-between items-center px-xs pb-xs border-b border-outline-variant/20 mb-xs">
+<span class="text-body-sm text-outline">Estimasi Biaya</span>
+<span class="font-title-lg text-title-lg text-on-surface">Rp 1.450.000</span>
+</div>
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary py-4 rounded-xl font-title-lg text-title-lg active:scale-95 transition-all shadow-md flex items-center justify-center gap-md">
+<span>Buat Booking</span>
+<span class="material-symbols-outlined">send</span>
+</button>
+</footer>
+<!-- Decorative Bottom Spacer for Footer -->
+<div class="h-8 bg-surface-container-lowest"></div>
+<script>
+        // Micro-interaction for the primary button
+        document.querySelector('button.bg-primary').addEventListener('click', function() {
+            const originalText = this.innerHTML;
+            this.innerHTML = `<span class="animate-spin material-symbols-outlined">progress_activity</span>`;
+            this.classList.add('opacity-80', 'pointer-events-none');
+            
+            setTimeout(() => {
+                this.innerHTML = `<span class="material-symbols-outlined">check</span> <span>Berhasil!</span>`;
+                this.classList.remove('bg-primary');
+                this.classList.add('bg-[#10B981]');
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.classList.remove('bg-[#10B981]', 'opacity-80', 'pointer-events-none');
+                    this.classList.add('bg-primary');
+                }, 2000);
+            }, 1500);
+        });
+
+        // Simple datetime calculation mock (visual only for this UI demo)
+        const inputs = document.querySelectorAll('input[type="datetime-local"]');
+        inputs.forEach(input => {
+            input.addEventListener('change', () => {
+                // In a real app, this would update the duration badge
+                console.log('DateTime updated');
+            });
+        });
+    </script>
+</body></html>

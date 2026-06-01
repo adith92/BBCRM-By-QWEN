@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Maintenance #MT-001 | BlueERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#001945",
+                    "surface-bright": "#f8f9ff",
+                    "primary-fixed": "#d9e2ff",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "outline": "#737783",
+                    "tertiary-fixed": "#d4e3ff",
+                    "on-tertiary-fixed-variant": "#124780",
+                    "inverse-surface": "#213145",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#24548d",
+                    "on-tertiary-container": "#a7c9ff",
+                    "on-primary-container": "#b2c7ff",
+                    "background": "#f8f9ff",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container-high": "#dce9ff",
+                    "surface": "#f8f9ff",
+                    "secondary-fixed-dim": "#a4c9ff",
+                    "tertiary-fixed-dim": "#a5c8ff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#001c3a",
+                    "on-secondary-container": "#00447e",
+                    "outline-variant": "#c3c6d4",
+                    "surface-tint": "#2d5bb4",
+                    "on-background": "#0b1c30",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#003c73",
+                    "on-primary-fixed-variant": "#04429b",
+                    "surface-container": "#e5eeff",
+                    "on-surface": "#0b1c30",
+                    "inverse-primary": "#b0c6ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "primary": "#003887",
+                    "on-secondary-fixed-variant": "#004883",
+                    "surface-variant": "#d3e4fe",
+                    "secondary-container": "#7ab3ff",
+                    "on-secondary-fixed": "#001c39",
+                    "secondary-fixed": "#d4e3ff",
+                    "on-surface-variant": "#434652",
+                    "surface-container-low": "#eff4ff",
+                    "primary-container": "#1e4fa8",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary": "#1960a6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "12px",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "2xl": "48px",
+                    "xl": "32px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "gutter": "24px",
+                    "md": "16px",
+                    "margin-desktop": "32px",
+                    "lg": "24px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6d4; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-full w-64 flex flex-col p-md z-40 bg-surface-container-low border-r border-outline-variant">
+<div class="flex items-center gap-sm px-sm mb-xl">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md text-primary">Fleet Manager</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Enterprise Edition</p>
+</div>
+</div>
+<div class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="text-body-md font-body-md">Fleet</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg font-semibold scale-95 duration-100" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="text-body-md font-body-md">Maintenance</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-body-md font-body-md">Inventory</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-body-md font-body-md">Reports</span>
+</a>
+</div>
+<div class="pt-lg border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-body-md font-body-md">Help</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-body-md font-body-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-lg h-16 bg-surface-container-lowest border-b border-outline-variant shadow-sm ml-64 overflow-hidden" style="width: calc(100% - 16rem);">
+<div class="flex items-center gap-lg">
+<span class="text-title-lg font-title-lg font-bold text-primary">Maintenance Detail</span>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-body-md focus:ring-2 focus:ring-primary-container w-64 transition-all group-focus-within:w-80" placeholder="Search maintenance logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-sm">
+<img alt="User profile" class="w-8 h-8 rounded-full bg-secondary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwhgYtOW7FecI6QHHNqep3YreSjogq5m8oUlOjbmJXYOfjB5byBB3tmEyVKIn1WLT5MDjSXjLaod7UOoP9lLz7ze0HCK2wlyG81ja8Ce7DSHWTloMHqVGRmQkiyXiXOHHcSM5ehp2xjQAFC6Si4Bh24qL_s9Kb4EFVs6rUX8RKuouTENyV0AeHa9yNMRcLR-2GTz9nHS6cgSn3ym-brNegUBBa0HCs1GeHFdfjQEsbm2FfrzN1n8vETf_INoWp7ca_OSW-YOsfBhRq"/>
+<span class="text-body-md font-semibold">Alex Miller</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 mt-16 p-lg bg-background min-h-screen">
+<!-- Header Section -->
+<div class="flex items-end justify-between mb-lg bg-surface-container-lowest p-lg rounded-lg border border-outline-variant shadow-sm">
+<div class="flex items-start gap-lg">
+<div class="bg-primary-container/10 p-4 rounded-xl">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">build_circle</span>
+</div>
+<div>
+<div class="flex items-center gap-md mb-xs">
+<h2 class="text-display-lg font-display-lg text-on-surface">Maintenance #MT-001</h2>
+<span class="px-3 py-1 bg-[#1E4FA81A] text-[#1E4FA8] text-label-md font-bold rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">autorenew</span>
+                            In Progress
+                        </span>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">directions_car</span>
+<span class="text-title-lg font-title-lg">B 3456 BBD • Toyota Avanza</span>
+<span class="mx-2 text-outline-variant">|</span>
+<span class="text-body-md">Reported 2 days ago</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="px-lg h-11 border border-outline text-on-surface font-semibold rounded-lg hover:bg-surface-container-low transition-all">Print Report</button>
+<button class="px-lg h-11 bg-primary text-on-primary font-semibold rounded-lg shadow-sm hover:shadow-md transition-all">Download Log</button>
+</div>
+</div>
+<!-- Dashboard Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Info & Spare Parts -->
+<div class="col-span-8 flex flex-col gap-gutter">
+<!-- Info Card -->
+<div class="bg-white rounded-lg border border-outline-variant p-lg shadow-sm">
+<div class="flex items-center justify-between mb-lg border-b border-outline-variant pb-md">
+<h3 class="text-title-lg font-title-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">info</span>
+                            Maintenance Information
+                        </h3>
+<button class="text-primary text-body-md font-semibold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                            Edit Details
+                        </button>
+</div>
+<div class="grid grid-cols-3 gap-y-xl gap-x-gutter">
+<div class="space-y-1">
+<label class="text-label-md text-on-surface-variant uppercase">Type</label>
+<p class="text-body-md font-semibold">Routine Service (10,000 KM)</p>
+</div>
+<div class="space-y-1">
+<label class="text-label-md text-on-surface-variant uppercase">Reported By</label>
+<p class="text-body-md font-semibold">John Doe (Senior Driver)</p>
+</div>
+<div class="space-y-1">
+<label class="text-label-md text-on-surface-variant uppercase">Technician</label>
+<div class="flex items-center gap-2">
+<img alt="Technician" class="w-5 h-5 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAquVs7wHPUPREzvpHAMPD3NlAnR6EPmU2HupASiqNFheLLZ1JGvqqcmiKa8cIA95JTLu_yPx6B2QqkNI3tKYS8S3_6U1TxTrHQ0CbqHvqHDYbAHLNY_LK5izLYXIDsPuISj6C0truW_ayOlDdu1YA9cXrcmbESHEK2CaM9yCrxzwdgNnHOVlHiyG0dzGaCBN7nipTphBr0N6Go8lRU0YYSLfHYB-6NtOiSL5sRBeN1ORzB88fiitCe2uh00w3BxQ9LhzFjQk0YXdCK"/>
+<p class="text-body-md font-semibold">Mark Spencer</p>
+</div>
+</div>
+<div class="col-span-3 space-y-1">
+<label class="text-label-md text-on-surface-variant uppercase">Full Description</label>
+<p class="text-body-md text-on-surface leading-relaxed bg-surface-container-low p-md rounded-lg">
+                                Perform complete oil change, filter replacements, and brake system inspection. Driver reported slight vibration in the steering wheel at speeds above 80 km/h. Check wheel alignment and suspension bushings for potential wear.
+                            </p>
+</div>
+<div class="space-y-1">
+<label class="text-label-md text-on-surface-variant uppercase">Start Date</label>
+<p class="text-body-md font-semibold">Oct 12, 2023 • 08:30 AM</p>
+</div>
+<div class="space-y-1">
+<label class="text-label-md text-on-surface-variant uppercase">Est. End Date</label>
+<p class="text-body-md font-semibold">Oct 14, 2023 • 05:00 PM</p>
+</div>
+<div class="space-y-1">
+<label class="text-label-md text-on-surface-variant uppercase">Actual End Date</label>
+<p class="text-body-md text-outline-variant font-medium">Pending Completion</p>
+</div>
+<div class="col-span-3 space-y-2">
+<label class="text-label-md text-on-surface-variant uppercase">Obstacle Notes</label>
+<textarea class="w-full bg-white border border-outline-variant rounded-lg p-md text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-outline-variant" placeholder="Log any issues or delays here..." rows="3"></textarea>
+</div>
+</div>
+</div>
+<!-- Spare Parts Card -->
+<div class="bg-white rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="p-lg flex items-center justify-between">
+<h3 class="text-title-lg font-title-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">inventory</span>
+                            Spare Parts &amp; Consumption
+                        </h3>
+<button class="bg-primary-container text-white px-md py-2 rounded-lg text-label-md font-bold flex items-center gap-2 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                            Add Spare Part
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low border-y border-outline-variant">
+<tr>
+<th class="px-lg py-md text-label-md text-on-surface-variant uppercase">Part Name</th>
+<th class="px-md py-md text-label-md text-on-surface-variant uppercase">Code</th>
+<th class="px-md py-md text-label-md text-on-surface-variant uppercase text-center">Qty</th>
+<th class="px-md py-md text-label-md text-on-surface-variant uppercase text-right">Price</th>
+<th class="px-md py-md text-label-md text-on-surface-variant uppercase text-right">Subtotal</th>
+<th class="px-lg py-md text-label-md text-on-surface-variant uppercase">Availability</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-lg py-md">
+<div class="font-semibold text-body-md">Engine Oil (Synthetic)</div>
+<div class="text-xs text-outline italic">Premium Grade 5W-30</div>
+</td>
+<td class="px-md py-md text-body-md font-mono text-on-surface-variant">OIL-SYN-04</td>
+<td class="px-md py-md text-body-md text-center">4L</td>
+<td class="px-md py-md text-body-md text-right">$15.00</td>
+<td class="px-md py-md text-body-md font-bold text-right">$60.00</td>
+<td class="px-lg py-md">
+<span class="px-2 py-0.5 bg-[#10B9811A] text-[#10B981] text-label-md font-bold rounded">In Stock</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-lg py-md">
+<div class="font-semibold text-body-md">Oil Filter</div>
+<div class="text-xs text-outline italic">OEM Toyota Part</div>
+</td>
+<td class="px-md py-md text-body-md font-mono text-on-surface-variant">FLT-7721</td>
+<td class="px-md py-md text-body-md text-center">1</td>
+<td class="px-md py-md text-body-md text-right">$12.50</td>
+<td class="px-md py-md text-body-md font-bold text-right">$12.50</td>
+<td class="px-lg py-md">
+<span class="px-2 py-0.5 bg-[#10B9811A] text-[#10B981] text-label-md font-bold rounded">In Stock</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-lg py-md">
+<div class="font-semibold text-body-md">Brake Pads (Front)</div>
+<div class="text-xs text-outline italic">Ceramic Compound</div>
+</td>
+<td class="px-md py-md text-body-md font-mono text-on-surface-variant">BRK-9901</td>
+<td class="px-md py-md text-body-md text-center">1 Set</td>
+<td class="px-md py-md text-body-md text-right">$45.00</td>
+<td class="px-md py-md text-body-md font-bold text-right">$45.00</td>
+<td class="px-lg py-md">
+<span class="px-2 py-0.5 bg-[#F59E0B1A] text-[#F59E0B] text-label-md font-bold rounded">Backordered</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-surface-container-low p-lg flex flex-col items-end border-t border-outline-variant">
+<div class="w-64 space-y-2">
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>Parts Subtotal</span>
+<span>$117.50</span>
+</div>
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>Labor Cost</span>
+<span>$45.00</span>
+</div>
+<div class="h-px bg-outline-variant my-2"></div>
+<div class="flex justify-between text-title-lg font-bold text-primary">
+<span>Total Cost</span>
+<span>$162.50</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Actions -->
+<div class="col-span-4 flex flex-col gap-gutter">
+<!-- Action Buttons Card -->
+<div class="bg-white rounded-lg border border-outline-variant p-lg shadow-sm sticky top-24">
+<h3 class="text-title-lg font-title-lg mb-lg">Workstation Actions</h3>
+<div class="space-y-md">
+<button class="w-full h-14 bg-primary text-on-primary font-bold rounded-lg flex items-center justify-center gap-3 shadow-sm hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+                            Mark Completed
+                        </button>
+<button class="w-full h-12 border border-primary text-primary font-semibold rounded-lg flex items-center justify-center gap-3 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">pause_circle</span>
+                            Pause Maintenance
+                        </button>
+<button class="w-full h-12 text-error font-semibold rounded-lg flex items-center justify-center gap-3 hover:bg-error-container/20 transition-all">
+<span class="material-symbols-outlined">cancel</span>
+                            Cancel Request
+                        </button>
+</div>
+<div class="mt-lg p-md bg-surface-container-high rounded-lg border-l-4 border-secondary">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-secondary">info</span>
+<div>
+<p class="text-body-sm font-bold text-on-secondary-container mb-1">Status Policy</p>
+<p class="text-body-sm text-on-secondary-container opacity-80 leading-snug">
+                                    Marking as "Completed" will automatically return the vehicle "B 3456 BBD" to "Available" status in the Fleet Dashboard.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- History Snapshot -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-lg shadow-sm">
+<h3 class="text-title-lg font-title-lg mb-md">Timeline</h3>
+<div class="relative space-y-lg before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-0.5 before:bg-outline-variant">
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-6 h-6 bg-primary-container rounded-full border-4 border-white shadow-sm flex items-center justify-center"></div>
+<p class="text-label-md font-bold text-on-surface">Oct 12, 08:30 AM</p>
+<p class="text-body-sm text-on-surface-variant">Maintenance started by Mark Spencer.</p>
+</div>
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-6 h-6 bg-surface-container-high rounded-full border-4 border-white shadow-sm"></div>
+<p class="text-label-md font-bold text-on-surface">Oct 11, 04:15 PM</p>
+<p class="text-body-sm text-on-surface-variant">Maintenance approved by Fleet Manager.</p>
+</div>
+<div class="relative pl-8">
+<div class="absolute left-0 top-1 w-6 h-6 bg-surface-container-high rounded-full border-4 border-white shadow-sm"></div>
+<p class="text-label-md font-bold text-on-surface">Oct 11, 02:00 PM</p>
+<p class="text-body-sm text-on-surface-variant">Work order created from driver report.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Asset (Contextual) -->
+<div class="mt-gutter grid grid-cols-3 gap-gutter">
+<div class="bg-white p-2 rounded-lg border border-outline-variant shadow-sm h-48 overflow-hidden group">
+<img class="w-full h-full object-cover rounded shadow-inner group-hover:scale-105 transition-transform duration-500" data-alt="A professional high-resolution photograph of a clean, modern automotive repair bay. A silver SUV is elevated on a hydraulic lift, surrounded by organized tool chests and bright, industrial LED lighting. The floor is a pristine, polished grey concrete, and the overall mood is efficient, professional, and technologically advanced, matching a corporate fleet management interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKlqmzREGvUbLl7uY_Il7UCHgSbINRaodQlJSNwKOmLfYWK8_416-_PAgvcIve9p99yYdsoFyALWeBlYkAtcRis6AVRu0NzAtLyMF13OSXIymtLDrMYkz1N7A5VcIDI-W9GKaBhZo-okwQ_Hpznduly3UcPswGrlJhPHTgN6CNG7pVrPk4Rg_OEPsYU9Q2OrNOo_MEP7wnQapeNr5EGiUf1etoG5To90NclGnNbnsUlLSLt1-B0O6BY0rlvIjHeeOX1aVmn9AEk2f5"/>
+</div>
+<div class="bg-white p-2 rounded-lg border border-outline-variant shadow-sm h-48 overflow-hidden group">
+<img class="w-full h-full object-cover rounded shadow-inner group-hover:scale-105 transition-transform duration-500" data-alt="A detailed macro shot of a mechanic's gloved hand holding a precision digital tablet showing diagnostic data charts. In the blurred background, the engine bay of a modern vehicle is visible under cool white garage lighting. The aesthetic is clean, sharp, and data-driven, emphasizing high-tech vehicle maintenance and enterprise reliability in a B2B software context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnP92MItus1ZixrJ6MWapjh5k-75JxZZw12Jzm7fuw_z1xKuekltA16F9pGgX9ZKUQ_CfUHJYctRo-rNFwLn2DmumJZq-Zy4TDDI-ZtvmF3-U_f_6i58WEiDquTMAe7gK_6n1yTItDcZfJhLLmUbUwHYAeMGYCjySKDzxVB4oPhIXoYaeOZGlKpAhZwLaKV50qNNnNrbZm-gMRqYDnSiGnbDct6UdHZWgRiJ-BMCeLhImHDNk8woGbPqtO6q4EFFxRVU7FYWoL-WjQ"/>
+</div>
+<div class="bg-white p-2 rounded-lg border border-outline-variant shadow-sm h-48 overflow-hidden group">
+<img class="w-full h-full object-cover rounded shadow-inner group-hover:scale-105 transition-transform duration-500" data-alt="An expansive view of a large, high-density corporate fleet parking lot at dusk. Rows of identical white commercial vans and cars are perfectly aligned under bright, cool-toned floodlights. The sky is a deep indigo, creating a professional and architectural atmosphere of stability, order, and large-scale operational logistics in a modern corporate setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf9SuZFa9uocNsDMRRxzKfvArg2UuckXH8S24e3sxJanMudSrLVV2QaZM4u3qMrOnnl1pFAF5f9RHkxTorcvLeKw2yPiT9LrkG7Fh35BDPPFS1XiwZsSUJ4uM8sCf69JhkIR94aQgdoRgsrkcEMsKPsZ-YTc8rqFpf5sFN66zCL-Uo29yrK9rmSbmBNlJxSF8aXGZzkIX1myObCmtH4D5ltoZJlzXsXessAJndjwWVpMEcbxmEfKDhQgp_DmAq3GXwkE-w2ruHDedz"/>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interaction for textareas and buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

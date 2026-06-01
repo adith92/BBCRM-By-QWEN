@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fleet Armada - BlueERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#003c73",
+                        "on-secondary-fixed": "#001c39",
+                        "on-primary-container": "#b2c7ff",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-container": "#00447e",
+                        "on-primary-fixed-variant": "#04429b",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c3c6d4",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container": "#e5eeff",
+                        "tertiary-fixed-dim": "#a5c8ff",
+                        "inverse-primary": "#b0c6ff",
+                        "surface-variant": "#d3e4fe",
+                        "error-container": "#ffdad6",
+                        "outline": "#737783",
+                        "secondary-container": "#7ab3ff",
+                        "on-surface-variant": "#434652",
+                        "on-error": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "primary-container": "#1e4fa8",
+                        "on-tertiary-fixed": "#001c3a",
+                        "primary": "#003887",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#2d5bb4",
+                        "tertiary-fixed": "#d4e3ff",
+                        "tertiary-container": "#24548d",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#001945",
+                        "inverse-surface": "#213145",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#004883",
+                        "surface-container-high": "#dce9ff",
+                        "secondary": "#1960a6",
+                        "on-tertiary-fixed-variant": "#124780",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-fixed": "#d4e3ff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "on-tertiary-container": "#a7c9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed": "#d9e2ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-background": "#0b1c30",
+                        "primary-fixed-dim": "#b0c6ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "2xl": "48px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="bg-surface-container-lowest dark:bg-surface-dim border-b border-outline-variant shadow-sm flex justify-between items-center w-full px-md h-16 fixed top-0 z-50">
+<div class="flex items-center gap-sm">
+<button class="p-base text-primary cursor-pointer active:opacity-80" id="hamburger-menu">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Fleet Armada</h1>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:opacity-80">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKqX41rJ8bTsK1sY6K_IgIKAOq9QLobJx_FtQIi19j21JZ15tvXkIF4qWDlMS5T22dNK0xikdzJvXiEcx6ZoTyuQy8UKKZ923IyisausZ0V3U5PpZgzmkWHvwWZ1xQRcn7JBraqrulPHe0jepfrH9VUKosCFwNOzR2RECCXrnD9h62bj-qba0fJtOVq9lcGG7PRYMrZ-Rm6hvXpfds8xtHQQr6T9RkDNQah9sZO94UggBuKlZ4OLOe_-se030Bugdzv9KDbX1a9U-A"/>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-24 px-md">
+<!-- Stats Grid (2x3) -->
+<section class="grid grid-cols-2 gap-sm mb-lg">
+<!-- Total -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total</span>
+<span class="text-headline-md font-bold text-primary">1,248</span>
+</div>
+<!-- Available -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Available</span>
+<div class="flex items-center gap-xs">
+<span class="text-headline-md font-bold text-[#10B981]">842</span>
+<span class="text-[10px] bg-[#10B9811A] text-[#10B981] px-1 rounded">67%</span>
+</div>
+</div>
+<!-- PO (Purchase Order) -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">PO</span>
+<span class="text-headline-md font-bold text-secondary">156</span>
+</div>
+<!-- Hold -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Hold</span>
+<span class="text-headline-md font-bold text-[#F59E0B]">42</span>
+</div>
+<!-- Maintenance -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Maintenance</span>
+<span class="text-headline-md font-bold text-error">38</span>
+</div>
+<!-- At Pool -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Reserved</span>
+<span class="text-headline-md font-bold text-on-surface">170</span>
+</div>
+</section>
+<!-- Filter Section -->
+<section class="flex flex-col gap-sm mb-lg">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-md py-sm bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary-container focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="Search plate or model..." type="text"/>
+</div>
+<div class="relative w-full">
+<select class="w-full appearance-none bg-surface-container-lowest border border-outline-variant rounded-xl px-md py-sm font-body-md text-body-md text-on-surface-variant focus:ring-2 focus:ring-primary-container outline-none transition-all">
+<option>All Statuses</option>
+<option>Available</option>
+<option>PO</option>
+<option>Hold</option>
+<option>Maintenance</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</section>
+<!-- Vehicle List -->
+<section class="flex flex-col gap-sm">
+<h2 class="font-title-lg text-title-lg px-xs mb-xs">Recent Fleet</h2>
+<!-- Row 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex justify-between items-center cursor-pointer active:scale-[0.98] transition-transform duration-100">
+<div class="flex flex-col gap-xs">
+<span class="font-bold text-primary font-headline-md text-[16px] tracking-tight">B 1234 BBD</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Toyota Transmover 2023</span>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="text-[12px] font-medium bg-[#10B9811A] text-[#10B981] px-md py-0.5 rounded-full">Available</span>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex justify-between items-center cursor-pointer active:scale-[0.98] transition-transform duration-100">
+<div class="flex flex-col gap-xs">
+<span class="font-bold text-primary font-headline-md text-[16px] tracking-tight">B 8892 KKA</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Toyota Transmover 2022</span>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="text-[12px] font-medium bg-[#3B82F61A] text-secondary px-md py-0.5 rounded-full">PO</span>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex justify-between items-center cursor-pointer active:scale-[0.98] transition-transform duration-100">
+<div class="flex flex-col gap-xs">
+<span class="font-bold text-primary font-headline-md text-[16px] tracking-tight">B 4021 SSD</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Toyota Transmover 2023</span>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="text-[12px] font-medium bg-[#BA1A1A1A] text-error px-md py-0.5 rounded-full">Maintenance</span>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex justify-between items-center cursor-pointer active:scale-[0.98] transition-transform duration-100">
+<div class="flex flex-col gap-xs">
+<span class="font-bold text-primary font-headline-md text-[16px] tracking-tight">B 9901 ZZP</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Toyota Transmover 2023</span>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="text-[12px] font-medium bg-[#F59E0B1A] text-[#F59E0B] px-md py-0.5 rounded-full">Hold</span>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+</div>
+</div>
+<!-- Row 5 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex justify-between items-center cursor-pointer active:scale-[0.98] transition-transform duration-100">
+<div class="flex flex-col gap-xs">
+<span class="font-bold text-primary font-headline-md text-[16px] tracking-tight">B 1010 RRO</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Toyota Transmover 2021</span>
+</div>
+<div class="flex flex-col items-end gap-xs">
+<span class="text-[12px] font-medium bg-[#10B9811A] text-[#10B981] px-md py-0.5 rounded-full">Available</span>
+<span class="material-symbols-outlined text-outline text-sm">chevron_right</span>
+</div>
+</div>
+<button class="mt-md w-full py-md border-2 border-dashed border-outline-variant rounded-xl text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+                Load more vehicles...
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation (Mobile Requirement) -->
+<nav class="fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest flex justify-around items-center border-t border-outline-variant px-md z-50">
+<button class="flex flex-col items-center gap-xs text-primary font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px]">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined">local_taxi</span>
+<span class="text-[10px]">Vehicles</span>
+</button>
+<button class="flex flex-col items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined">person_pin</span>
+<span class="text-[10px]">Drivers</span>
+</button>
+<button class="flex flex-col items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-[10px]">Reports</span>
+</button>
+</nav>
+<!-- FAB (Contextual for Home/Fleet) -->
+<button class="fixed right-md bottom-20 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center cursor-pointer active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600;">add</span>
+</button>
+<!-- Sidebar (Hidden by default, for hamburger interaction) -->
+<div class="fixed inset-0 bg-black/50 z-[60] hidden backdrop-blur-sm transition-opacity duration-300 opacity-0" id="sidebar-overlay"></div>
+<aside class="fixed top-0 left-0 h-screen w-64 bg-tertiary text-on-tertiary z-[70] -translate-x-full transition-transform duration-300 ease-in-out py-lg flex flex-col" id="sidebar">
+<div class="px-md mb-xl">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 bg-on-tertiary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md font-black text-on-tertiary leading-tight">BlueERP</h2>
+<p class="font-label-md text-label-md text-tertiary-fixed-dim">Fleet Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-base">
+<div class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-xl px-md py-sm mx-sm cursor-pointer transition-all active:scale-95">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Fleet Overview</span>
+</div>
+<div class="flex items-center gap-md text-tertiary-fixed-dim px-md py-sm mx-sm cursor-pointer hover:bg-tertiary-container hover:text-on-tertiary-container transition-all active:scale-95">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-md text-label-md">Real-time Map</span>
+</div>
+<div class="flex items-center gap-md text-tertiary-fixed-dim px-md py-sm mx-sm cursor-pointer hover:bg-tertiary-container hover:text-on-tertiary-container transition-all active:scale-95">
+<span class="material-symbols-outlined">person_pin</span>
+<span class="font-label-md text-label-md">Driver Logs</span>
+</div>
+<div class="flex items-center gap-md text-tertiary-fixed-dim px-md py-sm mx-sm cursor-pointer hover:bg-tertiary-container hover:text-on-tertiary-container transition-all active:scale-95">
+<span class="material-symbols-outlined">build</span>
+<span class="font-label-md text-label-md">Maintenance Hub</span>
+</div>
+<div class="flex items-center gap-md text-tertiary-fixed-dim px-md py-sm mx-sm cursor-pointer hover:bg-tertiary-container hover:text-on-tertiary-container transition-all active:scale-95">
+<span class="material-symbols-outlined">local_gas_station</span>
+<span class="font-label-md text-label-md">Fuel Tracking</span>
+</div>
+<div class="flex items-center gap-md text-tertiary-fixed-dim px-md py-sm mx-sm cursor-pointer hover:bg-tertiary-container hover:text-on-tertiary-container transition-all active:scale-95">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</div>
+</nav>
+<div class="mt-auto flex flex-col gap-base border-t border-tertiary-container pt-md">
+<div class="flex items-center gap-md text-tertiary-fixed-dim px-md py-sm mx-sm cursor-pointer hover:bg-tertiary-container hover:text-on-tertiary-container transition-all">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</div>
+<div class="flex items-center gap-md text-tertiary-fixed-dim px-md py-sm mx-sm cursor-pointer hover:bg-tertiary-container hover:text-on-tertiary-container transition-all">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Log Out</span>
+</div>
+</div>
+</aside>
+<script>
+        const hamburgerBtn = document.getElementById('hamburger-menu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+
+        function toggleSidebar() {
+            const isOpen = sidebar.classList.contains('translate-x-0');
+            if (isOpen) {
+                sidebar.classList.remove('translate-x-0');
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            } else {
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+            }
+        }
+
+        hamburgerBtn.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        // Simple feedback for clicks
+        document.querySelectorAll('.cursor-pointer').forEach(el => {
+            el.addEventListener('touchstart', function() {
+                this.classList.add('opacity-80');
+            });
+            el.addEventListener('touchend', function() {
+                this.classList.remove('opacity-80');
+            });
+        });
+    </script>
+</body></html>

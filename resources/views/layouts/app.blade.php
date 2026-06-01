@@ -1,115 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Golden Bird CRM' }}</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN (v3) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>{{ $title ?? 'BlueERP | Enterprise Fleet Management' }}</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
         tailwind.config = {
+            darkMode: "class",
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                    "colors": {
+                        "surface-bright": "#f8f9ff",
+                        "on-surface-variant": "#434652",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#1e4fa8",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "on-secondary-fixed": "#001c39",
+                        "on-primary-container": "#b2c7ff",
+                        "inverse-primary": "#b0c6ff",
+                        "tertiary-container": "#24548d",
+                        "secondary-fixed": "#d4e3ff",
+                        "primary": "#003887",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed-variant": "#124780",
+                        "on-primary-fixed-variant": "#04429b",
+                        "tertiary": "#003c73",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed": "#d4e3ff",
+                        "background": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "surface": "#f8f9ff",
+                        "tertiary-fixed-dim": "#a5c8ff",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#dce9ff",
+                        "secondary": "#1960a6",
+                        "on-surface": "#0b1c30",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "on-secondary-fixed-variant": "#004883",
+                        "inverse-surface": "#213145",
+                        "secondary-container": "#7ab3ff",
+                        "on-tertiary-container": "#a7c9ff",
+                        "surface-tint": "#2d5bb4",
+                        "on-primary-fixed": "#001945",
+                        "outline": "#737783",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-secondary-container": "#00447e",
+                        "primary-fixed": "#d9e2ff",
+                        "on-tertiary-fixed": "#001c3a"
                     }
                 }
             }
         }
     </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .sidebar-active-glow {
+            box-shadow: 0 0 15px rgba(164, 201, 255, 0.1);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c3c6d4; border-radius: 10px; }
+    </style>
     @livewireStyles
 </head>
-<body class="bg-slate-50 font-sans min-h-screen flex flex-col md:flex-row">
+<body class="bg-background text-on-surface min-h-screen flex flex-col md:flex-row">
 
     <!-- Mobile Header -->
-    <div class="md:hidden w-full bg-blue-900 text-white flex justify-between items-center px-4 py-3 shadow-md z-50">
-        <div class="text-lg font-bold tracking-wider">GOLDEN BIRD</div>
-        <button id="hamburger-btn" class="p-1 focus:outline-none focus:ring-2 focus:ring-white rounded">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path id="hamburger-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
+    <div class="md:hidden w-full bg-primary text-on-primary flex justify-between items-center px-6 py-4 shadow-md z-50">
+        <div class="flex items-center gap-2">
+            <div class="p-1 bg-secondary rounded-lg">
+                <span class="material-symbols-outlined text-on-primary text-[20px]">local_shipping</span>
+            </div>
+            <span class="text-lg font-bold tracking-wider">BlueERP</span>
+        </div>
+        <button id="hamburger-btn" class="p-1 text-on-primary focus:outline-none rounded">
+            <span class="material-symbols-outlined text-[24px]">menu</span>
         </button>
     </div>
 
-    <!-- Sidebar Left (bg-blue-900 / bg-[#1E3A8A]) -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-40 bg-blue-950 text-white w-64 flex flex-col min-h-screen shadow-2xl">
+    <!-- SIDEBAR (Fixed Left on desktop, slide-out on mobile) -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-50 bg-primary w-64 flex flex-col py-6 px-4 shadow-xl min-h-screen text-on-primary">
         <!-- Brand Header -->
-        <div class="px-6 py-5 border-b border-blue-900 hidden md:block">
-            <div class="text-xl font-extrabold tracking-wider text-slate-100">
-                GOLDEN <span class="text-yellow-400">BIRD</span>
+        <div class="mb-8 flex items-center gap-3 px-2 hidden md:flex">
+            <div class="p-1.5 bg-secondary rounded-lg">
+                <span class="material-symbols-outlined text-on-primary text-[24px]">local_shipping</span>
             </div>
-            <p class="text-[10px] text-blue-300 font-semibold uppercase mt-0.5 tracking-wider">CRM SYSTEM V1.0</p>
+            <div>
+                <h1 class="text-lg font-bold text-on-primary leading-tight">BlueERP</h1>
+                <p class="text-[9px] uppercase tracking-widest text-on-primary-container opacity-85 font-semibold">Fleet Management</p>
+            </div>
         </div>
 
         <!-- Navigation Menu -->
-        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-            <p class="text-[11px] font-semibold text-blue-400 uppercase tracking-wider px-3 mb-2">Menus</p>
-
+        <nav class="flex-grow space-y-1 overflow-y-auto px-1">
+            <!-- GM Dashboard Menu -->
             @can('crm.view')
-                <a href="/dashboard/gm" class="flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition duration-150 {{ Request::is('dashboard/gm') ? 'bg-blue-800 text-white shadow-md' : 'text-blue-200 hover:bg-blue-900 hover:text-white' }}">
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"/></svg>
-                    CRM Dashboard
+                <a href="/dashboard/gm" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::is('dashboard/gm') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm font-semibold">CRM Dashboard</span>
                 </a>
             @endcan
 
+            <!-- Fleet Index Menu -->
             @can('fleet.view')
-                <a href="/fleet" class="flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition duration-150 {{ Request::is('fleet') ? 'bg-blue-800 text-white shadow-md' : 'text-blue-200 hover:bg-blue-900 hover:text-white' }}">
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                    Fleet Management
+                <a href="/fleet" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::is('fleet*') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}">
+                    <span class="material-symbols-outlined">local_shipping</span>
+                    <span class="text-sm font-semibold">Fleet Armada</span>
                 </a>
             @endcan
 
+            <!-- Booking Menu -->
             @can('booking.view')
-                <a href="/bookings" class="flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition duration-150 {{ Request::is('bookings') ? 'bg-blue-800 text-white shadow-md' : 'text-blue-200 hover:bg-blue-900 hover:text-white' }}">
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    Booking Management
+                <a href="/bookings" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::is('bookings*') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}">
+                    <span class="material-symbols-outlined">distance</span>
+                    <span class="text-sm font-semibold">Dispatch (Booking)</span>
                 </a>
             @endcan
 
+            <!-- Finance Menu -->
             @can('finance.view')
-                <a href="/invoices" class="flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition duration-150 {{ Request::is('invoices') ? 'bg-blue-800 text-white shadow-md' : 'text-blue-200 hover:bg-blue-900 hover:text-white' }}">
-                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    Invoices & Finance
+                <a href="/invoices" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::is('invoices*') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}">
+                    <span class="material-symbols-outlined">payments</span>
+                    <span class="text-sm font-semibold">Finance & Billing</span>
                 </a>
             @endcan
         </nav>
 
-        <!-- Footer / User Control -->
-        <div class="p-4 border-t border-blue-900">
-            <form method="POST" action="/logout" class="w-full">
+        <!-- Sidebar Footer / Logout -->
+        <div class="mt-auto pt-4 border-t border-primary-container">
+            <div class="flex items-center gap-3 mb-4 px-2">
+                @php
+                    $roleImgMap = [
+                        'gm' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgfAXBZyRiqkiDnziL-EN4vadP0lVqf-xCcO1r281JlFL3Ylo-DPwhciZggofTEKMQsTNTlcyJBiM9Mxkcl3nBOS5vmyGxZi63HwxmBrETgbXocbqxuxP2AwPBgdePQuCPYPOUcUtLy8jP07NGD79VJa5IWR4ro7C_W3bCM88wsgXWMAcGIa5sqPJy2cckNLve9i4O7i_52aOevc2p4ZLbrLdhPX0TOVTazTQ7MrfaVT2iYjM4uhQ5XUw7AiA0WfAXLcDkDV-WihGe',
+                        'sales' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgfAXBZyRiqkiDnziL-EN4vadP0lVqf-xCcO1r281JlFL3Ylo-DPwhciZggofTEKMQsTNTlcyJBiM9Mxkcl3nBOS5vmyGxZi63HwxmBrETgbXocbqxuxP2AwPBgdePQuCPYPOUcUtLy8jP07NGD79VJa5IWR4ro7C_W3bCM88wsgXWMAcGIa5sqPJy2cckNLve9i4O7i_52aOevc2p4ZLbrLdhPX0TOVTazTQ7MrfaVT2iYjM4uhQ5XUw7AiA0WfAXLcDkDV-WihGe',
+                        'finance' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgfAXBZyRiqkiDnziL-EN4vadP0lVqf-xCcO1r281JlFL3Ylo-DPwhciZggofTEKMQsTNTlcyJBiM9Mxkcl3nBOS5vmyGxZi63HwxmBrETgbXocbqxuxP2AwPBgdePQuCPYPOUcUtLy8jP07NGD79VJa5IWR4ro7C_W3bCM88wsgXWMAcGIa5sqPJy2cckNLve9i4O7i_52aOevc2p4ZLbrLdhPX0TOVTazTQ7MrfaVT2iYjM4uhQ5XUw7AiA0WfAXLcDkDV-WihGe',
+                        'ops' => 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgfAXBZyRiqkiDnziL-EN4vadP0lVqf-xCcO1r281JlFL3Ylo-DPwhciZggofTEKMQsTNTlcyJBiM9Mxkcl3nBOS5vmyGxZi63HwxmBrETgbXocbqxuxP2AwPBgdePQuCPYPOUcUtLy8jP07NGD79VJa5IWR4ro7C_W3bCM88wsgXWMAcGIa5sqPJy2cckNLve9i4O7i_52aOevc2p4ZLbrLdhPX0TOVTazTQ7MrfaVT2iYjM4uhQ5XUw7AiA0WfAXLcDkDV-WihGe',
+                    ];
+                    $role = Auth::user() ? Auth::user()->roles->first()?->name : 'ops';
+                    $userImg = $roleImgMap[$role] ?? $roleImgMap['ops'];
+                @endphp
+                <img alt="User profile" class="h-10 w-10 rounded-full object-cover border-2 border-secondary" src="{{ $userImg }}"/>
+                <div class="overflow-hidden">
+                    <p class="font-bold text-xs text-on-primary truncate">{{ Auth::user()->name ?? 'Demo User' }}</p>
+                    <p class="text-[10px] text-on-primary-container opacity-85 truncate uppercase tracking-wider font-semibold">{{ strtoupper($role) }} HQ</p>
+                </div>
+            </div>
+            <form method="POST" action="/logout">
                 @csrf
-                <button type="submit" class="w-full flex items-center px-3 py-2.5 text-sm font-semibold rounded-xl text-red-300 hover:bg-red-950 hover:text-red-200 transition">
-                    <svg class="mr-3 h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                    Logout
+                <button type="submit" class="w-full flex items-center justify-center gap-2 py-2 text-red-200 hover:text-white hover:bg-error rounded-xl transition duration-200 font-semibold text-sm">
+                    <span class="material-symbols-outlined text-[18px]">logout</span>
+                    <span>Logout</span>
                 </button>
             </form>
         </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <div class="flex-1 flex flex-col overflow-hidden min-h-screen">
-        <!-- Main Top Header -->
-        <header class="bg-white shadow-sm border-b border-slate-200 py-4 px-6 flex justify-between items-center z-10">
-            <h1 class="text-lg font-bold text-slate-800 hidden md:block">
-                @yield('header_title', 'Golden Bird CRM Dashboard')
-            </h1>
-            <div class="text-right ml-auto flex items-center space-x-3">
-                <div class="hidden sm:block">
-                    <div class="text-sm font-semibold text-slate-800">
-                        {{ Auth::user()->name ?? 'Demo User' }}
-                    </div>
-                    <div class="text-[10px] font-bold text-slate-400 uppercase">
-                        {{ Auth::user()->email ?? '' }}
-                    </div>
-                </div>
-
-                <!-- Role Badge -->
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow min-h-screen flex flex-col bg-surface-bright">
+        <!-- TOP APP BAR -->
+        <header class="sticky top-0 h-16 flex items-center justify-between px-6 bg-surface-container-lowest border-b border-outline-variant z-40 shadow-sm">
+            <div class="flex items-center gap-4">
+                <nav class="flex items-center gap-1.5 text-xs font-semibold text-slate-500 font-sans">
+                    <span class="text-slate-400">BlueERP</span>
+                    <span class="material-symbols-outlined text-sm opacity-50">chevron_right</span>
+                    <span class="text-[#003887] font-extrabold uppercase tracking-wide">@yield('header_title', 'Dashboard')</span>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- User Control / Role Info -->
                 @php
-                    $role = Auth::user() ? Auth::user()->roles->first()?->name : 'guest';
                     $roleColors = [
                         'gm' => 'bg-purple-100 text-purple-800 border-purple-200',
                         'sales' => 'bg-green-100 text-green-800 border-green-200',
@@ -125,19 +204,19 @@
                     $colorClass = $roleColors[$role] ?? 'bg-slate-100 text-slate-800 border-slate-200';
                     $roleName = $roleNames[$role] ?? strtoupper($role);
                 @endphp
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border {{ $colorClass }}">
-                    {{ $roleName }}
+                <span class="bg-surface-container-high px-2.5 py-1 rounded-full text-[10px] text-primary border border-blue-200 font-bold uppercase tracking-wider">
+                    {{ $roleName }} GATEWAY
                 </span>
             </div>
         </header>
 
-        <!-- Main Inner Area -->
-        <main class="flex-1 p-6 overflow-y-auto">
+        <!-- CANVAS -->
+        <div class="p-6 flex-grow">
             @yield('content')
-        </main>
-    </div>
+        </div>
+    </main>
 
-    <!-- Mobile Sidebar Backdrop & Toggle Logic -->
+    <!-- Mobile Sidebar JavaScript -->
     <script>
         const hamburgerBtn = document.getElementById('hamburger-btn');
         const sidebar = document.getElementById('sidebar');
@@ -152,7 +231,6 @@
             }
         });
 
-        // Close sidebar when clicking outside of it on mobile
         document.addEventListener('click', (e) => {
             if (sidebarOpen && !sidebar.contains(e.target) && !hamburgerBtn.contains(e.target)) {
                 sidebarOpen = false;

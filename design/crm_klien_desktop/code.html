@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BlueERP | CRM Klien</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#434652",
+                    "on-surface": "#0b1c30",
+                    "background": "#f8f9ff",
+                    "on-tertiary-container": "#a7c9ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary": "#1960a6",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "on-secondary-container": "#00447e",
+                    "primary": "#003887",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#24548d",
+                    "outline-variant": "#c3c6d4",
+                    "tertiary": "#003c73",
+                    "surface-tint": "#2d5bb4",
+                    "inverse-surface": "#213145",
+                    "surface-container": "#e5eeff",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#a5c8ff",
+                    "on-primary-container": "#b2c7ff",
+                    "outline": "#737783",
+                    "on-background": "#0b1c30",
+                    "inverse-primary": "#b0c6ff",
+                    "surface-container-high": "#dce9ff",
+                    "tertiary-fixed": "#d4e3ff",
+                    "on-tertiary-fixed-variant": "#124780",
+                    "on-secondary-fixed": "#001c39",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#001c3a",
+                    "on-secondary-fixed-variant": "#004883",
+                    "on-primary-fixed-variant": "#04429b",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#eff4ff",
+                    "surface-dim": "#cbdbf5",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#d9e2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#d4e3ff",
+                    "secondary-container": "#7ab3ff",
+                    "surface-variant": "#d3e4fe",
+                    "primary-container": "#1e4fa8",
+                    "surface": "#f8f9ff",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f8f9ff",
+                    "secondary-fixed-dim": "#a4c9ff",
+                    "on-primary-fixed": "#001945"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "2xl": "48px",
+                    "sm": "8px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "base": "4px",
+                    "margin-mobile": "16px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "margin-desktop": "32px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .tier-platinum { color: #2d5bb4; background-color: #d9e2ff; }
+        .tier-gold { color: #855d00; background-color: #fff0c3; }
+        .tier-silver { color: #535f70; background-color: #e1e2ec; }
+    </style>
+</head>
+<body class="flex min-h-screen text-on-surface">
+<!-- SIDEBAR NAVIGATION (Shared Component Mapping) -->
+<aside class="flex flex-col h-full py-lg px-md w-64 z-50 fixed left-0 top-0 bg-tertiary dark:bg-on-tertiary-fixed-variant shadow-md">
+<div class="flex items-center gap-md mb-xl px-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="BlueERP Logo" class="w-full h-full object-cover" data-alt="A minimalist and professional corporate logo for a fleet management software called BlueERP. The logo features a stylized geometric blue truck or abstract bird shape, representing speed and efficiency, set against a clean white background. The aesthetic is modern, tech-focused, and utilizes various shades of deep navy and bright azure blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNO-kJ1jIpcJlunordVFU-aIa8QOZdA2b-_9RklrXMqA8gMfqvl1ggn4jjwwPjBok1ncrRGL_w9q758ryFzSmOmMRWS3qrn0H4ZUNgSylOf52x1sM2k5LUvOkt0fN_JuFRJgaLSONuF8C9H-MOpseTsNl7bARUkQq6KqwRZoYmwy5kaBbT9bffnZp6c3jlYayPKrasrXFeZdyYSSsvTp90CWd2uq6aO11IADAVJL3bj9J8XzEkUUnTplX6n1dHNED5mlR_Mnal3ZHb"/>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md text-on-tertiary font-bold tracking-tight">BlueERP</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-tertiary/60 font-semibold">Fleet Management</p>
+</div>
+</div>
+<nav class="flex-1 space-y-base">
+<!-- Nav Item: Fleet Armada -->
+<a class="flex items-center gap-md px-md py-sm text-on-tertiary/70 hover:text-on-tertiary hover:bg-tertiary-container/50 transition-all rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span>Fleet Armada</span>
+</a>
+<!-- Nav Item: Dispatch -->
+<a class="flex items-center gap-md px-md py-sm text-on-tertiary/70 hover:text-on-tertiary hover:bg-tertiary-container/50 transition-all rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">route</span>
+<span>Dispatch</span>
+</a>
+<!-- Nav Item: CRM (ACTIVE) -->
+<a class="flex items-center gap-md px-md py-sm bg-tertiary-container text-on-tertiary-container font-semibold rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span>CRM</span>
+</a>
+<!-- Nav Item: Finance -->
+<a class="flex items-center gap-md px-md py-sm text-on-tertiary/70 hover:text-on-tertiary hover:bg-tertiary-container/50 transition-all rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Finance</span>
+</a>
+<!-- Nav Item: Maintenance -->
+<a class="flex items-center gap-md px-md py-sm text-on-tertiary/70 hover:text-on-tertiary hover:bg-tertiary-container/50 transition-all rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">build</span>
+<span>Maintenance</span>
+</a>
+<!-- Nav Item: Reporting -->
+<a class="flex items-center gap-md px-md py-sm text-on-tertiary/70 hover:text-on-tertiary hover:bg-tertiary-container/50 transition-all rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span>Reporting</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-on-tertiary/10">
+<a class="flex items-center gap-md px-md py-sm text-on-tertiary/70 hover:text-on-tertiary hover:bg-tertiary-container/50 transition-all rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="flex-1 ml-64 p-lg bg-background min-h-screen relative">
+<!-- TOP APP BAR -->
+<header class="flex justify-between items-center mb-xl">
+<div>
+<nav class="flex items-center gap-xs text-on-surface-variant font-body-sm text-body-sm mb-xs">
+<a class="hover:text-primary transition-colors" href="#">CRM</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-medium text-on-surface">Klien</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">CRM Klien</h2>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-md bg-surface-container px-md py-xs rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm placeholder:text-outline w-48" placeholder="Global search..." type="text"/>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full border-2 border-primary-container overflow-hidden ml-sm cursor-pointer hover:opacity-90 transition-opacity">
+<img alt="User profile" data-alt="A professional headshot of a corporate manager in a clean, brightly lit office environment. He is wearing a tailored grey suit and a white shirt, looking directly at the camera with a confident and friendly expression. The lighting is soft and high-key, reflecting a modern SaaS dashboard user profile aesthetic with clean lines and a professional mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUsztJebRPGuHgzxwa5HT0KanTue9EMSoF4wh1zYnPW4dEe97ElNP02JKzVMwESEuQnpwng6Vea0m-P-FBi-7st-w7b-lg-qP6hzl128B8_Ja-8t9uUZ2yzt649U4aaAK6vxlejmd1uMlCoSQAeWpwFzZqC5wYqfk4mYPw_dkh4fERLhaXz0tkWzoLOOqipKHIMeHNJWhFqycmAuxBNmxjYHp5XM5qZ84S3b52EOS--ihhSSoOGPjq2ymkvdkJZTisisillZ6IcqBf"/>
+</div>
+</div>
+</div>
+</header>
+<!-- KPI CARDS -->
+<div class="grid grid-cols-4 gap-lg mb-xl">
+<!-- Total Klien -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-primary-container/10 rounded-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">groups</span>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant/60">LIVE</span>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface mb-xs">156</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Total Klien</div>
+</div>
+<!-- Status Aktif -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-green-100 rounded-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+</div>
+<div class="px-sm py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold">91% RATE</div>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface mb-xs">142</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Status Aktif</div>
+</div>
+<!-- Distribusi Tier -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-all">
+<div class="flex justify-between items-center mb-sm">
+<div class="font-body-sm text-body-sm font-semibold text-on-surface-variant">Distribusi Tier</div>
+<span class="material-symbols-outlined text-outline text-[18px]">info</span>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center justify-between">
+<span class="flex items-center gap-sm font-label-md text-label-md text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Platinum
+                        </span>
+<span class="font-bold text-on-surface text-body-sm">42</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="flex items-center gap-sm font-label-md text-label-md text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Gold
+                        </span>
+<span class="font-bold text-on-surface text-body-sm">68</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="flex items-center gap-sm font-label-md text-label-md text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-outline"></span> Silver
+                        </span>
+<span class="font-bold text-on-surface text-body-sm">46</span>
+</div>
+</div>
+</div>
+<!-- Pertumbuhan -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-tertiary-fixed rounded-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary">trending_up</span>
+</div>
+</div>
+<div class="font-display-lg text-display-lg text-primary mb-xs">+5</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Klien baru bulan ini</div>
+</div>
+</div>
+<!-- FILTER BAR -->
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant mb-lg flex flex-wrap items-center gap-md">
+<div class="flex-1 min-w-[300px] relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-xl pr-md py-sm bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary text-body-md" placeholder="Cari nama perusahaan atau PIC..." type="text"/>
+</div>
+<div class="flex items-center gap-sm">
+<select class="px-md py-sm bg-white border border-outline-variant rounded-lg font-body-md text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none min-w-[140px]">
+<option value="">Semua Tier</option>
+<option value="platinum">Platinum</option>
+<option value="gold">Gold</option>
+<option value="silver">Silver</option>
+<option value="bronze">Bronze</option>
+</select>
+<select class="px-md py-sm bg-white border border-outline-variant rounded-lg font-body-md text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none min-w-[140px]">
+<option value="">Semua Status</option>
+<option value="active">Active</option>
+<option value="inactive">Inactive</option>
+</select>
+</div>
+<button class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors border border-transparent hover:border-outline-variant font-label-md text-label-md">
+<span class="material-symbols-outlined">filter_list</span>
+                Lainnya
+            </button>
+<button class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined">file_download</span>
+                Ekspor
+            </button>
+</div>
+<!-- TABLE SECTION -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden mb-2xl">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Nama Perusahaan</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">PIC</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Kontak</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant text-center">Tier</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant text-center">Booking Aktif</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Meeting Terakhir</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Sales PIC</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Data Row 1 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<a class="font-title-lg text-title-lg text-primary hover:underline" href="#">PT Astra International</a>
+<p class="text-body-sm text-on-surface-variant/60 font-body-sm">ID: K-00124</p>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface">Budi Santoso</td>
+<td class="px-lg py-md">
+<div class="font-body-sm text-body-sm text-on-surface">budi@astra.com</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">+62 812-3456-7890</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="px-sm py-1 rounded-full text-[11px] font-bold uppercase tracking-wider tier-platinum">Platinum</span>
+</td>
+<td class="px-lg py-md text-center">
+<span class="font-headline-md text-headline-md text-on-surface">12</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface">12 Okt 2023</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary-container text-[10px] flex items-center justify-center font-bold">A</div>
+<span class="font-body-md text-body-md text-on-surface">Ahmad</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm rounded-lg text-outline hover:text-primary hover:bg-primary/5">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Data Row 2 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<a class="font-title-lg text-title-lg text-primary hover:underline" href="#">Telkom Indonesia</a>
+<p class="text-body-sm text-on-surface-variant/60 font-body-sm">ID: K-00155</p>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface">Siti Aminah</td>
+<td class="px-lg py-md">
+<div class="font-body-sm text-body-sm text-on-surface">siti@telkom.id</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">+62 811-9988-7766</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="px-sm py-1 rounded-full text-[11px] font-bold uppercase tracking-wider tier-gold">Gold</span>
+</td>
+<td class="px-lg py-md text-center">
+<span class="font-headline-md text-headline-md text-on-surface">8</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface">15 Okt 2023</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary-container text-[10px] flex items-center justify-center font-bold">A</div>
+<span class="font-body-md text-body-md text-on-surface">Ahmad</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm rounded-lg text-outline hover:text-primary hover:bg-primary/5">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Data Row 3 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<a class="font-title-lg text-title-lg text-primary hover:underline" href="#">Gojek</a>
+<p class="text-body-sm text-on-surface-variant/60 font-body-sm">ID: K-00201</p>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface">Kevin Alwi</td>
+<td class="px-lg py-md">
+<div class="font-body-sm text-body-sm text-on-surface">kevin@gojek.com</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">+62 813-0000-1111</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="px-sm py-1 rounded-full text-[11px] font-bold uppercase tracking-wider tier-silver">Silver</span>
+</td>
+<td class="px-lg py-md text-center">
+<span class="font-headline-md text-headline-md text-on-surface">5</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface">18 Okt 2023</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container text-[10px] flex items-center justify-center font-bold">D</div>
+<span class="font-body-md text-body-md text-on-surface">Dian</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm rounded-lg text-outline hover:text-primary hover:bg-primary/5">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Repeat filler rows for density -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-md">
+<a class="font-title-lg text-title-lg text-primary hover:underline" href="#">Traveloka</a>
+<p class="text-body-sm text-on-surface-variant/60 font-body-sm">ID: K-00210</p>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface">Ferry Unardi</td>
+<td class="px-lg py-md">
+<div class="font-body-sm text-body-sm text-on-surface">ferry@traveloka.com</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">+62 812-1212-3434</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="px-sm py-1 rounded-full text-[11px] font-bold uppercase tracking-wider tier-gold">Gold</span>
+</td>
+<td class="px-lg py-md text-center">
+<span class="font-headline-md text-headline-md text-on-surface">15</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-on-surface">20 Okt 2023</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary-container text-[10px] flex items-center justify-center font-bold">A</div>
+<span class="font-body-md text-body-md text-on-surface">Ahmad</span>
+</div>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-sm rounded-lg text-outline hover:text-primary hover:bg-primary/5">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="bg-surface-container-low px-lg py-md flex items-center justify-between">
+<div class="text-body-sm text-on-surface-variant">Showing 1-4 of 156 clients</div>
+<div class="flex items-center gap-base">
+<button class="p-sm rounded-lg hover:bg-surface-container-highest disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-bold text-body-sm">1</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-highest text-on-surface-variant font-medium text-body-sm">2</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-highest text-on-surface-variant font-medium text-body-sm">3</button>
+<span class="px-sm text-outline">...</span>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-highest text-on-surface-variant font-medium text-body-sm">39</button>
+<button class="p-sm rounded-lg hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- FAB: ADD NEW CLIENT -->
+<button class="fixed bottom-xl right-xl flex items-center gap-md px-xl py-lg bg-primary text-on-primary rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all z-40 group">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+<span class="font-title-lg text-title-lg">+ Klien Baru</span>
+</button>
+</main>
+<script>
+        // Micro-interactions for table rows and buttons
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', (e) => {
+                if (e.target.closest('button') || e.target.closest('a')) return;
+                console.log('Row clicked - Navigate to detail');
+                // Potential navigation logic: window.location.href = '/crm/klien/details';
+            });
+        });
+
+        // Search highlight interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20', 'border-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20', 'border-primary');
+        });
+    </script>
+</body></html>

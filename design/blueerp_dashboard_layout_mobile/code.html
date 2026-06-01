@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BlueERP | Enterprise Fleet Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f8f9ff",
+                        "on-surface-variant": "#434652",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#1e4fa8",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "on-secondary-fixed": "#001c39",
+                        "on-primary-container": "#b2c7ff",
+                        "inverse-primary": "#b0c6ff",
+                        "tertiary-container": "#24548d",
+                        "secondary-fixed": "#d4e3ff",
+                        "primary": "#003887",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed-variant": "#124780",
+                        "on-primary-fixed-variant": "#04429b",
+                        "tertiary": "#003c73",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed": "#d4e3ff",
+                        "background": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "surface": "#f8f9ff",
+                        "tertiary-fixed-dim": "#a5c8ff",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#dce9ff",
+                        "secondary": "#1960a6",
+                        "on-surface": "#0b1c30",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "on-secondary-fixed-variant": "#004883",
+                        "inverse-surface": "#213145",
+                        "secondary-container": "#7ab3ff",
+                        "on-tertiary-container": "#a7c9ff",
+                        "surface-tint": "#2d5bb4",
+                        "on-primary-fixed": "#001945",
+                        "outline": "#737783",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-secondary-container": "#00447e",
+                        "primary-fixed": "#d9e2ff",
+                        "on-tertiary-fixed": "#001c3a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "gutter": "24px",
+                        "2xl": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-transition { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        @media (max-width: 768px) {
+            .sidebar-closed { transform: translateX(-100%); }
+            .sidebar-open { transform: translateX(0); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-bright text-on-surface">
+<!-- Backdrop for mobile sidebar -->
+<div class="fixed inset-0 bg-on-surface/40 z-40 hidden md:hidden" id="sidebar-backdrop" onclick="toggleSidebar()"></div>
+<!-- SideNavBar Component -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-primary dark:bg-primary text-on-primary shadow-md z-50 sidebar-transition sidebar-closed md:sidebar-open flex flex-col h-full py-lg px-md" id="main-sidebar">
+<div class="mb-xl px-sm flex items-center justify-between">
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">BlueERP</h1>
+<p class="font-body-md text-body-md opacity-80">Enterprise Fleet Management</p>
+</div>
+<button class="md:hidden text-on-primary" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex-grow space-y-sm">
+<!-- Active: Fleet Armada -->
+<a class="flex items-center gap-md px-md py-sm bg-secondary text-on-secondary rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-body-md text-body-md">Fleet Armada</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="distance">distance</span>
+<span class="font-body-md text-body-md">Dispatch</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md text-body-md">CRM</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-body-md text-body-md">Finance</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+<span class="font-body-md text-body-md">Maintenance</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-primary-container hover:bg-primary-container hover:text-on-primary-container rounded-lg transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-body-md text-body-md">Reporting</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-on-primary/10">
+<div class="flex items-center gap-md px-sm">
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a middle-aged executive in a modern office setting. The lighting is soft and natural, emphasizing a professional yet approachable demeanor. The color palette is clean and professional with soft blues and neutral tones. The image style is sharp, high-definition digital photography with a blurred office background to maintain focus on the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARzb0SaP2NOwNqrJ6YP7RUcK9SR0hUN1BOfDlMWgv46iTSWQbuy_VkwHhxRDyEt_A_FnVPEi0owqWbplpgEY6wS19yxeLv73-l07aByJulF7TiY3hG1sVUygi9gd1a9gOwMNJYHF3b_sPjpOBek9hjwSmG1Y0s7HOKJmA0v-yO3wkculLZBCfyyA8AhAnLHlhYjEtFFG8A-51iU_8Ldi1pZ3Jt4OoA43Xr_fxTXiQQTct5Zt9tUTvecBzoFTRFXgSEeCz6YizJC2U8"/>
+<div class="overflow-hidden">
+<p class="font-title-lg text-title-lg truncate">Marcus Miller</p>
+<p class="font-body-sm text-body-sm opacity-70">Admin Account</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<div class="md:ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar Component -->
+<header class="flex justify-between items-center h-16 px-lg bg-surface-container-lowest dark:bg-surface-container-low border-b border-outline-variant shadow-sm sticky top-0 z-30 transition-all duration-300">
+<div class="flex items-center gap-md">
+<button class="md:hidden p-sm hover:bg-surface-container-high rounded-full transition-all" onclick="toggleSidebar()">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<nav class="hidden sm:flex items-center gap-xs font-body-md text-on-surface-variant">
+<span>Fleet Armada</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Dashboard</span>
+</nav>
+</div>
+<div class="flex items-center gap-lg">
+<span class="hidden lg:inline-flex px-sm py-xs bg-surface-container-high text-on-secondary-fixed-variant rounded-lg font-label-md text-label-md">
+                    Operations Admin
+                </span>
+<div class="flex items-center gap-sm">
+<button class="p-sm hover:bg-surface-container-high rounded-full relative transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-sm hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-xs"></div>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Close up profile avatar of a male operations manager in a high-tech logistics control room. The lighting is sophisticated, with cool blue ambient light reflecting from data screens. The image captures a sense of professional enterprise control and modern corporate identity. High quality digital photography with crisp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoSicxcuO3vo8BddUYI4a-1a6-1RgP4jyHvKCX67POV1mkjJWo8yCbCa-tut7hhRo0hdH1OdtCf6l3o1lZYe7C4jCyuftXVM54ce9mzG4BoAezlohDRuSduyU1SVaSz6keS6Q8M8y73Bwdydzk_VMZ8989TMiSact57v6_fbP-rhyNHU0wjViOyo2yO4uJlBvKcPcB9_vfvxkvvOQvz_5CG-6cRTEabDPwc1K5GfupDrvXYjcR1aJ9D6uCLIZZTEZq0ZdyOdovSqoS"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow p-md md:p-lg bg-surface-bright">
+<div class="max-w-7xl mx-auto space-y-lg">
+<!-- Welcome Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Welcome back, Operations Admin</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Here's what's happening with your fleet today.</p>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-sm bg-surface-container-high text-primary font-title-lg text-title-lg rounded-lg hover:shadow-sm transition-all flex items-center gap-sm">
+<span class="material-symbols-outlined">download</span>
+                            Export Data
+                        </button>
+<button class="px-md py-sm bg-primary text-on-primary font-title-lg text-title-lg rounded-lg hover:shadow-md transition-all flex items-center gap-sm">
+<span class="material-symbols-outlined">add</span>
+                            New Dispatch
+                        </button>
+</div>
+</section>
+<!-- Bento Grid Dashboard Summary -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Main KPI Cards -->
+<div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-md">
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between mb-sm">
+<span class="material-symbols-outlined text-primary p-xs bg-surface-container-high rounded-lg">local_shipping</span>
+<span class="text-green-600 font-label-md text-label-md flex items-center">+4.2%</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active Trucks</p>
+<h3 class="font-display-lg text-display-lg text-on-surface mt-xs">142</h3>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between mb-sm">
+<span class="material-symbols-outlined text-secondary p-xs bg-surface-container-high rounded-lg">distance</span>
+<span class="text-on-surface-variant font-label-md text-label-md">On Schedule</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Daily Mileage</p>
+<h3 class="font-display-lg text-display-lg text-on-surface mt-xs">8.4k</h3>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between mb-sm">
+<span class="material-symbols-outlined text-error p-xs bg-error-container rounded-lg" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="text-error font-label-md text-label-md">Requires Action</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active Alerts</p>
+<h3 class="font-display-lg text-display-lg text-on-surface mt-xs">12</h3>
+</div>
+</div>
+<!-- Fleet Status Card -->
+<div class="md:col-span-4 bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col">
+<h4 class="font-title-lg text-title-lg mb-md">Fleet Health Distribution</h4>
+<div class="flex-grow flex items-center justify-center py-md relative">
+<!-- Simulated Chart Placeholder -->
+<div class="w-32 h-32 rounded-full border-[12px] border-primary flex items-center justify-center">
+<div class="text-center">
+<p class="font-headline-md text-headline-md">92%</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Optimal</p>
+</div>
+</div>
+</div>
+<div class="space-y-sm mt-md">
+<div class="flex justify-between items-center">
+<span class="flex items-center gap-sm font-body-sm text-body-sm"><span class="w-2 h-2 rounded-full bg-primary"></span> Excellent</span>
+<span class="font-body-sm text-body-sm font-bold">124</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="flex items-center gap-sm font-body-sm text-body-sm"><span class="w-2 h-2 rounded-full bg-secondary"></span> Scheduled</span>
+<span class="font-body-sm text-body-sm font-bold">12</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="flex items-center gap-sm font-body-sm text-body-sm"><span class="w-2 h-2 rounded-full bg-error"></span> Urgent</span>
+<span class="font-body-sm text-body-sm font-bold">6</span>
+</div>
+</div>
+</div>
+<!-- Live Dispatch Map -->
+<div class="md:col-span-12 lg:col-span-9 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden h-96 relative group">
+<div class="absolute inset-0 bg-surface-container-high animate-pulse group-hover:animate-none flex items-center justify-center overflow-hidden">
+<img alt="Fleet tracking map" class="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-700" data-alt="A sophisticated digital satellite map view of a major metropolitan logistics hub with glowing blue data points and vector lines representing live fleet dispatch routes. The style is hi-tech enterprise software, with a clean and minimal interface overlay. The color palette is dominated by deep blues and greys, with vibrant neon light trails marking vehicle paths. Cinematic and architectural lighting feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNoM3MmOifwqMT_GwgptUqaowusQh329mIQldyx-jmdwDDpERPNPP_5loVqjcJposUtj5niEIccj99NVNN33JRWt975sbp3FgbqO8q8A4nIT-qIUoyllHH0_iKRzbk-QikMoXIvjfNsUIxdTL26aemBCdRJ4C6MGZ0QMKNSHfhTtsOnauBhn7_p3Z2v5HCtpAcbgSV4t0AJSzroGVhqL5MCsa3YocgHDKI9MNDkjnC02GwRXDq6TnfoM0-g8pA1CSz24fmry37ssNg"/>
+</div>
+<div class="absolute top-md left-md bg-surface-container-lowest/90 backdrop-blur-md p-sm rounded-lg shadow-md border border-outline-variant max-w-xs">
+<p class="font-title-lg text-title-lg mb-xs">Live Fleet Map</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Viewing 142 vehicles across tri-state area.</p>
+</div>
+<div class="absolute bottom-md right-md flex gap-sm">
+<button class="bg-surface-container-lowest p-sm rounded-full shadow-md hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-primary">zoom_in</span>
+</button>
+<button class="bg-surface-container-lowest p-sm rounded-full shadow-md hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-primary">my_location</span>
+</button>
+</div>
+</div>
+<!-- Recent Activity -->
+<div class="md:col-span-12 lg:col-span-3 bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm">
+<h4 class="font-title-lg text-title-lg mb-md">Recent Alerts</h4>
+<div class="space-y-md">
+<div class="flex gap-md border-l-2 border-error pl-md py-xs">
+<div class="flex-grow">
+<p class="font-body-md text-body-md font-bold">Engine Fault - Unit 402</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Critical pressure drop detected.</p>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">2 mins ago</p>
+</div>
+</div>
+<div class="flex gap-md border-l-2 border-secondary pl-md py-xs">
+<div class="flex-grow">
+<p class="font-body-md text-body-md font-bold">New Maintenance Req</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Routine 50k service due soon.</p>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">1 hour ago</p>
+</div>
+</div>
+<div class="flex gap-md border-l-2 border-primary pl-md py-xs">
+<div class="flex-grow">
+<p class="font-body-md text-body-md font-bold">Route Efficiency Update</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Optimal route found for Hub B.</p>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">3 hours ago</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-lg py-sm text-primary font-title-lg text-title-lg border border-primary/20 rounded-lg hover:bg-primary/5 transition-all">
+                            View All Logs
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('main-sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            
+            if (sidebar.classList.contains('sidebar-closed')) {
+                sidebar.classList.remove('sidebar-closed');
+                sidebar.classList.add('sidebar-open');
+                backdrop.classList.remove('hidden');
+            } else {
+                sidebar.classList.remove('sidebar-open');
+                sidebar.classList.add('sidebar-closed');
+                backdrop.classList.add('hidden');
+            }
+        }
+    </script>
+</body></html>

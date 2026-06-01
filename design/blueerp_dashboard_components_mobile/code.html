@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BlueERP Fleet Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#003c73",
+                        "inverse-surface": "#213145",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary-fixed-variant": "#004883",
+                        "surface-tint": "#2d5bb4",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c3c6d4",
+                        "surface-bright": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "surface-container-high": "#dce9ff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "primary": "#003887",
+                        "secondary": "#1960a6",
+                        "outline": "#737783",
+                        "surface-dim": "#cbdbf5",
+                        "on-tertiary-container": "#a7c9ff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#04429b",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#7ab3ff",
+                        "tertiary-fixed-dim": "#a5c8ff",
+                        "primary-container": "#1e4fa8",
+                        "surface-container": "#e5eeff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-fixed": "#d4e3ff",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#001945",
+                        "on-surface-variant": "#434652",
+                        "primary-fixed": "#d9e2ff",
+                        "tertiary-fixed": "#d4e3ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-container": "#00447e",
+                        "on-secondary-fixed": "#001c39",
+                        "background": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#124780",
+                        "on-primary-container": "#b2c7ff",
+                        "on-background": "#0b1c30",
+                        "on-tertiary-fixed": "#001c3a",
+                        "surface": "#f8f9ff",
+                        "inverse-primary": "#b0c6ff",
+                        "tertiary-container": "#24548d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "md": "16px",
+                        "gutter": "24px",
+                        "sm": "8px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "2xl": "48px",
+                        "xs": "4px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky z-50 flex justify-between items-center px-md py-sm bg-surface-container-lowest border-b border-outline-variant shadow-sm h-16">
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-headline-md font-extrabold text-primary">BlueERP Fleet</span>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant p-xs active:opacity-80 transition-all">notifications</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate manager in a clean, high-key studio setting. The lighting is soft and even, highlighting a friendly yet authoritative expression. The background is a minimalist, neutral gray that emphasizes the blue and white professional attire, consistent with a modern enterprise software user interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYDBtkRbcBY-YTm8gqlGXMMrmP6IDmoTJQtCHUrmkQdp4K2IRFPlT1TSVkAMTWYE6vBpVlgRJf7y_nKp1bHnEn9IgkHWENrBEaNc17WaVgMRuAvQuM8Aj9kSjUq7D-xIkbhvEoQss-4grSycx8x0VMo0qZB0b2xT51eDG-sPuXHDlAnj4M3BJMSuOQd5sOVaspE2Z9aGJiYZhdJuyGYSmlpcf99FSgK8yIQc3KL4fF48G0Ao8mM_x_iUNv1CyDD4yunHsak7mK_O80"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 px-margin-mobile py-lg overflow-y-auto">
+<!-- Header Section -->
+<div class="mb-lg">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Dashboard</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ringkasan operasional armada hari ini.</p>
+</div>
+<!-- Stats Grid (Mobile 2-column) -->
+<div class="grid grid-cols-2 gap-md mb-2xl">
+<!-- Total Fleet -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary text-[20px]">local_shipping</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Total Fleet</span>
+<span class="font-headline-md text-headline-md text-on-surface">124</span>
+</div>
+<!-- Available -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[#10B981] text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Available</span>
+<span class="font-headline-md text-headline-md text-on-surface">86</span>
+</div>
+<!-- PO -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-secondary text-[20px]">receipt_long</span>
+<span class="font-label-md text-label-md text-on-surface-variant">PO</span>
+<span class="font-headline-md text-headline-md text-on-surface">12</span>
+</div>
+<!-- Hold -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[#F59E0B] text-[20px]">pause_circle</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Hold</span>
+<span class="font-headline-md text-headline-md text-on-surface">5</span>
+</div>
+<!-- Maintenance (Full Width) -->
+<div class="col-span-2 bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex items-center justify-between active:scale-[0.98] transition-transform">
+<div class="flex flex-col gap-xs">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-error text-[20px]">build</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Maintenance</span>
+</div>
+<span class="font-headline-md text-headline-md text-on-surface">21 <span class="text-body-sm font-normal text-on-surface-variant ml-1">kendaraan</span></span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+<!-- Empty State Section -->
+<div class="flex flex-col items-center justify-center py-2xl px-lg text-center bg-surface-container-low rounded-xl border border-dashed border-outline-variant">
+<div class="w-48 h-48 mb-md flex items-center justify-center">
+<img alt="Empty state illustration" class="max-w-full max-h-full object-contain opacity-80" data-alt="A clean and modern vector-style 3D illustration of an empty parking lot or a minimalist garage. The aesthetic is professional and corporate, using a primary palette of soft blues and crisp whites. The lighting is bright and airy, reflecting an enterprise-grade SaaS environment. The scene is calm and uncluttered, suggesting a fresh start or a state where no data is currently available." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsfqkVsgDS0ic1uxig1dlhRI-tOmuAaJo6x-mtZ2YtSzAZdGgkTxKUdkp1xY6jYYvsl0gMHBmntvzl9rtAYk33O7G1FJF6ev3cJ2Ox0RlsWbVuGEUCizww2XqqVI9REJmpBIOEqJGlhm1ueq92okelW90nMHhIuR32ccsiQAdd1kypbIpGwqbsqg4Wen4cTSgRC_sQe66KyLD1AEXGB05av6CvcQrJ6hAA-5q5sZgToiYtS6mFO8pQIitMy-IP1cCEz9cZpXS4CMJk"/>
+</div>
+<h2 class="font-title-lg text-title-lg text-on-surface mb-xs">Tidak ada data</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg max-w-[240px]">
+                Belum ada aktivitas kendaraan yang tercatat. Silakan tambah kendaraan baru untuk mulai mengelola armada Anda.
+            </p>
+<button class="bg-primary text-on-primary px-lg py-md rounded-xl font-title-lg flex items-center gap-sm active:scale-95 transition-all shadow-md">
+<span class="material-symbols-outlined">add</span>
+                Tambah Kendaraan
+            </button>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile Destination Rule) -->
+<nav class="md:hidden w-full bg-surface-container-lowest flex justify-around items-center py-sm border-t border-outline-variant sticky bottom-0 z-50 shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
+<div class="flex flex-col items-center gap-1 px-md py-1 bg-secondary-container text-on-secondary-container rounded-xl font-semibold transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] uppercase tracking-wider font-bold">Overview</span>
+</div>
+<div class="flex flex-col items-center gap-1 px-md py-1 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="text-[10px] uppercase tracking-wider font-bold">Vehicles</span>
+</div>
+<div class="flex flex-col items-center gap-1 px-md py-1 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-[10px] uppercase tracking-wider font-bold">Assign</span>
+</div>
+<div class="flex flex-col items-center gap-1 px-md py-1 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-[10px] uppercase tracking-wider font-bold">Analytics</span>
+</div>
+<div class="flex flex-col items-center gap-1 px-md py-1 text-on-surface-variant hover:bg-surface-variant rounded-xl transition-all">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] uppercase tracking-wider font-bold">Settings</span>
+</div>
+</nav>
+<!-- Floating Action Button (FAB - Contextual) -->
+<div class="fixed bottom-24 right-margin-mobile md:hidden">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-xl flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+</div>
+</body></html>

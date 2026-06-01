@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BlueERP CRM - Client Index</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#434652",
+                      "on-surface": "#0b1c30",
+                      "background": "#f8f9ff",
+                      "on-tertiary-container": "#a7c9ff",
+                      "surface-container-highest": "#d3e4fe",
+                      "secondary": "#1960a6",
+                      "primary-fixed-dim": "#b0c6ff",
+                      "on-secondary-container": "#00447e",
+                      "primary": "#003887",
+                      "error": "#ba1a1a",
+                      "tertiary-container": "#24548d",
+                      "outline-variant": "#c3c6d4",
+                      "tertiary": "#003c73",
+                      "surface-tint": "#2d5bb4",
+                      "inverse-surface": "#213145",
+                      "surface-container": "#e5eeff",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#a5c8ff",
+                      "on-primary-container": "#b2c7ff",
+                      "outline": "#737783",
+                      "on-background": "#0b1c30",
+                      "inverse-primary": "#b0c6ff",
+                      "surface-container-high": "#dce9ff",
+                      "tertiary-fixed": "#d4e3ff",
+                      "on-tertiary-fixed-variant": "#124780",
+                      "on-secondary-fixed": "#001c39",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed": "#001c3a",
+                      "on-secondary-fixed-variant": "#004883",
+                      "on-primary-fixed-variant": "#04429b",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#eff4ff",
+                      "surface-dim": "#cbdbf5",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#d9e2ff",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed": "#d4e3ff",
+                      "secondary-container": "#7ab3ff",
+                      "surface-variant": "#d3e4fe",
+                      "primary-container": "#1e4fa8",
+                      "surface": "#f8f9ff",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "surface-bright": "#f8f9ff",
+                      "secondary-fixed-dim": "#a4c9ff",
+                      "on-primary-fixed": "#001945"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "2xl": "48px",
+                      "sm": "8px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "base": "4px",
+                      "margin-mobile": "16px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "margin-desktop": "32px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "label-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { display: none; }
+        .glass-header { backdrop-filter: blur(8px); background-color: rgba(248, 249, 255, 0.85); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-40 flex justify-between items-center px-lg py-sm w-full bg-surface shadow-sm glass-header">
+<div class="flex items-center gap-md">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-high transition-colors active:opacity-80">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">BlueERP</h1>
+</div>
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate manager in a clean, modern office environment. The lighting is soft and natural, emphasizing a bright, trustworthy persona. The background features subtle blue tones and minimalist decor, maintaining a consistent high-end enterprise SaaS visual style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFITLXGc4B5Gzh-cA0lx2jWsLHWrDcNUVo4xEpyZ181nc-K-rTq_y1rZS_3HLnjw272XQswDAxO1s5Wgr5pPibSppbLELfxXCMCtJkLAzRupnwEbSZvKD3xbgG9qzIpNZJVWv3XVgJH8kyH3Y01hjRoVPTO_WbnFoinGxEPy5n8YZrcV1beNGeryfIJPFx_Qa_ugjnWJTYcR26CSzAky77Xynk2MdUtwVR3uOLmi5aPpCjbMIDItrXwerC1_7Gdvi8hPCUyb1wUmfV"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-[64px] pb-24 px-margin-mobile flex flex-col gap-lg">
+<!-- Welcome & Breadcrumb -->
+<section class="mt-md">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">CRM</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manajemen Data Klien</p>
+</section>
+<!-- KPI Section: 2x2 Grid -->
+<section class="grid grid-cols-2 gap-md">
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">1,284</span>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active</span>
+<span class="font-headline-md text-headline-md font-bold text-secondary">942</span>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Tier Distrib</span>
+<span class="font-headline-md text-headline-md font-bold text-tertiary-container">Gold (40%)</span>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-xs">
+<span class="material-symbols-outlined text-[#10B981] text-[20px]" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Growth</span>
+<span class="font-headline-md text-headline-md font-bold text-[#10B981]">+12.4%</span>
+</div>
+</section>
+<!-- Filter & Search Section -->
+<section class="flex gap-sm items-center">
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-xl text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Cari nama klien atau perusahaan..." type="text"/>
+</div>
+<button class="w-[48px] h-[48px] flex items-center justify-center bg-surface-container-high border border-outline-variant rounded-xl active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface">filter_list</span>
+</button>
+</section>
+<!-- List Section: Card-based layout -->
+<section class="flex flex-col gap-md">
+<!-- Client Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm relative active:bg-surface-container hover:shadow-md transition-all cursor-pointer" onclick="void(0)">
+<div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-[#E0F2FE] text-[#0369A1] font-label-md text-label-md">
+                    Platinum
+                </div>
+<div class="flex flex-col gap-sm">
+<h3 class="font-title-lg text-title-lg text-primary font-bold">Indo Logistics Perkasa</h3>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<p class="font-body-sm text-body-sm">Budi Sudarsono • 0812-3456-7890</p>
+</div>
+<hr class="border-outline-variant opacity-50"/>
+<div class="flex justify-between items-center">
+<div class="flex gap-md text-on-surface-variant">
+<span class="font-body-sm text-body-sm">Bookings: <b class="text-primary">12</b></span>
+<span class="font-body-sm text-body-sm">Meetings: <b class="text-primary">8</b></span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant italic">Sales: Ahmad</p>
+</div>
+</div>
+</div>
+<!-- Client Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm relative active:bg-surface-container hover:shadow-md transition-all cursor-pointer" onclick="void(0)">
+<div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-[#FEF3C7] text-[#92400E] font-label-md text-label-md">
+                    Gold
+                </div>
+<div class="flex flex-col gap-sm">
+<h3 class="font-title-lg text-title-lg text-primary font-bold">PT Sumber Energi Abadi</h3>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<p class="font-body-sm text-body-sm">Siti Nurhaliza • 0857-9912-3345</p>
+</div>
+<hr class="border-outline-variant opacity-50"/>
+<div class="flex justify-between items-center">
+<div class="flex gap-md text-on-surface-variant">
+<span class="font-body-sm text-body-sm">Bookings: <b class="text-primary">24</b></span>
+<span class="font-body-sm text-body-sm">Meetings: <b class="text-primary">15</b></span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant italic">Sales: Sarah</p>
+</div>
+</div>
+</div>
+<!-- Client Card 3 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm relative active:bg-surface-container hover:shadow-md transition-all cursor-pointer" onclick="void(0)">
+<div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-md text-label-md">
+                    Silver
+                </div>
+<div class="flex flex-col gap-sm">
+<h3 class="font-title-lg text-title-lg text-primary font-bold">Trans Indo Raya</h3>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<p class="font-body-sm text-body-sm">Eko Prasetyo • 0819-0012-8876</p>
+</div>
+<hr class="border-outline-variant opacity-50"/>
+<div class="flex justify-between items-center">
+<div class="flex gap-md text-on-surface-variant">
+<span class="font-body-sm text-body-sm">Bookings: <b class="text-primary">5</b></span>
+<span class="font-body-sm text-body-sm">Meetings: <b class="text-primary">2</b></span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant italic">Sales: Ahmad</p>
+</div>
+</div>
+</div>
+<!-- Client Card 4 -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm relative active:bg-surface-container hover:shadow-md transition-all cursor-pointer" onclick="void(0)">
+<div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-[#E0F2FE] text-[#0369A1] font-label-md text-label-md">
+                    Platinum
+                </div>
+<div class="flex flex-col gap-sm">
+<h3 class="font-title-lg text-title-lg text-primary font-bold">Global Freight System</h3>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<p class="font-body-sm text-body-sm">Linda Wijaya • 0811-7766-5544</p>
+</div>
+<hr class="border-outline-variant opacity-50"/>
+<div class="flex justify-between items-center">
+<div class="flex gap-md text-on-surface-variant">
+<span class="font-body-sm text-body-sm">Bookings: <b class="text-primary">42</b></span>
+<span class="font-body-sm text-body-sm">Meetings: <b class="text-primary">31</b></span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant italic">Sales: Sarah</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB: + Klien Baru -->
+<button class="fixed bottom-24 right-margin-mobile flex items-center gap-sm px-lg py-md bg-primary text-on-primary rounded-full shadow-lg active:scale-95 transition-transform z-50">
+<span class="material-symbols-outlined">person_add</span>
+<span class="font-title-lg text-title-lg">Klien Baru</span>
+</button>
+<!-- Bottom Navigation Bar (Mobile Anchor) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-surface shadow-[0_-2px_10px_rgba(0,0,0,0.05)] px-lg py-sm flex justify-between items-center z-40 md:hidden">
+<div class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="text-[10px] font-medium">Fleet</span>
+</div>
+<div class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">route</span>
+<span class="text-[10px] font-medium">Dispatch</span>
+</div>
+<div class="flex flex-col items-center gap-xs text-primary font-bold bg-surface-container px-4 py-1 rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="text-[10px]">CRM</span>
+</div>
+<div class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-[10px] font-medium">Finance</span>
+</div>
+<div class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-[10px] font-medium">Reports</span>
+</div>
+</nav>
+<script>
+        // Simple haptic-like feedback and micro-interactions
+        document.querySelectorAll('button, .cursor-pointer').forEach(el => {
+            el.addEventListener('touchstart', () => {
+                el.style.opacity = '0.8';
+            });
+            el.addEventListener('touchend', () => {
+                el.style.opacity = '1';
+            });
+        });
+
+        // Search bar interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.02]');
+            searchInput.parentElement.style.transition = 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.02]');
+        });
+    </script>
+</body></html>

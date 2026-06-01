@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BlueERP - Pelaporan &amp; Analitik</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#001c39",
+                        "tertiary-fixed-dim": "#a5c8ff",
+                        "on-primary-fixed": "#001945",
+                        "surface-tint": "#2d5bb4",
+                        "on-primary-fixed-variant": "#04429b",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "on-surface-variant": "#434652",
+                        "primary-fixed": "#d9e2ff",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#24548d",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary-container": "#b2c7ff",
+                        "outline": "#737783",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#004883",
+                        "tertiary-fixed": "#d4e3ff",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed-variant": "#124780",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "surface-dim": "#cbdbf5",
+                        "secondary": "#1960a6",
+                        "on-error": "#ffffff",
+                        "tertiary": "#003c73",
+                        "on-background": "#0b1c30",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#7ab3ff",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b0c6ff",
+                        "secondary-fixed": "#d4e3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#a7c9ff",
+                        "on-tertiary-fixed": "#001c3a",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#00447e",
+                        "outline-variant": "#c3c6d4",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0b1c30",
+                        "surface": "#f8f9ff",
+                        "primary": "#003887",
+                        "primary-container": "#1e4fa8",
+                        "background": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "2xl": "48px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-screen w-64 z-40 bg-primary dark:bg-on-primary-fixed shadow-md flex flex-col gap-sm p-md overflow-y-auto">
+<div class="mb-xl px-sm flex items-center gap-md">
+<div class="w-10 h-10 bg-on-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">dataset</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">Bluebird Fleet</h1>
+<p class="font-label-md text-label-md text-primary-fixed-dim opacity-80 uppercase tracking-widest">Enterprise Console</p>
+</div>
+</div>
+<nav class="flex flex-col gap-xs">
+<a class="flex items-center gap-md px-md py-sm text-primary-fixed-dim hover:text-on-primary-container hover:bg-primary-container rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="font-label-md text-label-md">Fleet Armada</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-primary-fixed-dim hover:text-on-primary-container hover:bg-primary-container rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">schedule_send</span>
+<span class="font-label-md text-label-md">Dispatch</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-primary-fixed-dim hover:text-on-primary-container hover:bg-primary-container rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-md text-label-md">CRM</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-primary-fixed-dim hover:text-on-primary-container hover:bg-primary-container rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-primary-fixed-dim hover:text-on-primary-container hover:bg-primary-container rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="font-label-md text-label-md">Maintenance</span>
+</a>
+<!-- Reporting Active Tab -->
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-xl font-semibold scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-md text-label-md">Reporting</span>
+</a>
+</nav>
+<div class="mt-auto pt-md border-t border-primary-container/30">
+<div class="flex items-center gap-sm px-sm">
+<img alt="Admin" class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqUzfV8Rr_VJhbSO-3y7LQ2MqkD6Us6yZKI6BgnQc0C9pQ8FOJYfm2MMlLLbmGgryFem_ZjYeXaA2UOOkLJRWB-2DS0cTV6JIdHeE_PwajaDpjHYc_TbYS70mWmCT07tQYrcsBhYjM7bhqQ8LF2oTobKjd0l3Dnrebj17F60WW9QrTgqMPY-XyordUnI73srbYTHmqKTGURHA15DtpMF7Rhx06I7OUjpLhTW7IYp_oQxqK7VK9WVfcjiK8FLXbTdcEbQJiUXSCPp81"/>
+<div class="overflow-hidden">
+<p class="font-label-md text-label-md text-on-primary font-bold truncate">Budi Santoso</p>
+<p class="text-[10px] text-primary-fixed-dim uppercase">Fleet Director</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Anchor -->
+<header class="flex items-center justify-between w-full px-lg py-sm sticky top-0 z-30 bg-surface-container-lowest dark:bg-surface-dim border-b border-outline-variant shadow-sm h-16">
+<div class="flex items-center gap-xl">
+<span class="font-title-lg text-title-lg font-black text-primary dark:text-primary-fixed">Fleet Operations</span>
+<div class="hidden md:flex gap-lg items-center">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all font-body-md text-body-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all font-body-md text-body-md" href="#">Alerts</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-all font-body-md text-body-md" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<span class="hidden lg:block px-sm py-1 bg-surface-container-high rounded-full font-label-md text-label-md text-outline">Admin Role</span>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-full transition-all">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-full transition-all">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-lg space-y-lg">
+<!-- HEADER SECTION -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<nav class="flex items-center gap-xs text-outline mb-xs">
+<span class="font-label-md text-label-md">Dashboard</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-label-md text-label-md text-primary font-semibold">Reports</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Pelaporan &amp; Analitik</h2>
+</div>
+<button class="flex items-center gap-sm bg-primary text-on-primary px-lg py-md rounded-xl font-title-lg text-title-lg shadow-md hover:bg-primary-container transition-all active:scale-95" onclick="document.getElementById('reportModal').classList.remove('hidden')">
+<span class="material-symbols-outlined">add_chart</span>
+                    Generate Laporan Baru
+                </button>
+</div>
+<!-- REPORT CATALOG GRID -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-lg">
+<!-- Report Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-12 h-12 bg-secondary-container/20 text-secondary flex items-center justify-center rounded-lg mb-md group-hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Fleet Utilization</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Laporan penggunaan armada per periode termasuk jarak tempuh dan efisiensi.</p>
+<div class="flex items-center gap-sm mt-auto">
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span> PDF
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">table_view</span> EXCEL
+                        </button>
+</div>
+</div>
+<!-- Report Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-12 h-12 bg-tertiary-container/10 text-tertiary flex items-center justify-center rounded-lg mb-md group-hover:bg-tertiary-container group-hover:text-on-tertiary transition-colors">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Sales Performance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Performa sales per agen dan klien berdasarkan target bulanan.</p>
+<div class="flex items-center gap-sm">
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span> PDF
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">table_view</span> EXCEL
+                        </button>
+</div>
+</div>
+<!-- Report Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-12 h-12 bg-error-container/20 text-error flex items-center justify-center rounded-lg mb-md group-hover:bg-error-container transition-colors">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Finance Report</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Revenue, invoice, dan payment per bulan secara komprehensif.</p>
+<div class="flex items-center gap-sm">
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span> PDF
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">table_view</span> EXCEL
+                        </button>
+</div>
+</div>
+<!-- Report Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-12 h-12 bg-on-secondary-fixed-variant/10 text-on-secondary-fixed-variant flex items-center justify-center rounded-lg mb-md group-hover:bg-on-secondary-fixed-variant group-hover:text-on-secondary transition-colors">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">build</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Maintenance Cost</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Biaya perawatan, servis berkala, dan penggantian spare parts.</p>
+<div class="flex items-center gap-sm">
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span> PDF
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">table_view</span> EXCEL
+                        </button>
+</div>
+</div>
+<!-- Report Card 5 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="w-12 h-12 bg-primary-fixed/30 text-primary flex items-center justify-center rounded-lg mb-md group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Client Portfolio</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Ringkasan semua klien aktif, nilai kontrak, dan masa berlaku.</p>
+<div class="flex items-center gap-sm">
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span> PDF
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-xs border border-outline text-on-surface-variant font-label-md text-label-md py-sm rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">table_view</span> EXCEL
+                        </button>
+</div>
+</div>
+</div>
+<!-- TABLE SECTION: GENERATED REPORTS HISTORY -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Riwayat Laporan</h3>
+<div class="flex items-center gap-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 border border-outline-variant rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary-container outline-none bg-surface-container-low" placeholder="Cari laporan..." type="text"/>
+</div>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-md text-body-md">
+<thead class="bg-surface-container text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
+<tr>
+<th class="px-lg py-md">Tipe Laporan</th>
+<th class="px-lg py-md">Dibuat Oleh</th>
+<th class="px-lg py-md">Tanggal</th>
+<th class="px-lg py-md">Format</th>
+<th class="px-lg py-md">Ukuran</th>
+<th class="px-lg py-md text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md font-semibold text-primary">Fleet Utilization Q3 2023</td>
+<td class="px-lg py-md">Budi Santoso</td>
+<td class="px-lg py-md text-on-surface-variant">24 Okt 2023, 14:20</td>
+<td class="px-lg py-md">
+<span class="bg-error-container/10 text-error px-sm py-xs rounded font-label-md text-label-md">PDF</span>
+</td>
+<td class="px-lg py-md text-on-surface-variant">2.4 MB</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 bg-primary-container text-on-primary-container rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-primary hover:text-on-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md font-semibold text-primary">Sales Report Sept - 2023</td>
+<td class="px-lg py-md">Ani Wijaya</td>
+<td class="px-lg py-md text-on-surface-variant">22 Okt 2023, 09:15</td>
+<td class="px-lg py-md">
+<span class="bg-secondary-container/10 text-secondary px-sm py-xs rounded font-label-md text-label-md">EXCEL</span>
+</td>
+<td class="px-lg py-md text-on-surface-variant">1.1 MB</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 bg-primary-container text-on-primary-container rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-primary hover:text-on-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md font-semibold text-primary">Annual Maintenance 2022</td>
+<td class="px-lg py-md">System Automate</td>
+<td class="px-lg py-md text-on-surface-variant">15 Okt 2023, 18:00</td>
+<td class="px-lg py-md">
+<span class="bg-error-container/10 text-error px-sm py-xs rounded font-label-md text-label-md">PDF</span>
+</td>
+<td class="px-lg py-md text-on-surface-variant">14.5 MB</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 bg-primary-container text-on-primary-container rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-primary hover:text-on-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md font-semibold text-primary">Client Summary v.2</td>
+<td class="px-lg py-md">Doni Arifin</td>
+<td class="px-lg py-md text-on-surface-variant">12 Okt 2023, 11:30</td>
+<td class="px-lg py-md">
+<span class="bg-secondary-container/10 text-secondary px-sm py-xs rounded font-label-md text-label-md">EXCEL</span>
+</td>
+<td class="px-lg py-md text-on-surface-variant">850 KB</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 bg-primary-container text-on-primary-container rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-primary hover:text-on-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md font-semibold text-primary">Regional Finance Analysis</td>
+<td class="px-lg py-md">Budi Santoso</td>
+<td class="px-lg py-md text-on-surface-variant">05 Okt 2023, 10:05</td>
+<td class="px-lg py-md">
+<span class="bg-error-container/10 text-error px-sm py-xs rounded font-label-md text-label-md">PDF</span>
+</td>
+<td class="px-lg py-md text-on-surface-variant">5.2 MB</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 bg-primary-container text-on-primary-container rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-primary hover:text-on-primary">
+<span class="material-symbols-outlined">download</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-lg py-md bg-surface-container-lowest border-t border-outline-variant flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface-variant">Menampilkan 5 dari 124 laporan</span>
+<div class="flex items-center gap-sm">
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container transition-all">1</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-on-primary rounded transition-all">2</button>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container transition-all">3</button>
+<span class="px-1 text-outline">...</span>
+<button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container transition-all">25</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- REPORT GENERATION MODAL -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center bg-on-background/40 backdrop-blur-sm" id="reportModal">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-outline-variant animate-in fade-in zoom-in duration-200">
+<div class="bg-primary p-lg flex items-center justify-between text-on-primary">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-[24px]">add_chart</span>
+<h3 class="font-headline-md text-headline-md">Generate Laporan</h3>
+</div>
+<button class="hover:bg-on-primary/10 p-2 rounded-full transition-all" onclick="document.getElementById('reportModal').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-lg space-y-lg">
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wide">Tipe Laporan</label>
+<select class="w-full bg-surface-container-low border border-outline-variant p-md rounded-xl font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>Fleet Utilization Report</option>
+<option>Sales Performance Report</option>
+<option>Finance Monthly Report</option>
+<option>Maintenance Cost Analysis</option>
+<option>Client Portfolio Summary</option>
+</select>
+</div>
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wide">Rentang Waktu</label>
+<div class="grid grid-cols-2 gap-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">calendar_today</span>
+<input class="w-full bg-surface-container-low border border-outline-variant pl-10 pr-4 py-2 rounded-xl font-body-md text-body-md focus:border-primary outline-none" type="date"/>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">calendar_month</span>
+<input class="w-full bg-surface-container-low border border-outline-variant pl-10 pr-4 py-2 rounded-xl font-body-md text-body-md focus:border-primary outline-none" type="date"/>
+</div>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wide">Format Output</label>
+<div class="flex bg-surface-container-low p-1 rounded-xl border border-outline-variant">
+<button class="flex-1 py-2 font-body-md text-body-md bg-secondary-container text-on-secondary-container rounded-lg font-semibold transition-all">PDF Document</button>
+<button class="flex-1 py-2 font-body-md text-body-md text-on-surface-variant hover:bg-surface-container rounded-lg transition-all">Excel Spreadsheet</button>
+</div>
+</div>
+<div class="pt-md flex gap-md">
+<button class="flex-1 py-3 border border-outline-variant rounded-xl font-title-lg text-title-lg text-on-surface-variant hover:bg-surface-container transition-all" onclick="document.getElementById('reportModal').classList.add('hidden')">Batal</button>
+<button class="flex-1 py-3 bg-primary text-on-primary rounded-xl font-title-lg text-title-lg shadow-md hover:bg-primary-container transition-all flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+                        Generate Report
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Atmospheric Effect -->
+<div class="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-tertiary opacity-30"></div>
+<script>
+        // Micro-interactions for table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('click', () => {
+                row.classList.add('bg-primary-container/10');
+                setTimeout(() => row.classList.remove('bg-primary-container/10'), 400);
+            });
+        });
+
+        // Close modal on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('reportModal').classList.add('hidden');
+            }
+        });
+    </script>
+</body></html>
