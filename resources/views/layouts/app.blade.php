@@ -144,6 +144,14 @@
                     <span class="text-sm font-semibold">Finance & Billing</span>
                 </a>
             @endcan
+
+            <!-- Reports Menu -->
+            @if(Auth::user()?->hasRole('gm') || Auth::user()?->hasRole('finance') || Auth::user()?->hasRole('sales') || Auth::user()?->hasRole('ops'))
+                <a href="/reports" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::is('reports*') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}" wire:navigate>
+                    <span class="material-symbols-outlined">assessment</span>
+                    <span class="text-sm font-semibold">Reports & Analytics</span>
+                </a>
+            @endif
         </nav>
 
         <!-- Sidebar Footer / Logout -->
@@ -206,6 +214,12 @@
                 @endphp
                 <span class="bg-surface-container-high px-2.5 py-1 rounded-full text-[10px] text-primary border border-blue-200 font-bold uppercase tracking-wider">
                     {{ $roleName }} GATEWAY
+                </span>
+
+                <!-- Demo Mode Badge -->
+                <span class="flex items-center gap-1 bg-red-50 text-red-700 px-2 py-1 rounded-md text-[9px] font-extrabold uppercase border border-red-200 tracking-wide animate-pulse">
+                    <span class="w-1.5 h-1.5 rounded-full bg-red-600"></span>
+                    Demo Mode
                 </span>
             </div>
         </header>

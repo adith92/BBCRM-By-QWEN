@@ -71,4 +71,7 @@ Route::middleware(['auth'])->group(function () {
         return view('bookings.create');
     })->middleware('role:ops|gm');
 
+    Route::get('/reports', [\App\Http\Controllers\ReportController::class, 'index'])->middleware('role:gm|finance|sales|ops');
+    Route::get('/reports/download/{type}', [\App\Http\Controllers\ReportController::class, 'download'])->middleware('role:gm|finance|sales|ops');
+
 });
