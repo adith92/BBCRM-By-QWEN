@@ -59,6 +59,10 @@ Route::middleware(['auth'])->group(function () {
         return view('invoices.detail', compact('invoice'));
     })->middleware('role:finance|gm');
 
+    Route::get('/clients/{client}', function (\App\Models\Client $client) {
+        return view('clients.detail', compact('client'));
+    })->middleware('role:sales|gm|ops|finance');
+
     Route::get('/bookings', function () {
         return view('dashboards.ops');
     })->middleware('role:ops|gm');

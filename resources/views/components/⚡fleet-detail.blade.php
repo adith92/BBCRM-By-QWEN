@@ -126,7 +126,7 @@ new #[Title('Fleet Detail - Golden Bird')] class extends Component
                         @foreach($bookings as $b)
                             <div class="flex justify-between items-center p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
                                 <div>
-                                    <p class="font-bold text-slate-900">Client: {{ $b->client->name }}</p>
+                                    <p class="font-bold text-slate-900">Client: <a href="/clients/{{ $b->client->id }}" wire:navigate class="text-blue-600 hover:text-blue-800 hover:underline transition">{{ $b->client->name }}</a></p>
                                     <p class="text-slate-500 mt-0.5">{{ \Carbon\Carbon::parse($b->start_datetime)->format('d M Y') }} - {{ \Carbon\Carbon::parse($b->end_datetime)->format('d M Y') }}</p>
                                 </div>
                                 <span class="px-2 py-0.5 rounded-full font-bold bg-blue-100 text-blue-800">

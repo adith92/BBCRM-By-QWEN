@@ -141,7 +141,9 @@ new #[Title('Invoice Detail - Golden Bird')] class extends Component
                 <!-- Client Box (Clickable link to client summary/demo metadata) -->
                 <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
                     <span class="text-slate-400 text-xs font-bold uppercase tracking-wider block mb-1">Billing Client</span>
-                    <span class="font-bold text-slate-900 block text-base">{{ $invoice->booking->client->name }}</span>
+                    <a href="/clients/{{ $invoice->booking->client->id }}" wire:navigate class="font-bold text-blue-600 hover:text-blue-800 hover:underline block text-base transition">
+                        {{ $invoice->booking->client->name }}
+                    </a>
                     <span class="text-slate-600 text-xs block mt-0.5">{{ $invoice->booking->client->company ?? 'Personal' }}</span>
                     <span class="text-slate-500 text-xs block mt-1">📞 {{ $invoice->booking->client->phone ?? '-' }}</span>
                 </div>
@@ -149,7 +151,7 @@ new #[Title('Invoice Detail - Golden Bird')] class extends Component
                 <!-- Vehicle Box -->
                 <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
                     <span class="text-slate-400 text-xs font-bold uppercase tracking-wider block mb-1">Rented Vehicle</span>
-                    <a href="/fleet/{{ $invoice->booking->vehicle->id }}" class="font-bold text-blue-600 hover:text-blue-800 hover:underline block text-base transition">
+                    <a href="/fleet/{{ $invoice->booking->vehicle->id }}" wire:navigate class="font-bold text-blue-600 hover:text-blue-800 hover:underline block text-base transition">
                         {{ $invoice->booking->vehicle->brand }} {{ $invoice->booking->vehicle->model }}
                     </a>
                     <span class="font-mono text-xs font-bold text-slate-700 bg-slate-200 border border-slate-300 px-1.5 py-0.5 rounded inline-block mt-1">
