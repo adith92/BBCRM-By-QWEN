@@ -2,6 +2,8 @@
 
 A highly premium B2B Fleet Management and CRM system built for **Golden Bird (Bluebird Group)**. Designed using a bespoke visual language matching the **BlueERP design system** with sleek radial gradients, Material Symbols, and an extremely responsive multi-level drill-down experience.
 
+🌐 **Live Demo:** [https://golden-bird-crm-production.up.railway.app](https://golden-bird-crm-production.up.railway.app)
+
 ---
 
 ## 🚀 Tech Stack & Architecture
