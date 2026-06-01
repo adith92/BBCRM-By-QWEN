@@ -1,1 +1,1 @@
-web: php artisan migrate --force && php artisan db:seed --class=DemoDataSeeder --force && vendor/bin/heroku-php-apache2 public/
+web: php artisan migrate --force && php artisan db:seed --class=DemoDataSeeder --force && frankenphp run --config /Caddyfile

@@ -2,7 +2,7 @@
 
 A highly premium B2B Fleet Management and CRM system built for **Golden Bird (Bluebird Group)**. Designed using a bespoke visual language matching the **BlueERP design system** with sleek radial gradients, Material Symbols, and an extremely responsive multi-level drill-down experience.
 
-🌐 **Live Demo:** [https://golden-bird-crm-production.up.railway.app](https://golden-bird-crm-production.up.railway.app)
+🌐 **Live Demo:** [https://bbcrm-web-production.up.railway.app](https://bbcrm-web-production.up.railway.app)
 
 ---
 
@@ -50,11 +50,11 @@ To solve typical WSL mount and localhost latency issues:
 ---
 
 ## 🔑 Demo Access Credentials
-Use password `password` for all users:
-* **General Manager**: `gm@bluebird.co.id`
-* **Sales Officer**: `sales@bluebird.co.id`
-* **Finance Admin**: `finance@bluebird.co.id`
-* **Operations Head**: `ops@bluebird.co.id`
+Use password `demo1234` for all users:
+* **General Manager**: `gm@golden-bird-crm.test`
+* **Sales Officer**: `sales@goldenbird.com`
+* **Finance Admin**: `finance@goldenbird.com`
+* **Operations Head**: `ops@goldenbird.com`
 
 ---
 

@@ -37,44 +37,56 @@ class DemoDataSeeder extends Seeder
         $roleFinance->syncPermissions([$pFinance]);
         $roleOps->syncPermissions([$pBooking]);
 
-        // 2. Create 4 Users with Roles
-        $gmUser = User::create([
-            'name' => 'General Manager',
-            'email' => 'gm@goldenbird.com',
-            'password' => Hash::make('password'),
-            'phone' => '08111222333',
-            'status' => 'active',
-        ]);
-        $gmUser->assignRole($roleGm);
+        // 2. Create 4 Users with Roles (Idempotent)
+        $gmUser = User::where('email', 'gm@golden-bird-crm.test')->first();
+        if (!$gmUser) {
+            $gmUser = User::create([
+                'name' => 'General Manager',
+                'email' => 'gm@golden-bird-crm.test',
+                'password' => Hash::make('demo1234'),
+                'phone' => '08111222333',
+                'status' => 'active',
+            ]);
+            $gmUser->assignRole($roleGm);
+        }
 
-        $salesUser = User::create([
-            'name' => 'Sales Officer',
-            'email' => 'sales@goldenbird.com',
-            'password' => Hash::make('password'),
-            'phone' => '08222333444',
-            'status' => 'active',
-        ]);
-        $salesUser->assignRole($roleSales);
+        $salesUser = User::where('email', 'sales@goldenbird.com')->first();
+        if (!$salesUser) {
+            $salesUser = User::create([
+                'name' => 'Sales Officer',
+                'email' => 'sales@goldenbird.com',
+                'password' => Hash::make('demo1234'),
+                'phone' => '08222333444',
+                'status' => 'active',
+            ]);
+            $salesUser->assignRole($roleSales);
+        }
 
-        $financeUser = User::create([
-            'name' => 'Finance Admin',
-            'email' => 'finance@goldenbird.com',
-            'password' => Hash::make('password'),
-            'phone' => '08333444555',
-            'status' => 'active',
-        ]);
-        $financeUser->assignRole($roleFinance);
+        $financeUser = User::where('email', 'finance@goldenbird.com')->first();
+        if (!$financeUser) {
+            $financeUser = User::create([
+                'name' => 'Finance Admin',
+                'email' => 'finance@goldenbird.com',
+                'password' => Hash::make('demo1234'),
+                'phone' => '08333444555',
+                'status' => 'active',
+            ]);
+            $financeUser->assignRole($roleFinance);
+        }
 
-        $opsUser = User::create([
-            'name' => 'Operations Head',
-            'email' => 'ops@goldenbird.com',
-            'password' => Hash::make('password'),
-            'phone' => '08444555666',
-            'status' => 'active',
-        ]);
-        $opsUser->assignRole($roleOps);
+        $opsUser = User::where('email', 'ops@goldenbird.com')->first();
+        if (!$opsUser) {
+            $opsUser = User::create([
+                'name' => 'Operations Head',
+                'email' => 'ops@goldenbird.com',
+                'password' => Hash::make('demo1234'),
+                'phone' => '08444555666',
+                'status' => 'active',
+            ]);
+            $opsUser->assignRole($roleOps);
+        }
 
-        // 3. Create 5 Clients
+        // 3. Create 5 Clients (Idempotent)
         $clientsData = [
             ['name' => 'Budi Santoso', 'email' => 'budi.santoso@pertamina.com', 'phone' => '08129876543', 'company' => 'Pertamina Persero', 'address' => 'Jl. Perwira No. 2, Jakarta Pusat'],
             ['name' => 'Jessica Tan', 'email' => 'jessica.tan@astra.co.id', 'phone' => '08112345678', 'company' => 'Astra International', 'address' => 'Jl. Gaya Motor Raya No. 8, Jakarta Utara'],
@@ -85,10 +97,10 @@ class DemoDataSeeder extends Seeder
 
         $clients = [];
         foreach ($clientsData as $c) {
-            $clients[] = Client::create($c);
+            $clients[] = Client::firstOrCreate(['email' => $c['email']], $c);
         }
 
-        // 4. Create 10 Vehicles
+        // 4. Create 10 Vehicles (Idempotent)
         $vehiclesData = [
             ['plate' => 'B 1001 SBA', 'brand' => 'Toyota', 'model' => 'Alphard 2.5G', 'status' => 'available'],
             ['plate' => 'B 2002 SBB', 'brand' => 'Toyota', 'model' => 'Innova Zenix Hybrid', 'status' => 'available'],
@@ -104,89 +116,91 @@ class DemoDataSeeder extends Seeder
 
         $vehicles = [];
         foreach ($vehiclesData as $v) {
-            $vehicles[] = Vehicle::create($v);
+            $vehicles[] = Vehicle::firstOrCreate(['plate' => $v['plate']], $v);
         }
 
-        // 5. Create 5 Bookings (Mix of statuses)
-        $bookingsData = [
-            [
-                'client_id' => $clients[0]->id,
-                'vehicle_id' => $vehicles[3]->id, // Mercedes-Benz (po)
-                'start_datetime' => Carbon::now()->addDays(1)->setTime(9, 0, 0),
-                'end_datetime' => Carbon::now()->addDays(3)->setTime(17, 0, 0),
-                'status' => 'confirmed',
-            ],
-            [
-                'client_id' => $clients[1]->id,
-                'vehicle_id' => $vehicles[4]->id, // BMW (po)
-                'start_datetime' => Carbon::now()->addDays(2)->setTime(8, 0, 0),
-                'end_datetime' => Carbon::now()->addDays(5)->setTime(18, 0, 0),
-                'status' => 'confirmed',
-            ],
-            [
-                'client_id' => $clients[2]->id,
-                'vehicle_id' => $vehicles[1]->id, // Innova Zenix
-                'start_datetime' => Carbon::now()->subDays(5)->setTime(10, 0, 0),
-                'end_datetime' => Carbon::now()->subDays(3)->setTime(16, 0, 0),
-                'status' => 'completed',
-            ],
-            [
-                'client_id' => $clients[3]->id,
-                'vehicle_id' => $vehicles[0]->id, // Alphard
-                'start_datetime' => Carbon::now()->addDays(7)->setTime(7, 0, 0),
-                'end_datetime' => Carbon::now()->addDays(8)->setTime(21, 0, 0),
-                'status' => 'pending',
-            ],
-            [
-                'client_id' => $clients[4]->id,
-                'vehicle_id' => $vehicles[2]->id, // Camry
-                'start_datetime' => Carbon::now()->subDays(10)->setTime(9, 0, 0),
-                'end_datetime' => Carbon::now()->subDays(9)->setTime(18, 0, 0),
-                'status' => 'cancelled',
-            ],
-        ];
+        // 5. Create 5 Bookings (Idempotent)
+        if (Booking::count() === 0) {
+            $bookingsData = [
+                [
+                    'client_id' => $clients[0]->id,
+                    'vehicle_id' => $vehicles[3]->id, // Mercedes-Benz (po)
+                    'start_datetime' => Carbon::now()->addDays(1)->setTime(9, 0, 0),
+                    'end_datetime' => Carbon::now()->addDays(3)->setTime(17, 0, 0),
+                    'status' => 'confirmed',
+                ],
+                [
+                    'client_id' => $clients[1]->id,
+                    'vehicle_id' => $vehicles[4]->id, // BMW (po)
+                    'start_datetime' => Carbon::now()->addDays(2)->setTime(8, 0, 0),
+                    'end_datetime' => Carbon::now()->addDays(5)->setTime(18, 0, 0),
+                    'status' => 'confirmed',
+                ],
+                [
+                    'client_id' => $clients[2]->id,
+                    'vehicle_id' => $vehicles[1]->id, // Innova Zenix
+                    'start_datetime' => Carbon::now()->subDays(5)->setTime(10, 0, 0),
+                    'end_datetime' => Carbon::now()->subDays(3)->setTime(16, 0, 0),
+                    'status' => 'completed',
+                ],
+                [
+                    'client_id' => $clients[3]->id,
+                    'vehicle_id' => $vehicles[0]->id, // Alphard
+                    'start_datetime' => Carbon::now()->addDays(7)->setTime(7, 0, 0),
+                    'end_datetime' => Carbon::now()->addDays(8)->setTime(21, 0, 0),
+                    'status' => 'pending',
+                ],
+                [
+                    'client_id' => $clients[4]->id,
+                    'vehicle_id' => $vehicles[2]->id, // Camry
+                    'start_datetime' => Carbon::now()->subDays(10)->setTime(9, 0, 0),
+                    'end_datetime' => Carbon::now()->subDays(9)->setTime(18, 0, 0),
+                    'status' => 'cancelled',
+                ],
+            ];
 
-        $bookings = [];
-        foreach ($bookingsData as $b) {
-            $bookings[] = Booking::create($b);
-        }
+            $bookings = [];
+            foreach ($bookingsData as $b) {
+                $bookings[] = Booking::create($b);
+            }
 
-        // 6. Create 5 Invoices matching the Bookings
-        $invoicesData = [
-            [
-                'booking_id' => $bookings[0]->id,
-                'total_amount' => 6000000.00,
-                'remaining_balance' => 0.00,
-                'status' => 'paid',
-            ],
-            [
-                'booking_id' => $bookings[1]->id,
-                'total_amount' => 7500000.00,
-                'remaining_balance' => 2500000.00,
-                'status' => 'partially_paid',
-            ],
-            [
-                'booking_id' => $bookings[2]->id,
-                'total_amount' => 2400000.00,
-                'remaining_balance' => 0.00,
-                'status' => 'paid',
-            ],
-            [
-                'booking_id' => $bookings[3]->id,
-                'total_amount' => 3500000.00,
-                'remaining_balance' => 3500000.00,
-                'status' => 'unpaid',
-            ],
-            [
-                'booking_id' => $bookings[4]->id,
-                'total_amount' => 1500000.00,
-                'remaining_balance' => 1500000.00,
-                'status' => 'overdue',
-            ],
-        ];
+            // 6. Create 5 Invoices matching the Bookings (Idempotent)
+            $invoicesData = [
+                [
+                    'booking_id' => $bookings[0]->id,
+                    'total_amount' => 6000000.00,
+                    'remaining_balance' => 0.00,
+                    'status' => 'paid',
+                ],
+                [
+                    'booking_id' => $bookings[1]->id,
+                    'total_amount' => 7500000.00,
+                    'remaining_balance' => 2500000.00,
+                    'status' => 'partially_paid',
+                ],
+                [
+                    'booking_id' => $bookings[2]->id,
+                    'total_amount' => 2400000.00,
+                    'remaining_balance' => 0.00,
+                    'status' => 'paid',
+                ],
+                [
+                    'booking_id' => $bookings[3]->id,
+                    'total_amount' => 3500000.00,
+                    'remaining_balance' => 3500000.00,
+                    'status' => 'unpaid',
+                ],
+                [
+                    'booking_id' => $bookings[4]->id,
+                    'total_amount' => 1500000.00,
+                    'remaining_balance' => 1500000.00,
+                    'status' => 'overdue',
+                ],
+            ];
 
-        foreach ($invoicesData as $inv) {
-            Invoice::create($inv);
+            foreach ($invoicesData as $inv) {
+                Invoice::create($inv);
+            }
         }
     }
 }
