@@ -44,49 +44,62 @@ class DemoDataSeeder extends Seeder
         $gmUser = User::where('email', 'gm@goldenbird.com')->first();
         if (!$gmUser) {
             $gmUser = User::create([
-                'name' => 'General Manager',
-                'email' => 'gm@goldenbird.com',
-                'password' => 'demo1234', // Casting 'hashed' di User model otomatis hash
-                'phone' => '08111222333',
+                'name'   => 'General Manager',
+                'email'  => 'gm@goldenbird.com',
+                'password' => 'demo1234', // Model casting 'hashed' otomatis hash
+                'phone'  => '08111222333',
                 'status' => 'active',
             ]);
             $gmUser->assignRole($roleGm);
+        } else {
+            // Paksa reset password (fix double-hash dari deploy sebelumnya)
+            $gmUser->update(['password' => 'demo1234']);
+            if (!$gmUser->hasRole('gm')) $gmUser->assignRole($roleGm);
         }
 
         $salesUser = User::where('email', 'sales@goldenbird.com')->first();
         if (!$salesUser) {
             $salesUser = User::create([
-                'name' => 'Sales Officer',
-                'email' => 'sales@goldenbird.com',
-                'password' => 'demo1234', // Casting 'hashed' di User model otomatis hash
-                'phone' => '08222333444',
+                'name'   => 'Sales Officer',
+                'email'  => 'sales@goldenbird.com',
+                'password' => 'demo1234',
+                'phone'  => '08222333444',
                 'status' => 'active',
             ]);
             $salesUser->assignRole($roleSales);
+        } else {
+            $salesUser->update(['password' => 'demo1234']);
+            if (!$salesUser->hasRole('sales')) $salesUser->assignRole($roleSales);
         }
 
         $financeUser = User::where('email', 'finance@goldenbird.com')->first();
         if (!$financeUser) {
             $financeUser = User::create([
-                'name' => 'Finance Admin',
-                'email' => 'finance@goldenbird.com',
-                'password' => 'demo1234', // Casting 'hashed' di User model otomatis hash
-                'phone' => '08333444555',
+                'name'   => 'Finance Admin',
+                'email'  => 'finance@goldenbird.com',
+                'password' => 'demo1234',
+                'phone'  => '08333444555',
                 'status' => 'active',
             ]);
             $financeUser->assignRole($roleFinance);
+        } else {
+            $financeUser->update(['password' => 'demo1234']);
+            if (!$financeUser->hasRole('finance')) $financeUser->assignRole($roleFinance);
         }
 
         $opsUser = User::where('email', 'ops@goldenbird.com')->first();
         if (!$opsUser) {
             $opsUser = User::create([
-                'name' => 'Operations Head',
-                'email' => 'ops@goldenbird.com',
-                'password' => 'demo1234', // Casting 'hashed' di User model otomatis hash
-                'phone' => '08444555666',
+                'name'   => 'Operations Head',
+                'email'  => 'ops@goldenbird.com',
+                'password' => 'demo1234',
+                'phone'  => '08444555666',
                 'status' => 'active',
             ]);
             $opsUser->assignRole($roleOps);
+        } else {
+            $opsUser->update(['password' => 'demo1234']);
+            if (!$opsUser->hasRole('ops')) $opsUser->assignRole($roleOps);
         }
 
         // 3. Create 5 Clients (Idempotent)
