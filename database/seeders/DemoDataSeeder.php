@@ -38,12 +38,15 @@ class DemoDataSeeder extends Seeder
         $roleOps->syncPermissions([$pBooking]);
 
         // 2. Create 4 Users with Roles (Idempotent)
-        $gmUser = User::where('email', 'gm@golden-bird-crm.test')->first();
+        // Hapus user GM lama jika email tidak cocok (untuk mengatasi migrasi email)
+        User::where('email', 'gm@golden-bird-crm.test')->delete();
+
+        $gmUser = User::where('email', 'gm@goldenbird.com')->first();
         if (!$gmUser) {
             $gmUser = User::create([
                 'name' => 'General Manager',
-                'email' => 'gm@golden-bird-crm.test',
-                'password' => Hash::make('demo1234'),
+                'email' => 'gm@goldenbird.com',
+                'password' => 'demo1234', // Casting 'hashed' di User model otomatis hash
                 'phone' => '08111222333',
                 'status' => 'active',
             ]);
@@ -55,7 +58,7 @@ class DemoDataSeeder extends Seeder
             $salesUser = User::create([
                 'name' => 'Sales Officer',
                 'email' => 'sales@goldenbird.com',
-                'password' => Hash::make('demo1234'),
+                'password' => 'demo1234', // Casting 'hashed' di User model otomatis hash
                 'phone' => '08222333444',
                 'status' => 'active',
             ]);
@@ -67,7 +70,7 @@ class DemoDataSeeder extends Seeder
             $financeUser = User::create([
                 'name' => 'Finance Admin',
                 'email' => 'finance@goldenbird.com',
-                'password' => Hash::make('demo1234'),
+                'password' => 'demo1234', // Casting 'hashed' di User model otomatis hash
                 'phone' => '08333444555',
                 'status' => 'active',
             ]);
@@ -79,7 +82,7 @@ class DemoDataSeeder extends Seeder
             $opsUser = User::create([
                 'name' => 'Operations Head',
                 'email' => 'ops@goldenbird.com',
-                'password' => Hash::make('demo1234'),
+                'password' => 'demo1234', // Casting 'hashed' di User model otomatis hash
                 'phone' => '08444555666',
                 'status' => 'active',
             ]);

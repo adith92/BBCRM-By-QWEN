@@ -28,10 +28,13 @@ new #[Title('Masuk | Golden Bird CRM')] class extends Component
             'password.min' => 'Password minimal harus 6 karakter.',
         ]);
 
-        // Map domain credentials for flexibility if user types gm@goldenbird.com or gm@bluebird.co.id
+        // Konversi email lama (backward compatibility)
         $emailToAttempt = $this->email;
         if (str_contains($emailToAttempt, '@bluebird.co.id')) {
             $emailToAttempt = str_replace('@bluebird.co.id', '@goldenbird.com', $emailToAttempt);
+        }
+        if (str_contains($emailToAttempt, '@golden-bird-crm.test')) {
+            $emailToAttempt = str_replace('@golden-bird-crm.test', '@goldenbird.com', $emailToAttempt);
         }
 
         if (Auth::attempt(['email' => $emailToAttempt, 'password' => $this->password], $this->remember)) {
@@ -135,26 +138,26 @@ new #[Title('Masuk | Golden Bird CRM')] class extends Component
                 <span class="material-symbols-outlined text-[20px]">info</span>
                 <h2 class="text-xs uppercase tracking-wider font-bold">Demo Credentials</h2>
             </div>
-            <div class="grid grid-cols-2 gap-2">
-                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer select-all" onclick="document.getElementById('email').value='gm@bluebird.co.id'; document.getElementById('email').dispatchEvent(new Event('input'))">
+        <div class="grid grid-cols-2 gap-2">
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer" onclick="fillCredentials('gm@goldenbird.com')">
                     <p class="text-[9px] text-slate-400 uppercase font-bold mb-0.5">General Manager</p>
-                    <p class="font-mono text-[10px] text-slate-800">gm@bluebird.co.id</p>
-                    <p class="font-mono text-[9px] text-slate-500">pwd: password</p>
+                    <p class="font-mono text-[10px] text-slate-800">gm@goldenbird.com</p>
+                    <p class="font-mono text-[9px] text-slate-500">pwd: demo1234</p>
                 </div>
-                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer select-all" onclick="document.getElementById('email').value='sales@bluebird.co.id'; document.getElementById('email').dispatchEvent(new Event('input'))">
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer" onclick="fillCredentials('sales@goldenbird.com')">
                     <p class="text-[9px] text-slate-400 uppercase font-bold mb-0.5">Sales Officer</p>
-                    <p class="font-mono text-[10px] text-slate-800">sales@bluebird.co.id</p>
-                    <p class="font-mono text-[9px] text-slate-500">pwd: password</p>
+                    <p class="font-mono text-[10px] text-slate-800">sales@goldenbird.com</p>
+                    <p class="font-mono text-[9px] text-slate-500">pwd: demo1234</p>
                 </div>
-                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer select-all" onclick="document.getElementById('email').value='finance@bluebird.co.id'; document.getElementById('email').dispatchEvent(new Event('input'))">
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer" onclick="fillCredentials('finance@goldenbird.com')">
                     <p class="text-[9px] text-slate-400 uppercase font-bold mb-0.5">Finance Admin</p>
-                    <p class="font-mono text-[10px] text-slate-800">finance@bluebird.co.id</p>
-                    <p class="font-mono text-[9px] text-slate-500">pwd: password</p>
+                    <p class="font-mono text-[10px] text-slate-800">finance@goldenbird.com</p>
+                    <p class="font-mono text-[9px] text-slate-500">pwd: demo1234</p>
                 </div>
-                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer select-all" onclick="document.getElementById('email').value='ops@bluebird.co.id'; document.getElementById('email').dispatchEvent(new Event('input'))">
+                <div class="bg-white p-2.5 rounded-lg border border-slate-200 hover:bg-blue-50/80 transition cursor-pointer" onclick="fillCredentials('ops@goldenbird.com')">
                     <p class="text-[9px] text-slate-400 uppercase font-bold mb-0.5">Operations Head</p>
-                    <p class="font-mono text-[10px] text-slate-800">ops@bluebird.co.id</p>
-                    <p class="font-mono text-[9px] text-slate-500">pwd: password</p>
+                    <p class="font-mono text-[10px] text-slate-800">ops@goldenbird.com</p>
+                    <p class="font-mono text-[9px] text-slate-500">pwd: demo1234</p>
                 </div>
             </div>
         </div>
@@ -165,3 +168,19 @@ new #[Title('Masuk | Golden Bird CRM')] class extends Component
         </p>
     </footer>
 </div>
+
+<script>
+function fillCredentials(email) {
+    // Isi field email via Livewire Alpine.js
+    var emailInput = document.getElementById('email');
+    var passwordInput = document.getElementById('password');
+    if (emailInput) {
+        emailInput.value = email;
+        emailInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    if (passwordInput) {
+        passwordInput.value = 'demo1234';
+        passwordInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+}
+</script>
