@@ -23,13 +23,6 @@ class PipelineServiceComprehensiveTest extends TestCase
     {
         $stages = $this->service->getNextStages('prospecting');
 
-        expect($stages)->toBe(['qualification', 'lost']);
-    }
-
-    public function test_get_next_stages_from_qualification()
-    {
-        $stages = $this->service->getNextStages('qualification');
-
         expect($stages)->toBe(['proposal', 'lost']);
     }
 
@@ -89,9 +82,9 @@ class PipelineServiceComprehensiveTest extends TestCase
     // canTransition Tests
     // =========================================================================
 
-    public function test_can_transition_prospecting_to_qualification()
+    public function test_can_transition_prospecting_to_proposal()
     {
-        $result = $this->service->canTransition('prospecting', 'qualification');
+        $result = $this->service->canTransition('prospecting', 'proposal');
 
         expect($result)->toBeTrue();
     }
@@ -103,13 +96,6 @@ class PipelineServiceComprehensiveTest extends TestCase
         expect($result)->toBeTrue();
     }
 
-    public function test_cannot_transition_prospecting_to_proposal()
-    {
-        $result = $this->service->canTransition('prospecting', 'proposal');
-
-        expect($result)->toBeFalse();
-    }
-
     public function test_cannot_transition_prospecting_to_negotiation()
     {
         $result = $this->service->canTransition('prospecting', 'negotiation');
@@ -117,16 +103,9 @@ class PipelineServiceComprehensiveTest extends TestCase
         expect($result)->toBeFalse();
     }
 
-    public function test_can_transition_qualification_to_proposal()
+    public function test_cannot_transition_prospecting_to_won()
     {
-        $result = $this->service->canTransition('qualification', 'proposal');
-
-        expect($result)->toBeTrue();
-    }
-
-    public function test_cannot_transition_qualification_to_prospecting()
-    {
-        $result = $this->service->canTransition('qualification', 'prospecting');
+        $result = $this->service->canTransition('prospecting', 'won');
 
         expect($result)->toBeFalse();
     }
@@ -160,20 +139,13 @@ class PipelineServiceComprehensiveTest extends TestCase
 
     public function test_transition_is_case_insensitive()
     {
-        $result1 = $this->service->canTransition('PROSPECTING', 'QUALIFICATION');
-        $result2 = $this->service->canTransition('Prospecting', 'Qualification');
-        $result3 = $this->service->canTransition('prospecting', 'qualification');
+        $result1 = $this->service->canTransition('PROSPECTING', 'PROPOSAL');
+        $result2 = $this->service->canTransition('Prospecting', 'Proposal');
+        $result3 = $this->service->canTransition('prospecting', 'proposal');
 
         expect($result1)->toBeTrue();
         expect($result2)->toBeTrue();
         expect($result3)->toBeTrue();
-    }
-
-    public function test_can_transition_from_qualification_to_lost()
-    {
-        $result = $this->service->canTransition('qualification', 'lost');
-
-        expect($result)->toBeTrue();
     }
 
     public function test_can_transition_from_proposal_to_lost()
@@ -196,8 +168,7 @@ class PipelineServiceComprehensiveTest extends TestCase
 
     public function test_forward_progression_prospecting_to_won()
     {
-        expect($this->service->canTransition('prospecting', 'qualification'))->toBeTrue();
-        expect($this->service->canTransition('qualification', 'proposal'))->toBeTrue();
+        expect($this->service->canTransition('prospecting', 'proposal'))->toBeTrue();
         expect($this->service->canTransition('proposal', 'negotiation'))->toBeTrue();
         expect($this->service->canTransition('negotiation', 'won'))->toBeTrue();
     }
@@ -205,25 +176,20 @@ class PipelineServiceComprehensiveTest extends TestCase
     public function test_lost_is_accessible_from_multiple_stages()
     {
         expect($this->service->canTransition('prospecting', 'lost'))->toBeTrue();
-        expect($this->service->canTransition('qualification', 'lost'))->toBeTrue();
         expect($this->service->canTransition('proposal', 'lost'))->toBeTrue();
         expect($this->service->canTransition('negotiation', 'lost'))->toBeTrue();
     }
 
     public function test_cannot_skip_stages_forward()
     {
-        expect($this->service->canTransition('prospecting', 'proposal'))->toBeFalse();
         expect($this->service->canTransition('prospecting', 'negotiation'))->toBeFalse();
         expect($this->service->canTransition('prospecting', 'won'))->toBeFalse();
-        expect($this->service->canTransition('qualification', 'negotiation'))->toBeFalse();
-        expect($this->service->canTransition('qualification', 'won'))->toBeFalse();
         expect($this->service->canTransition('proposal', 'won'))->toBeFalse();
     }
 
     public function test_cannot_go_backward()
     {
-        expect($this->service->canTransition('qualification', 'prospecting'))->toBeFalse();
-        expect($this->service->canTransition('proposal', 'qualification'))->toBeFalse();
+        expect($this->service->canTransition('proposal', 'prospecting'))->toBeFalse();
         expect($this->service->canTransition('negotiation', 'proposal'))->toBeFalse();
     }
 
@@ -274,13 +240,11 @@ class PipelineServiceComprehensiveTest extends TestCase
     public function test_all_valid_transitions_defined()
     {
         // Get all reachable states
-        $reachableFromProspecting = ['qualification', 'lost'];
-        $reachableFromQualification = ['proposal', 'lost'];
+        $reachableFromProspecting = ['proposal', 'lost'];
         $reachableFromProposal = ['negotiation', 'lost'];
         $reachableFromNegotiation = ['won', 'lost'];
 
         expect($this->service->getNextStages('prospecting'))->toBe($reachableFromProspecting);
-        expect($this->service->getNextStages('qualification'))->toBe($reachableFromQualification);
         expect($this->service->getNextStages('proposal'))->toBe($reachableFromProposal);
         expect($this->service->getNextStages('negotiation'))->toBe($reachableFromNegotiation);
     }
@@ -289,7 +253,6 @@ class PipelineServiceComprehensiveTest extends TestCase
     {
         // Can exit from any stage via 'lost'
         expect($this->service->canTransition('prospecting', 'lost'))->toBeTrue();
-        expect($this->service->canTransition('qualification', 'lost'))->toBeTrue();
         expect($this->service->canTransition('proposal', 'lost'))->toBeTrue();
         expect($this->service->canTransition('negotiation', 'lost'))->toBeTrue();
     }
@@ -298,7 +261,6 @@ class PipelineServiceComprehensiveTest extends TestCase
     {
         // Only negotiation can transition to won
         expect($this->service->canTransition('prospecting', 'won'))->toBeFalse();
-        expect($this->service->canTransition('qualification', 'won'))->toBeFalse();
         expect($this->service->canTransition('proposal', 'won'))->toBeFalse();
         expect($this->service->canTransition('negotiation', 'won'))->toBeTrue();
     }

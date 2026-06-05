@@ -3,54 +3,38 @@
 @section('header_title', 'Manager Dashboard')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-6 font-sans">
+
+    {{-- Page Header --}}
+    <x-ui.page-header title="Manager Dashboard" subtitle="Sales team targets, pipeline conversions, and approval queue">
+        <x-slot:actions>
+            <x-ui.button variant="accent-cyan" size="sm" href="{{ route('kpi.index') }}">
+                <span class="material-symbols-outlined text-sm">leaderboard</span> Manage Targets
+            </x-ui.button>
+        </x-slot:actions>
+    </x-ui.page-header>
 
     {{-- Team Overview Cards --}}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
-            <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Pipeline Tim</p>
-            <p class="text-2xl font-bold text-blue-700 mt-1">
-                Rp {{ number_format($teamPipelineValue, 0, ',', '.') }}
-            </p>
-            <p class="text-xs text-gray-400 mt-1">Total value aktif</p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
-            <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Won (All Time)</p>
-            <p class="text-2xl font-bold text-green-600 mt-1">{{ $teamWon }}</p>
-            <p class="text-xs text-gray-400 mt-1">{{ $teamLost }} lost</p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
-            <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Approval Level-1</p>
-            <p class="text-2xl font-bold {{ $pendingApprovals > 0 ? 'text-red-600' : 'text-gray-700' }} mt-1">
-                {{ $pendingApprovals }}
-            </p>
-            <p class="text-xs text-gray-400 mt-1">Menunggu keputusan Anda</p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
-            <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Anggota Tim</p>
-            <p class="text-2xl font-bold text-gray-700 mt-1">{{ $teamMembers->count() }}</p>
-            <p class="text-xs text-gray-400 mt-1">Sales aktif</p>
-        </div>
+        <x-ui.stat-card label="Team Pipeline" value="Rp {{ number_format($teamPipelineValue, 0, ',', '.') }}" trend="flat" trendValue="Active Opportunities" icon="funnel" color="blue" />
+        <x-ui.stat-card label="Won Deals (All Time)" value="{{ $teamWon }}" trend="up" trendValue="{{ $teamLost }} lost" icon="emoji_events" color="green" />
+        <x-ui.stat-card label="Approval Level-1" value="{{ $pendingApprovals }}" trend="{{ $pendingApprovals > 0 ? 'up' : 'flat' }}" trendValue="Awaiting Review" icon="assignment_late" color="{{ $pendingApprovals > 0 ? 'red' : 'cyan' }}" />
+        <x-ui.stat-card label="Team Members" value="{{ $teamMembers->count() }}" trend="flat" trendValue="Active Sales" icon="groups" color="gold" />
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-        {{-- Pipeline Stage Bars per Sales --}}
-        <div class="lg:col-span-2 space-y-6">
+        {{-- Left 8 Columns (Pipeline per Sales + KPI Table) --}}
+        <div class="lg:col-span-8 space-y-6">
 
-            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                <div class="px-5 py-4 border-b border-gray-100">
-                    <h3 class="font-semibold text-gray-800">Pipeline per Sales (Stage Breakdown)</h3>
-                </div>
-                <div class="p-5 space-y-4">
+            {{-- Pipeline Stage Bars --}}
+            <x-ui.card title="Pipeline per Sales (Stage Breakdown)" subtitle="Opportunity progression tracking">
+                <div class="space-y-4">
                     @php
                         $stageColors = [
-                            'prospecting' => 'bg-gray-400',
-                            'proposal'    => 'bg-blue-400',
-                            'negotiation' => 'bg-yellow-400',
+                            'prospecting' => 'bg-slate-600 border border-slate-500/20 text-slate-300',
+                            'proposal'    => 'bg-blue-600/80 border border-blue-500/20 text-blue-200',
+                            'negotiation' => 'bg-amber-600/80 border border-amber-500/20 text-amber-200',
                         ];
                         $stageLabels = [
                             'prospecting' => 'Prospecting',
@@ -60,10 +44,10 @@
                     @endphp
 
                     {{-- Legend --}}
-                    <div class="flex flex-wrap gap-3 text-xs">
+                    <div class="flex flex-wrap gap-4 text-xs font-semibold pb-2 border-b border-slate-800/60">
                         @foreach($stages as $s)
-                        <span class="flex items-center gap-1">
-                            <span class="w-3 h-3 rounded {{ $stageColors[$s] ?? 'bg-gray-300' }} inline-block"></span>
+                        <span class="flex items-center gap-2">
+                            <span class="w-3.5 h-3.5 rounded {{ $stageColors[$s] ?? 'bg-slate-700' }} inline-block"></span>
                             {{ $stageLabels[$s] ?? $s }}
                         </span>
                         @endforeach
@@ -74,14 +58,14 @@
                         $rowTotal = array_sum($row['totals']);
                     @endphp
                     <div>
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-sm font-medium text-gray-700">{{ $row['name'] }}</span>
-                            <span class="text-xs text-gray-500">{{ $rowTotal }} total</span>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-xs font-bold text-slate-200">{{ $row['name'] }}</span>
+                            <span class="text-[10px] font-bold text-cyan-400 font-mono">{{ $rowTotal }} total</span>
                         </div>
-                        <div class="flex h-5 rounded-full overflow-hidden bg-gray-100">
+                        <div class="flex h-5 rounded-lg overflow-hidden bg-slate-950 border border-slate-850">
                             @foreach($stages as $s)
                             @if(isset($row['totals'][$s]) && $row['totals'][$s] > 0 && $rowTotal > 0)
-                            <div class="{{ $stageColors[$s] ?? 'bg-gray-300' }} flex items-center justify-center text-white text-xs"
+                            <div class="{{ $stageColors[$s] ?? 'bg-slate-700' }} flex items-center justify-center text-[10px] font-black"
                                  style="width: {{ round(($row['totals'][$s] / $rowTotal) * 100) }}%"
                                  title="{{ $stageLabels[$s] ?? $s }}: {{ $row['totals'][$s] }}">
                                 {{ $row['totals'][$s] }}
@@ -89,101 +73,107 @@
                             @endif
                             @endforeach
                             @if($rowTotal == 0)
-                            <div class="flex-1 flex items-center justify-center text-xs text-gray-400">Belum ada</div>
+                            <div class="flex-1 flex items-center justify-center text-xs text-slate-500 font-medium">No opportunities recorded</div>
                             @endif
                         </div>
                     </div>
                     @empty
-                    <p class="text-sm text-gray-400">Belum ada anggota tim.</p>
+                    <p class="text-sm text-slate-500 font-semibold">Belum ada anggota tim.</p>
                     @endforelse
                 </div>
-            </div>
+            </x-ui.card>
 
             {{-- KPI Achievement Table --}}
-            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                <div class="px-5 py-4 border-b border-gray-100">
-                    <h3 class="font-semibold text-gray-800">KPI Tim - {{ now()->format('F Y') }}</h3>
-                </div>
-                <div class="overflow-x-auto">
+            <x-ui.card title="Team KPI Target Achievement" subtitle="Target status for {{ now()->format('F Y') }}">
+                <div class="overflow-x-auto -mx-6">
                     <table class="w-full text-sm">
-                        <thead class="bg-gray-50 text-xs text-gray-500 uppercase">
+                        <thead class="bg-slate-950/60 text-xs text-slate-400 uppercase tracking-widest border-b border-slate-800/80">
                             <tr>
-                                <th class="px-4 py-3 text-left">Sales</th>
-                                <th class="px-4 py-3 text-center">Won</th>
-                                <th class="px-4 py-3 text-center">Win Rate</th>
-                                <th class="px-4 py-3 text-right">Revenue</th>
-                                <th class="px-4 py-3 text-center">KPI%</th>
+                                <th class="px-6 py-4.5 text-left font-bold">Sales Agent</th>
+                                <th class="px-4 py-4.5 text-center font-bold">Won Count</th>
+                                <th class="px-4 py-4.5 text-center font-bold">Win Rate</th>
+                                <th class="px-6 py-4.5 text-right font-bold">Won Revenue</th>
+                                <th class="px-6 py-4.5 text-center font-bold">KPI Target</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-100">
+                        <tbody class="divide-y divide-slate-800/50">
                             @forelse($teamMembers as $member)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 font-medium text-gray-800">{{ $member->name }}</td>
-                                <td class="px-4 py-3 text-center text-green-600 font-semibold">{{ $member->won_count }}</td>
-                                <td class="px-4 py-3 text-center">
-                                    <span class="text-xs px-2 py-0.5 rounded font-medium
-                                        {{ $member->win_rate >= 50 ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700' }}">
+                            <tr class="hover:bg-slate-850/30 transition-all duration-150">
+                                <td class="px-6 py-4 font-bold text-slate-200">{{ $member->name }}</td>
+                                <td class="px-4 py-4 text-center font-bold text-emerald-400 font-mono">{{ $member->won_count }}</td>
+                                <td class="px-4 py-4 text-center">
+                                    <x-ui.badge variant="{{ $member->win_rate >= 50 ? 'success' : 'warning' }}" size="sm">
                                         {{ $member->win_rate }}%
-                                    </span>
+                                    </x-ui.badge>
                                 </td>
-                                <td class="px-4 py-3 text-right">Rp {{ number_format($member->won_revenue ?? 0, 0, ',', '.') }}</td>
-                                <td class="px-4 py-3 text-center">
-                                    <div class="flex items-center gap-1 justify-center">
-                                        <div class="w-14 bg-gray-200 rounded-full h-2">
-                                            <div class="h-2 rounded-full {{ $member->kpi_pct >= 100 ? 'bg-green-500' : ($member->kpi_pct >= 60 ? 'bg-yellow-400' : 'bg-red-400') }}"
+                                <td class="px-6 py-4 text-right font-bold text-slate-100 font-mono">
+                                    Rp {{ number_format($member->won_revenue ?? 0, 0, ',', '.') }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-2.5 justify-center">
+                                        <div class="w-16 bg-slate-900 border border-slate-800 rounded-full h-2">
+                                            <div class="h-full rounded-full {{ $member->kpi_pct >= 100 ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : ($member->kpi_pct >= 60 ? 'bg-amber-500 shadow-[0_0_8px_#f59e0b]' : 'bg-rose-500 shadow-[0_0_8px_#ef4444]') }}"
                                                 style="width: {{ min($member->kpi_pct, 100) }}%"></div>
                                         </div>
-                                        <span class="text-xs text-gray-600">{{ $member->kpi_pct }}%</span>
+                                        <span class="text-xs text-slate-400 font-bold font-mono">{{ $member->kpi_pct }}%</span>
                                     </div>
                                 </td>
                             </tr>
                             @empty
-                            <tr><td colspan="5" class="px-4 py-6 text-center text-gray-400">Belum ada anggota tim.</td></tr>
+                            <tr>
+                                <td colspan="5" class="px-6 py-8 text-center text-slate-500 font-semibold">Belum ada anggota tim.</td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </x-ui.card>
+
         </div>
 
-        {{-- Sidebar: Approvals + Recent Activities --}}
-        <div class="space-y-6">
+        {{-- Right 4 Columns (Approvals + Activities) --}}
+        <div class="lg:col-span-4 space-y-6">
 
-            {{-- Pending Approvals (level-1) --}}
-            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-                    <h3 class="font-semibold text-gray-800">Approval Level-1</h3>
+            {{-- Pending Approvals --}}
+            <x-ui.card title="Approval Level-1" subtitle="Action items pending manager authorization">
+                <x-slot:actions>
                     @if($pendingApprovals > 0)
-                    <span class="bg-red-100 text-red-600 text-xs font-semibold px-2 py-0.5 rounded-full">
-                        {{ $pendingApprovals }}
-                    </span>
+                        <x-ui.badge variant="danger" size="sm">{{ $pendingApprovals }} Urgent</x-ui.badge>
                     @endif
-                </div>
-                <div class="divide-y divide-gray-100">
+                </x-slot:actions>
+
+                <div class="space-y-3">
                     @forelse($approvalQueue as $approval)
-                    <div class="px-5 py-3">
-                        <p class="text-sm font-medium text-gray-800">
-                            {{ optional(optional($approval->opportunity)->client)->company_name ?? 'N/A' }}
-                        </p>
-                        <p class="text-xs text-gray-500">{{ $approval->discount_percent }}% diskon</p>
-                        <a href="{{ route('approvals.show', $approval) }}"
-                           class="text-xs text-blue-600 hover:underline">Review &rarr;</a>
+                    <div class="p-3 bg-slate-950/40 border border-slate-800/80 rounded-xl hover:border-cyan-500/20 transition-all duration-300">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="min-w-0">
+                                <h4 class="text-xs font-bold text-slate-200 truncate">
+                                    {{ optional(optional($approval->opportunity)->client)->company_name ?? 'N/A' }}
+                                </h4>
+                                <p class="text-[10px] text-slate-400 mt-1 font-semibold text-amber-400">
+                                    {{ $approval->discount_percent }}% discount
+                                </p>
+                            </div>
+                            <x-ui.button variant="accent-cyan" size="sm" href="{{ route('approvals.show', $approval) }}" class="py-1 px-2.5 text-[10px]">
+                                Review
+                            </x-ui.button>
+                        </div>
                     </div>
                     @empty
-                    <div class="px-5 py-6 text-center text-gray-400 text-sm">Tidak ada pending.</div>
+                    <div class="py-8 text-center text-slate-500 font-semibold text-sm">No pending approvals.</div>
                     @endforelse
                 </div>
-                <div class="px-5 py-3 border-t border-gray-100">
-                    <a href="{{ route('approvals.index') }}" class="text-xs text-blue-600 hover:underline">Semua approval</a>
+
+                <div class="mt-4 pt-3 border-t border-slate-800/80">
+                    <a href="{{ route('approvals.index') }}" class="text-xs text-cyan-400 hover:text-cyan-300 font-bold">
+                        View all approvals &rarr;
+                    </a>
                 </div>
-            </div>
+            </x-ui.card>
 
             {{-- Recent Team Activities --}}
-            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                <div class="px-5 py-4 border-b border-gray-100">
-                    <h3 class="font-semibold text-gray-800">Aktivitas Terbaru Tim</h3>
-                </div>
-                <div class="divide-y divide-gray-100 max-h-80 overflow-y-auto">
+            <x-ui.card title="Recent Team Activities" subtitle="Log of sales actions and calls">
+                <div class="space-y-3 max-h-80 overflow-y-auto pr-1">
                     @php
                         $activityIcons = [
                             'meeting'    => '🤝',
@@ -195,31 +185,37 @@
                         ];
                     @endphp
                     @forelse($recentActivities as $activity)
-                    <div class="px-5 py-3">
-                        <div class="flex items-start gap-2">
-                            <span class="text-lg leading-none mt-0.5">
+                    <div class="p-3 bg-slate-950/40 border border-slate-800/80 rounded-xl">
+                        <div class="flex items-start gap-2.5">
+                            <span class="text-base flex-shrink-0 mt-0.5">
                                 {{ $activityIcons[$activity->type] ?? '📌' }}
                             </span>
                             <div class="min-w-0 flex-1">
-                                <p class="text-sm font-medium text-gray-800 truncate">{{ $activity->subject }}</p>
-                                <p class="text-xs text-gray-500">
+                                <h5 class="text-xs font-bold text-slate-200 truncate">{{ $activity->subject }}</h5>
+                                <p class="text-[10px] text-slate-400 mt-1">
                                     {{ optional($activity->sales)->name ?? '-' }}
                                     @if($activity->client) &bull; {{ optional($activity->client)->company_name }} @endif
                                 </p>
-                                <p class="text-xs text-gray-400">{{ \Carbon\Carbon::parse($activity->activity_date)->format('d M Y H:i') }}</p>
+                                <p class="text-[9px] text-slate-500 font-mono mt-0.5">
+                                    {{ \Carbon\Carbon::parse($activity->activity_date)->format('d M H:i') }}
+                                </p>
                             </div>
                         </div>
                     </div>
                     @empty
-                    <div class="px-5 py-6 text-center text-gray-400 text-sm">Belum ada aktivitas.</div>
+                    <div class="py-8 text-center text-slate-500 font-semibold text-sm">No recent team activities.</div>
                     @endforelse
                 </div>
-                <div class="px-5 py-3 border-t border-gray-100">
-                    <a href="{{ route('activities.index') }}" class="text-xs text-blue-600 hover:underline">Semua aktivitas</a>
+
+                <div class="mt-4 pt-3 border-t border-slate-800/80">
+                    <a href="{{ route('activities.index') }}" class="text-xs text-cyan-400 hover:text-cyan-300 font-bold">
+                        View all activity logs &rarr;
+                    </a>
                 </div>
-            </div>
+            </x-ui.card>
 
         </div>
+
     </div>
 
 </div>

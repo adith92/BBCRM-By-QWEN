@@ -13,8 +13,7 @@ class PipelineService
      * Keys are current stages; values are arrays of allowed next stages.
      */
     protected array $transitions = [
-        'prospecting'   => ['qualification', 'lost'],
-        'qualification' => ['proposal', 'lost'],
+        'prospecting'   => ['proposal', 'lost'],
         'proposal'      => ['negotiation', 'lost'],
         'negotiation'   => ['won', 'lost'],
         'won'           => [],
@@ -84,8 +83,8 @@ class PipelineService
     {
         return Subscription::create([
             'opportunity_id' => $opportunity->id,
-            'customer_id'    => $opportunity->customer_id,
-            'amount'         => $opportunity->deal_value,
+            'client_id'      => $opportunity->client_id,
+            'monthly_rate'   => $opportunity->final_value ?? $opportunity->estimated_value ?? 0,
             'start_date'     => now(),
             'status'         => 'active',
         ]);
@@ -96,13 +95,21 @@ class PipelineService
      */
     protected function createInvoice(Opportunity $opportunity): Invoice
     {
+        $yearMonth = now()->format('Ym');
+        $prefix = 'INV-' . $yearMonth . '-';
+        $lastInvoice = Invoice::where('invoice_number', 'like', $prefix . '%')
+            ->orderByDesc('invoice_number')
+            ->first();
+        $seq = $lastInvoice ? ((int) substr($lastInvoice->invoice_number, -4)) + 1 : 1;
+        $invoiceNumber = $prefix . str_pad($seq, 4, '0', STR_PAD_LEFT);
+
         return Invoice::create([
-            'opportunity_id' => $opportunity->id,
-            'customer_id'    => $opportunity->customer_id,
-            'amount'         => $opportunity->deal_value,
-            'issued_at'      => now(),
-            'due_at'         => now()->addDays(30),
-            'status'         => 'unpaid',
+            'invoice_number' => $invoiceNumber,
+            'booking_id'     => $opportunity->booking_id,
+            'client_id'      => $opportunity->client_id,
+            'amount'         => $opportunity->final_value ?? $opportunity->estimated_value ?? 0,
+            'due_date'       => now()->addDays(30),
+            'status'         => 'draft',
         ]);
     }
 }
