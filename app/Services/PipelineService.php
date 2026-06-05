@@ -74,7 +74,9 @@ class PipelineService
      */
     protected function isRecurring(Opportunity $opportunity): bool
     {
-        return isset($opportunity->type) && $opportunity->type === 'recurring';
+        $opportunity->loadMissing('product.category');
+
+        return optional(optional($opportunity->product)->category)->type === 'long_term';
     }
 
     /**
@@ -82,13 +84,24 @@ class PipelineService
      */
     protected function createSubscription(Opportunity $opportunity): Subscription
     {
-        return Subscription::create([
+        $amount = $this->dealAmount($opportunity);
+
+        $subscription = Subscription::create([
             'opportunity_id' => $opportunity->id,
-            'customer_id'    => $opportunity->customer_id,
-            'amount'         => $opportunity->deal_value,
+            'client_id'      => $opportunity->client_id,
+            'product_id'     => $opportunity->product_id,
             'start_date'     => now(),
+            'end_date'       => now()->addYear(),
+            'monthly_rate'   => $amount,
+            'billing_cycle'  => 'monthly',
             'status'         => 'active',
+            'next_billing_date' => now()->addMonth()->toDateString(),
+            'notes'          => "Generated from opportunity {$opportunity->opp_number}",
         ]);
+
+        $opportunity->update(['subscription_id' => $subscription->id]);
+
+        return $subscription;
     }
 
     /**
@@ -97,12 +110,30 @@ class PipelineService
     protected function createInvoice(Opportunity $opportunity): Invoice
     {
         return Invoice::create([
-            'opportunity_id' => $opportunity->id,
-            'customer_id'    => $opportunity->customer_id,
-            'amount'         => $opportunity->deal_value,
-            'issued_at'      => now(),
-            'due_at'         => now()->addDays(30),
-            'status'         => 'unpaid',
+            'invoice_number' => $this->nextInvoiceNumber(),
+            'booking_id'     => $opportunity->booking_id,
+            'client_id'      => $opportunity->client_id,
+            'amount'         => $this->dealAmount($opportunity),
+            'status'         => 'draft',
+            'due_date'       => now()->addDays(30)->toDateString(),
+            'notes'          => "Generated from opportunity {$opportunity->opp_number}",
         ]);
+    }
+
+    protected function dealAmount(Opportunity $opportunity): float
+    {
+        return (float) ($opportunity->final_value ?? $opportunity->estimated_value ?? 0);
+    }
+
+    protected function nextInvoiceNumber(): string
+    {
+        $prefix = 'INV-' . now()->format('Ym') . '-';
+        $lastInvoice = Invoice::where('invoice_number', 'like', $prefix . '%')
+            ->orderByDesc('invoice_number')
+            ->first();
+
+        $sequence = $lastInvoice ? ((int) substr($lastInvoice->invoice_number, -4)) + 1 : 1;
+
+        return $prefix . str_pad((string) $sequence, 4, '0', STR_PAD_LEFT);
     }
 }

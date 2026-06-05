@@ -1,0 +1,63 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import 'material-symbols/outlined.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    [x-cloak] {
+        display: none !important;
+    }
+
+    html {
+        color-scheme: light;
+    }
+
+    html.dark {
+        color-scheme: dark;
+    }
+
+    body {
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
+        line-height: 1;
+        vertical-align: middle;
+    }
+
+    ::-webkit-scrollbar {
+        height: 8px;
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #64748b;
+        border-radius: 999px;
+    }
+}
+
+@layer components {
+    @media (min-width: 1024px) {
+        #app-sidebar {
+            translate: 0 0 !important;
+        }
+    }
+
+    .command-surface {
+        @apply border border-slate-200/80 bg-white/95 shadow-sm dark:border-white/10 dark:bg-white/[0.055];
+    }
+
+    .command-panel {
+        @apply rounded-lg border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-command-900/80;
+    }
+}

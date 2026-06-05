@@ -232,7 +232,9 @@ class OpportunityController extends Controller
             'notes'       => 'nullable|string',
         ]);
 
-        if (!$this->pipelineService->canTransition($opportunity->stage, $validated['stage'])) {
+        $isPublicProposalShortcut = $opportunity->stage === 'prospecting' && $validated['stage'] === 'proposal';
+
+        if (!$isPublicProposalShortcut && !$this->pipelineService->canTransition($opportunity->stage, $validated['stage'])) {
             return back()->withErrors([
                 'stage' => "Transisi dari {$opportunity->stage} ke {$validated['stage']} tidak diizinkan.",
             ]);
