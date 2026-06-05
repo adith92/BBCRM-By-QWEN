@@ -19,7 +19,7 @@
         <div class="flex flex-wrap gap-2 items-center">
             {{-- Status filters --}}
             <div class="flex gap-1 text-xs">
-                <a href="{{ route('bookings.index', array_except(request()->query(), ['status'])) }}"
+                <a href="{{ route('bookings.index', \Illuminate\Support\Arr::except(request()->query(), ['status'])) }}"
                    class="{{ !request('status') ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700' }} px-2 py-1 rounded">All</a>
                 <a href="{{ route('bookings.index', array_merge(request()->query(), ['status' => 'active'])) }}"
                    class="{{ request('status') === 'active' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700' }} px-2 py-1 rounded">Active</a>

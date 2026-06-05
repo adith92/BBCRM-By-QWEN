@@ -76,7 +76,7 @@
             </div>
         </a>
 
-        <a href="{{ route('invoices.index', ['status'=>'overdue']) }}" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-red-300 transition-all group flex justify-between items-center">
+        <a href="{{ route('finance.index', ['status'=>'overdue']) }}" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-red-300 transition-all group flex justify-between items-center">
             <div class="space-y-1">
                 <p class="text-xs font-bold text-red-500 uppercase tracking-wider">Invoice Overdue</p>
                 <p class="text-3xl font-extrabold text-red-600">{{ $outstandingCount ?? 0 }}</p>

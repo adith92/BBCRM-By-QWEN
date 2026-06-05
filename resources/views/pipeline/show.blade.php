@@ -279,7 +279,7 @@ $stageBadge = [
                     </button>
 
                     <div x-show="showDiscountForm" x-transition class="mt-3">
-                        <form action="{{ route('opportunities.store-discount', $opportunity->id) }}" method="POST" class="space-y-3">
+                        <form action="{{ route('opportunities.discount', $opportunity->id) }}" method="POST" class="space-y-3">
                             @csrf
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 mb-1">Persen Diskon</label>

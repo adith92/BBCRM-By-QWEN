@@ -138,16 +138,9 @@
             </a>
 
             @if(in_array($role, ['director','gm','manager','operational']))
-            <a href="{{ route('vehicles.index') }}" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::routeIs('vehicles*') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}">
+            <a href="{{ route('fleet.index') }}" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::routeIs('fleet*','vehicles*') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}">
                 <span class="material-symbols-outlined">local_shipping</span>
                 <span class="text-sm font-semibold">Fleet Armada</span>
-            </a>
-            @endif
-
-            @if(in_array($role, ['director','gm','operational']))
-            <a href="{{ route('drivers.index') }}" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::routeIs('drivers*') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}">
-                <span class="material-symbols-outlined">badge</span>
-                <span class="text-sm font-semibold">Drivers</span>
             </a>
             @endif
 
@@ -178,7 +171,7 @@
             @endif
 
             @if(in_array($role, ['director','gm','finance']))
-            <a href="{{ route('invoices.index') }}" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::routeIs('invoices*') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}">
+            <a href="{{ route('finance.index') }}" class="flex items-center gap-3 py-2.5 px-4 rounded-xl transition duration-150 {{ Request::routeIs('finance*','invoices*') ? 'bg-secondary text-on-secondary sidebar-active-glow' : 'text-on-primary-container hover:bg-primary-container hover:text-on-primary-container' }}">
                 <span class="material-symbols-outlined">payments</span>
                 <span class="text-sm font-semibold">Finance & Billing</span>
             </a>
