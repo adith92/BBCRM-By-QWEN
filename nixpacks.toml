@@ -8,4 +8,4 @@ cmds = ["composer install --no-dev --optimize-autoloader"]
 cmds = ["php artisan config:cache", "php artisan route:cache", "php artisan view:cache"]
 
 [start]
-cmd = "mkdir -p /var/www/html/database && touch /var/www/html/database/database.sqlite && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"
+cmd = "touch /var/www/html/database/database.sqlite 2>/dev/null || true && php artisan migrate --force && php artisan db:seed --class='Database\\Seeders\\DatabaseSeeder' --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"
