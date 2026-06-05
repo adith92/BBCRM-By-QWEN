@@ -20,9 +20,11 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // ==================== 6 USERS ====================
+        // ==================== 8 USERS ====================
         $users = [
+            User::create(['name' => 'Bapak Direktur', 'email' => 'director@goldenbird.co.id', 'password' => bcrypt('password123'), 'role' => 'director']),
             User::create(['name' => 'Budi Santoso', 'email' => 'gm@goldenbird.co.id', 'password' => bcrypt('password123'), 'role' => 'gm']),
+            User::create(['name' => 'Ratna Dewi', 'email' => 'manager@goldenbird.co.id', 'password' => bcrypt('password123'), 'role' => 'manager']),
             User::create(['name' => 'Andi Pratama', 'email' => 'sales1@goldenbird.co.id', 'password' => bcrypt('password123'), 'role' => 'sales']),
             User::create(['name' => 'Sari Dewi', 'email' => 'sales2@goldenbird.co.id', 'password' => bcrypt('password123'), 'role' => 'sales']),
             User::create(['name' => 'Reza Firmansyah', 'email' => 'sales3@goldenbird.co.id', 'password' => bcrypt('password123'), 'role' => 'sales']),
@@ -69,7 +71,7 @@ class DatabaseSeeder extends Seeder
             ['PT Bank BRI', 'Banking', 'Jakarta'],
         ];
 
-        $sales_ids = [2, 3, 4]; // sales1, sales2, sales3
+        $sales_ids = [4, 5, 6]; // sales1, sales2, sales3
         foreach ($companies as $idx => $company) {
             Client::create([
                 'company_name' => $company[0],
