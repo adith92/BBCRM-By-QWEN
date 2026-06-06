@@ -9,17 +9,24 @@ use App\Models\Invoice;
 class PipelineService
 {
     /**
-     * Valid stage transitions map.
-     * Keys are current stages; values are arrays of allowed next stages.
+     * All valid kanban stages (Trello-style free movement).
+     * Any stage can move to any other — won/lost are soft exits only.
+     */
+    protected array $allStages = [
+        'prospecting', 'proposal', 'negotiation', 'won', 'lost',
+    ];
+
+    /**
+     * @deprecated Kept for backward compat; use $allStages for kanban.
      */
     protected array $transitions = [
-        'prospecting'   => ['qualification', 'lost'],
-        'qualification' => ['proposal', 'lost'],
-        'proposal'      => ['negotiation', 'lost'],
-        'negotiation'   => ['won', 'lost'],
-        'won'           => [],
-        'lost'          => [],
-        'closed'        => [],
+        'prospecting'   => ['proposal', 'negotiation', 'won', 'lost'],
+        'proposal'      => ['prospecting', 'negotiation', 'won', 'lost'],
+        'negotiation'   => ['prospecting', 'proposal', 'won', 'lost'],
+        'won'           => ['prospecting', 'proposal', 'negotiation', 'lost'],
+        'lost'          => ['prospecting', 'proposal', 'negotiation', 'won'],
+        'qualification' => ['prospecting', 'proposal', 'negotiation', 'won', 'lost'],
+        'closed'        => ['prospecting', 'proposal', 'negotiation', 'won', 'lost'],
     ];
 
     /**
