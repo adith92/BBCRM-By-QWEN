@@ -27,3 +27,19 @@ services:
         value: stderr
       - key: VITE_APP_NAME
         value: "Golden Bird CRM"
+      # Performance
+      - key: OPCACHE_ENABLE
+        value: "1"
+      - key: PHP_MEMORY_LIMIT
+        value: "256M"
+      # Queue (use sync for free tier, switch to database for paid)
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: SESSION_LIFETIME
+        value: "120"
+      # Security
+      - key: APP_URL
+        fromService:
+          type: web
+          name: golden-bird-crm
+          property: host

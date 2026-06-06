@@ -52,8 +52,10 @@ COPY docker/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
 
 # php.ini production settings
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
-    && echo "opcache.enable=1\nopcache.memory_consumption=128\nopcache.max_accelerated_files=10000" \
-       >> /usr/local/etc/php/conf.d/opcache.ini
+    && printf "opcache.enable=1\nopcache.memory_consumption=256\nopcache.interned_strings_buffer=16\nopcache.max_accelerated_files=20000\nopcache.validate_timestamps=0\nopcache.save_comments=1\nopcache.enable_file_override=1\n" \
+       >> /usr/local/etc/php/conf.d/opcache.ini \
+    && printf "realpath_cache_size=4096K\nrealpath_cache_ttl=600\n" \
+       >> /usr/local/etc/php/conf.d/realpath.ini
 
 EXPOSE 8080
 

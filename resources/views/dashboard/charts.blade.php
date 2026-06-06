@@ -191,7 +191,9 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
+                resizeDelay: 100,
                 interaction: { mode: 'index', intersect: false },
+                animation: { duration: 400, easing: 'easeOutQuart' },
                 plugins: {
                     legend: { display: false },
                     tooltip: {
@@ -229,6 +231,8 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
+                resizeDelay: 100,
+                animation: { duration: 400, easing: 'easeOutQuart' },
                 cutout: '65%',
                 plugins: {
                     legend: { display: false },
@@ -263,6 +267,8 @@ document.addEventListener('DOMContentLoaded', function() {
             options: {
                 indexAxis: 'y',
                 responsive: true, maintainAspectRatio: false,
+                resizeDelay: 100,
+                animation: { duration: 400, easing: 'easeOutQuart' },
                 plugins: {
                     legend: { display: false },
                     tooltip: {
@@ -295,6 +301,8 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
+                resizeDelay: 100,
+                animation: { duration: 400, easing: 'easeOutQuart' },
                 cutout: '60%',
                 plugins: {
                     legend: { display: false },
