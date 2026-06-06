@@ -4,35 +4,11 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Masuk | Golden Bird B2B Fleet Management</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#003887",
-                        "secondary": "#1960a6",
-                        "surface-bright": "#f8f9ff",
-                        "surface-container": "#e5eeff",
-                        "on-primary": "#ffffff",
-                        "on-primary-container": "#b2c7ff",
-                        "primary-container": "#1e4fa8",
-                        "outline-variant": "#c3c6d4"
-                    }
-                }
-            }
-        }
-    </script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background: radial-gradient(circle at top left, #f8f9ff 0%, #e5eeff 100%);
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
         }
     </style>
 </head>

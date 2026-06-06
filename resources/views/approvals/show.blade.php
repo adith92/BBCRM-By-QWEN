@@ -386,13 +386,4 @@
 @endsection
 
 @push('scripts')
-<script src="//unpkg.com/alpinejs" defer></script>
-<script>
-function approvalDetail() {
-    return {
-        showApproveForm: false,
-        showRejectForm: false,
-    }
-}
-</script>
 @endpush

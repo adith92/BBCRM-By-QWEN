@@ -319,32 +319,4 @@
 @endsection
 
 @push('scripts')
-<script src="//unpkg.com/alpinejs" defer></script>
-<script>
-function approvalQueue() {
-    return {
-        showApproveModal: false,
-        showRejectModal: false,
-        currentApprovalId: null,
-
-        openApprove(id) {
-            this.currentApprovalId = id;
-            this.showApproveModal = true;
-            this.showRejectModal = false;
-        },
-
-        openReject(id) {
-            this.currentApprovalId = id;
-            this.showRejectModal = true;
-            this.showApproveModal = false;
-        },
-
-        closeModals() {
-            this.showApproveModal = false;
-            this.showRejectModal = false;
-            this.currentApprovalId = null;
-        }
-    }
-}
-</script>
 @endpush
