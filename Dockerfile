@@ -16,13 +16,12 @@ FROM php:8.4-fpm-alpine
 RUN apk add --no-cache \
         nginx \
         supervisor \
-        sqlite \
+        sqlite-dev \
         libzip-dev \
         oniguruma-dev \
     && docker-php-ext-install -j$(nproc) \
         pdo pdo_sqlite \
-        mbstring zip bcmath \
-        opcache tokenizer xml
+        mbstring zip bcmath opcache
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
