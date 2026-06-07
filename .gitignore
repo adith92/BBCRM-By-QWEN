@@ -34,3 +34,7 @@ database/database.sqlite
 /bootstrap/cache/*
 !/bootstrap/cache/.gitkeep
 .env.railway
+
+# macOS
+.DS_Store
+**/.DS_Store
