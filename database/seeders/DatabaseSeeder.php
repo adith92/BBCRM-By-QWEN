@@ -20,6 +20,12 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        if (User::where('email', 'gm@goldenbird.co.id')->exists()) {
+            $this->command?->info('Base demo data already exists, skipping core seed.');
+            $this->call(DemoMassiveSeeder::class);
+            return;
+        }
+
         // ==================== 8 USERS ====================
         $users = [
             User::create(['name' => 'Bapak Direktur', 'email' => 'director@goldenbird.co.id', 'password' => bcrypt('password123'), 'role' => 'director']),

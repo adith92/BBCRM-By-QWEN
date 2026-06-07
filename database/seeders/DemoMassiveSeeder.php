@@ -196,12 +196,11 @@ class DemoMassiveSeeder extends Seeder
             ['Corporate Roadshow Package',  $shortTerm->id, 15000000, 95000000],
         ];
 
-        foreach ($products as [$name, $catId, $min, $max]) {
+        foreach ($products as $index => [$name, $catId, $min, $max]) {
             Product::firstOrCreate(['name' => $name], [
                 'product_category_id' => $catId,
+                'sku'                  => 'DEMO-' . str_pad((string) ($index + 1), 3, '0', STR_PAD_LEFT),
                 'base_price'          => ($min + $max) / 2,
-                'min_price'           => $min,
-                'max_price'           => $max,
                 'unit'                => 'trip',
                 'is_active'           => true,
                 'description'         => $name . ' — layanan transportasi premium',
@@ -351,8 +350,9 @@ class DemoMassiveSeeder extends Seeder
 
         $this->command->info("  → Seeding {$toCreate} approval requests...");
 
-        $oppIds  = Opportunity::where('discount_percent', '>', 0)->pluck('id')->toArray();
-        if (empty($oppIds)) { $this->command->warn('No opps with discount for approvals.'); return; }
+        $opportunities = Opportunity::where('discount_percent', '>', 0)
+            ->get(['id', 'sales_id', 'estimated_value', 'discount_percent']);
+        if ($opportunities->isEmpty()) { $this->command->warn('No opps with discount for approvals.'); return; }
 
         $approverIds = User::whereIn('role', ['manager', 'gm', 'director'])->pluck('id')->toArray();
         if (empty($approverIds)) $approverIds = [1];
@@ -364,16 +364,28 @@ class DemoMassiveSeeder extends Seeder
         for ($i = 0; $i < $toCreate; $i++) {
             $created = $now->copy()->subDays(rand(0, 180));
             $status  = $statuses[array_rand($statuses)];
+            $opportunity = $opportunities->random();
+            $discountPercent = rand(5, 20);
+            $originalPrice = (float) ($opportunity->estimated_value ?: rand(50, 500) * 1_000_000);
+            $finalPrice = $originalPrice * (1 - ($discountPercent / 100));
+            $decidedAt = $status !== 'pending' ? $created->copy()->addDays(rand(1, 5))->toDateTimeString() : null;
+
             $rows[] = [
-                'opportunity_id'   => $oppIds[array_rand($oppIds)],
-                'approver_id'      => $approverIds[array_rand($approverIds)],
-                'level'            => rand(1, 3),
-                'discount_percent' => rand(5, 20),
-                'status'           => $status,
-                'notes'            => $status === 'rejected' ? 'Diskon terlalu besar, revisi proposal' : ($status === 'approved' ? 'Disetujui sesuai kebijakan perusahaan' : null),
-                'decided_at'       => $status !== 'pending' ? $created->copy()->addDays(rand(1, 5))->toDateTimeString() : null,
-                'created_at'       => $created->toDateTimeString(),
-                'updated_at'       => $created->toDateTimeString(),
+                'opportunity_id'       => $opportunity->id,
+                'requested_by'         => $opportunity->sales_id,
+                'current_approver_id'  => $approverIds[array_rand($approverIds)],
+                'type'                 => 'discount',
+                'level'                => rand(1, 3),
+                'discount_percent'     => $discountPercent,
+                'original_price'       => $originalPrice,
+                'final_price'          => $finalPrice,
+                'status'               => $status,
+                'notes'                => $status === 'approved' ? 'Disetujui sesuai kebijakan perusahaan' : null,
+                'rejection_reason'     => $status === 'rejected' ? 'Diskon terlalu besar, revisi proposal' : null,
+                'approved_at'          => $status === 'approved' ? $decidedAt : null,
+                'rejected_at'          => $status === 'rejected' ? $decidedAt : null,
+                'created_at'           => $created->toDateTimeString(),
+                'updated_at'           => $created->toDateTimeString(),
             ];
 
             if (count($rows) >= 300) {
@@ -399,11 +411,20 @@ class DemoMassiveSeeder extends Seeder
             for ($monthsBack = 0; $monthsBack < 12 * $this->scale; $monthsBack++) {
                 $date = $now->copy()->subMonths($monthsBack);
                 SalesTarget::firstOrCreate(
-                    ['sales_id' => $sales->id, 'month' => $date->month, 'year' => $date->year],
+                    ['user_id' => $sales->id, 'period_month' => $date->month, 'period_year' => $date->year],
                     [
-                        'target_value'  => rand(200, 800) * 1_000_000,
-                        'achieved_value' => rand(150, 850) * 1_000_000,
-                        'notes'         => 'Target ' . $date->format('M Y'),
+                        'target_meetings'      => rand(8, 20),
+                        'target_calls'         => rand(40, 120),
+                        'target_visits'        => rand(6, 16),
+                        'target_opportunities' => rand(8, 24),
+                        'target_won'           => rand(2, 8),
+                        'target_revenue'       => rand(200, 800) * 1_000_000,
+                        'actual_meetings'      => rand(4, 24),
+                        'actual_calls'         => rand(20, 140),
+                        'actual_visits'        => rand(3, 18),
+                        'actual_opportunities' => rand(4, 28),
+                        'actual_won'           => rand(1, 10),
+                        'actual_revenue'       => rand(150, 850) * 1_000_000,
                     ]
                 );
             }
@@ -433,7 +454,7 @@ class DemoMassiveSeeder extends Seeder
 
         $rows = [];
         $now  = now();
-        $statuses = ['active', 'active', 'active', 'expired', 'cancelled'];
+        $statuses = ['active', 'active', 'active', 'expired', 'terminated'];
 
         for ($i = 0; $i < $toCreate; $i++) {
             $start   = $now->copy()->subMonths(rand(1, 24));
@@ -443,13 +464,14 @@ class DemoMassiveSeeder extends Seeder
 
             $rows[] = [
                 'client_id'       => $clientIds[array_rand($clientIds)],
-                'sales_id'        => $salesIds[array_rand($salesIds)],
                 'product_id'      => !empty($productIds) ? $productIds[array_rand($productIds)] : null,
-                'subscription_number' => 'SUB-' . $now->format('Ym') . '-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
+                'sub_number'      => 'SUB-' . $now->format('Ym') . '-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
                 'start_date'      => $start->toDateString(),
                 'end_date'        => $end->toDateString(),
-                'monthly_value'   => $value,
-                'total_value'     => $value * $start->diffInMonths($end),
+                'monthly_rate'    => $value,
+                'billing_cycle'   => 'monthly',
+                'last_billed_at'  => $status === 'active' ? $now->copy()->subMonth()->toDateString() : null,
+                'next_billing_date' => $status === 'active' ? $now->copy()->addMonth()->toDateString() : null,
                 'status'          => $status,
                 'auto_renew'      => rand(0, 1),
                 'notes'           => 'Demo subscription #' . ($i + 1),

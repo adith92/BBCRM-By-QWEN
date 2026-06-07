@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Str;
 
+$mysqlSslCaAttribute = defined('Pdo\Mysql::ATTR_SSL_CA')
+    ? constant('Pdo\Mysql::ATTR_SSL_CA')
+    : (defined('PDO::MYSQL_ATTR_SSL_CA') ? constant('PDO::MYSQL_ATTR_SSL_CA') : null);
+
 return [
     'default' => env('DB_CONNECTION', 'sqlite'),
     'connections' => [
@@ -27,8 +31,8 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            'options' => extension_loaded('pdo_mysql') && $mysqlSslCaAttribute !== null ? array_filter([
+                $mysqlSslCaAttribute => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
     ],
