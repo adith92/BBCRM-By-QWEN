@@ -128,13 +128,29 @@
     .kanban-card.sortable-ghost { opacity: 0.25; }
     .kanban-card.sortable-drag  { opacity: 1; transform: rotate(1.5deg) scale(1.02); box-shadow: 0 12px 32px rgba(0,0,0,0.25); border-color: var(--cc-accent); cursor: grabbing; }
 
-    /* Stage column headers — harmonized, works in both modes */
+    /* Stage column headers — lighter background, darker text for readability */
     .stage-header { border-radius: 12px; padding: 14px 16px; }
-    .stage-pro  { background: rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.20); }
-    .stage-prop { background: rgba(245,158,11,0.10); border: 1px solid rgba(245,158,11,0.20); }
-    .stage-neg  { background: rgba(249,115,22,0.10); border: 1px solid rgba(249,115,22,0.20); }
-    .stage-won  { background: rgba(16,185,129,0.10); border: 1px solid rgba(16,185,129,0.20); }
-    .stage-lost { background: rgba(239,68,68,0.08);  border: 1px solid rgba(239,68,68,0.16); }
+    /* Dark mode: subtle tint */
+    html.dark .stage-pro  { background: rgba(59,130,246,0.08);  border: 1px solid rgba(59,130,246,0.18); }
+    html.dark .stage-prop { background: rgba(245,158,11,0.08);  border: 1px solid rgba(245,158,11,0.18); }
+    html.dark .stage-neg  { background: rgba(249,115,22,0.08);  border: 1px solid rgba(249,115,22,0.18); }
+    html.dark .stage-won  { background: rgba(16,185,129,0.08);  border: 1px solid rgba(16,185,129,0.18); }
+    html.dark .stage-lost { background: rgba(239,68,68,0.06);   border: 1px solid rgba(239,68,68,0.14); }
+    /* Light mode: very light pastel — high contrast text */
+    html.light .stage-pro  { background: rgba(59,130,246,0.07);  border: 1px solid rgba(59,130,246,0.20); }
+    html.light .stage-prop { background: rgba(245,158,11,0.07);  border: 1px solid rgba(245,158,11,0.20); }
+    html.light .stage-neg  { background: rgba(249,115,22,0.07);  border: 1px solid rgba(249,115,22,0.20); }
+    html.light .stage-won  { background: rgba(16,185,129,0.07);  border: 1px solid rgba(16,185,129,0.20); }
+    html.light .stage-lost { background: rgba(239,68,68,0.05);   border: 1px solid rgba(239,68,68,0.16); }
+    /* Fallback for when no class set */
+    .stage-pro  { background: rgba(59,130,246,0.08);  border: 1px solid rgba(59,130,246,0.18); }
+    .stage-prop { background: rgba(245,158,11,0.08);  border: 1px solid rgba(245,158,11,0.18); }
+    .stage-neg  { background: rgba(249,115,22,0.08);  border: 1px solid rgba(249,115,22,0.18); }
+    .stage-won  { background: rgba(16,185,129,0.08);  border: 1px solid rgba(16,185,129,0.18); }
+    .stage-lost { background: rgba(239,68,68,0.06);   border: 1px solid rgba(239,68,68,0.14); }
+    /* Stage header text — force readable contrast */
+    .stage-header .text-slate-100 { color: var(--cc-text) !important; }
+    html.light .stage-header span[style*="color"] { filter: saturate(1.3) brightness(0.7); }
 
     /* Drop zone background — subtle */
     .kanban-drop-zone { background: rgba(0,0,0,0.02); }
@@ -174,6 +190,26 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     .animate-spin { animation: spin 1s linear infinite; }
+
+    /* ── TABLE VIEW ── */
+    #pipeline-table-view { display: none; flex: 1; overflow: auto; }
+    #pipeline-table-view.active { display: block; }
+    .pipeline-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .pipeline-table thead th {
+        position: sticky; top: 0; z-index: 2;
+        background: var(--cc-card); color: var(--cc-text-muted);
+        font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+        padding: 10px 14px; border-bottom: 1px solid var(--cc-border); text-align: left;
+        white-space: nowrap;
+    }
+    .pipeline-table tbody tr { border-bottom: 1px solid var(--cc-border); transition: background 0.1s; cursor: pointer; }
+    .pipeline-table tbody tr:hover { background: var(--cc-row-hover); }
+    .pipeline-table tbody td { padding: 10px 14px; color: var(--cc-text); vertical-align: middle; }
+    .pipeline-table tbody td.muted { color: var(--cc-text-muted); }
+    .stage-pill {
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    }
 
     /* Momentum scroll for board on touch */
     @media (hover: none) {
@@ -434,6 +470,61 @@
             </div>
             @endforeach
         </div>
+    </div>
+
+    {{-- ── TABLE VIEW (inline toggle, no redirect) ── --}}
+    <div id="pipeline-table-view">
+        <table class="pipeline-table">
+            <thead>
+                <tr>
+                    <th>Deal</th>
+                    <th>Client</th>
+                    <th>Stage</th>
+                    <th>Nilai</th>
+                    <th>Close Date</th>
+                    <th>Sales</th>
+                    <th>Hari</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                $allOpps = collect($kanban)->flatMap(fn($col) => $col['opportunities'])->sortByDesc('estimated_value');
+                $stageColors = ['prospecting'=>['bg'=>'rgba(59,130,246,0.15)','color'=>'#3b82f6'],'proposal'=>['bg'=>'rgba(245,158,11,0.15)','color'=>'#f59e0b'],'negotiation'=>['bg'=>'rgba(249,115,22,0.15)','color'=>'#f97316'],'won'=>['bg'=>'rgba(16,185,129,0.15)','color'=>'#10b981'],'lost'=>['bg'=>'rgba(239,68,68,0.12)','color'=>'#ef4444']];
+                $stageLabels = ['prospecting'=>'Prospekting','proposal'=>'Proposal','negotiation'=>'Negosiasi','won'=>'Menang','lost'=>'Kalah'];
+                @endphp
+                @forelse($allOpps as $opp)
+                @php
+                $sc = $stageColors[$opp->stage] ?? ['bg'=>'rgba(148,163,184,0.1)','color'=>'#94a3b8'];
+                $days = $opp->created_at->diffInDays(now());
+                @endphp
+                <tr onclick="Alpine.store ? null : null" data-id="{{ $opp->id }}">
+                    <td class="font-semibold max-w-[220px]">
+                        <div class="truncate">{{ $opp->title }}</div>
+                    </td>
+                    <td class="muted">{{ $opp->client->company_name ?? '-' }}</td>
+                    <td>
+                        <span class="stage-pill" style="background:{{ $sc['bg'] }};color:{{ $sc['color'] }}">
+                            {{ $stageLabels[$opp->stage] ?? $opp->stage }}
+                        </span>
+                    </td>
+                    <td class="font-semibold">
+                        @if($opp->estimated_value)
+                            <span style="color:var(--cc-text)">Rp {{ number_format($opp->estimated_value,0,',','.') }}</span>
+                        @else
+                            <span class="muted">—</span>
+                        @endif
+                    </td>
+                    <td class="muted {{ $opp->expected_close_date && $opp->expected_close_date->isPast() && !in_array($opp->stage,['won','lost']) ? 'text-red-400' : '' }}">
+                        {{ $opp->expected_close_date ? $opp->expected_close_date->format('d M Y') : '—' }}
+                    </td>
+                    <td class="muted">{{ $opp->sales->name ?? '—' }}</td>
+                    <td class="muted text-right">{{ $days }}d</td>
+                </tr>
+                @empty
+                <tr><td colspan="7" class="text-center py-10 muted">Tidak ada data</td></tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 
     {{-- ── INLINE EDIT MODAL ── --}}
@@ -851,11 +942,14 @@ function kanbanBoard() {
         stageLabel(s) { return {prospecting:'Prospekting',proposal:'Proposal',negotiation:'Negosiasi',won:'Menang',lost:'Kalah'}[s]??s; },
 
         updateColumnCounts() {
-            document.querySelectorAll('[data-count-badge]').forEach(el => {
-                const stage = el.dataset.countBadge;
-                const zone  = document.getElementById(`zone-${stage}`);
-                if (zone) el.textContent = zone.querySelectorAll('.kanban-card').length;
-            });
+            // Small delay so SortableJS finishes moving the DOM node first
+            setTimeout(() => {
+                document.querySelectorAll('[data-count-badge]').forEach(el => {
+                    const stage = el.dataset.countBadge;
+                    const zone  = document.getElementById(`zone-${stage}`);
+                    if (zone) el.textContent = zone.querySelectorAll('.kanban-card').length;
+                });
+            }, 80);
         },
 
         toast(msg, type='success') {
@@ -874,8 +968,8 @@ function kanbanBoard() {
 
 /* ── Kanban Multi-View Toggle ── */
 function setKanbanView(view) {
-    const board  = document.getElementById('kanban-scroll-x');
-    const saved  = localStorage.getItem('kanban-view') || 'board';
+    const board     = document.getElementById('kanban-scroll-x');
+    const tableView = document.getElementById('pipeline-table-view');
 
     // Update button states
     ['board','list','table'].forEach(v => {
@@ -889,6 +983,8 @@ function setKanbanView(view) {
     if (view === 'board') {
         board.style.display = '';
         board.style.flexDirection = '';
+        board.style.overflowX = 'auto';
+        if (tableView) tableView.classList.remove('active');
         document.querySelectorAll('.kanban-column').forEach(c => {
             c.style.width = '280px';
             c.style.flexDirection = 'column';
@@ -897,14 +993,16 @@ function setKanbanView(view) {
         board.style.display = 'flex';
         board.style.flexDirection = 'column';
         board.style.overflowX = 'hidden';
+        if (tableView) tableView.classList.remove('active');
         document.querySelectorAll('.kanban-column').forEach(c => {
             c.style.width = '100%';
             c.style.maxWidth = 'none';
         });
-        CRM_Toast && CRM_Toast.show('📋 List view — deals per stage stacked vertically', 'info');
+        CRM_Toast && CRM_Toast.show('📋 List view aktif', 'info');
     } else if (view === 'table') {
-        CRM_Toast && CRM_Toast.show('📊 Table view — redirecting to opportunities list...', 'info');
-        setTimeout(() => window.location.href = '/opportunities', 800);
+        board.style.display = 'none';
+        if (tableView) tableView.classList.add('active');
+        CRM_Toast && CRM_Toast.show('📊 Table view aktif', 'info');
     }
 }
 
